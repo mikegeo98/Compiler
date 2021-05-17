@@ -1,7 +1,7 @@
 %option noyywrap
 
 %{
-  /*  #define T_eof 0
+    #define T_eof 0
     #define T_AND 1001
     #define T_OR 1002
     #define T_NOT 1003
@@ -50,7 +50,7 @@
     #define T_NEQUAL 1046
     #define T_SOE 1047
     #define T_GOE 1048
-    #define T_DECC 1049 */
+    #define T_DECC 1049 
     int lncnt = 1;
     int nstcmt = 0; 
 %}
@@ -153,11 +153,12 @@ int main () {
   } while (token != T_eof);
 }
 #else
-int main () {
+
+/*int main () {
   int token;
   do {
     token = yylex();
     printf("token=%d, lexeme=\"%s\" line = %d\n", token, yytext,lncnt);
   } while (token != T_eof);
-}
+}*/
 #endif

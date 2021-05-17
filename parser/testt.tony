@@ -1,0 +1,3 @@
+def int prog():
+ int i=1
+end

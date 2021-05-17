@@ -45,126 +45,161 @@
 %token T_CONST 
 %token T_STRING 
 %token T_CONCHAR 
-%token T_NEQUAL T_SOE T_GOE 
+%token T_NEQUAL "<>"
+%token T_SOE "<="
+%token T_GOE ">="
 %token T_DECC ":="
+%token T_LPAR "("
+%token T_RPAR ")"
+%token T_LBR "["
+%token T_RBR "]"
+%token T_COMMA ","
+%token T_ANKA ":"
+%token T_SEMI ";"
 
-%left "or"
-%left "and"
-%right "not" //PREFIX - NEEDS FIXING
+%left T_OR
+%left T_AND
+%right T_NOT //PREFIX - NEEDS FIXING
 %nonassoc '=' T_NEQUAL '>' '<' T_SOE T_GOE
 %right '#'
 %left '+' '-'
 %left '*' '/' T_MOD
-%right '+' '-' //PREFIX - NEEDS FIXING
+//%right '+' '-' //PREFIX - NEEDS FIXING
 
-%expect 1
+//%expect 8
+//%expect-rr 1
 
 %%
 program:
-    func-def
+    func-def {printf("lol/n");}
 ;
 func-def:
     "def" header ":" rule1 rule2 "end"
-
+;
 rule1:
-  func-­def rule1
-| func-­decl rule1
-| var­-def rule1
+  func-def rule1
+| func-decl rule1
+| var-def rule1
 |  %empty
-
+;
 rule2:
   stmt 
 | stmt rule2
-
+;
 header:
   type T_ID "(" formal rule3 ")"
-
+| type T_ID "(" ")"
+| T_ID "(" formal rule3 ")"
+| T_ID "(" ")"
+;
 rule3:
-  ";" formal
+  ";" formal rule3
 | %empty
-
+;
 formal:
   "ref" type T_ID rule4
-
+| type T_ID rule4
+;
 rule4:
-  "," T_ID
+  "," T_ID rule4
 | %empty 
-
+;
 type: 
   "int"
 | "bool"
 | "char"
 | type "[" "]" 
 | "list" "[" type "]"
-
-funcdecl:
+;
+func-decl:
   "decl" header
-
-var­def:
+;
+var-def:
   type T_ID rule4
-
+;
 stmt:
   simple
 | "exit"
 | "return" expr
-| "if" expr ":" rule2 
+| "if" expr ":" rule2 "end"
 | "if" expr ":" rule2 rule5 "else" ":" rule2 "end"
 | "for" simplelist ";" expr ";" simplelist ":" rule2 "end"
-
+;
 rule5:
-  "elsif" ⟨expr⟩ ":" rule2
+  "elsif" expr ":" rule2 rule5
 | %empty
-
+;
 simple:
   "skip"
 | atom ":=" expr
 | call
-
+;
 simplelist:
   simple rule6
-
+;
 call:
   T_ID "(" expr rule7 ")"
-
+| T_ID "(" ")"
+;
 rule6:
-  "," simple
+  "," simple rule6
 | %empty
-
+;
 rule7:
-  "," expr
+  "," expr rule7
 | %empty
-
+;
 atom:
   T_ID
-| stringliteral
+| T_STRING
 | atom "[" expr "]"
 | call
-
+;
 expr:
   atom
 | T_CONST 
 | T_CONCHAR
 | "(" expr ")"
-| ("+" | "-") expr
-| expr ( "+" | "-" | "*" | "/" | "mod" ) expr
-| expr ( "=" | "<>" | "<" | ">" | "<=" | ">=" ) expr
+| '+' expr 
+| '-' expr
+| expr  '+' expr
+| expr '-' expr
+| expr '*' expr
+| expr '/' expr
+| expr T_MOD expr
+| expr '=' expr
+| expr "<>" expr
+| expr '<' expr
+| expr '>' expr
+| expr "<=" expr
+| expr ">=" expr
 | "true" 
 | "false" 
-| "not" expr 
-| expr ( "and" | "or" ) expr
+| T_NOT expr 
+| expr T_AND expr
+| expr T_OR  expr
 | "new" type "[" expr "]" 
 | "nil" 
 | "nil?" "(" expr ")"
-| expr "#" expr 
+| expr '#' expr 
 | "head" "(" expr ")" 
 | "tail" "(" expr ")"
-
+;
 
 
 %%
 
+void yyerror (const char * msg)
+{
+  fprintf(stderr,
+  "syntax error in lines %d: %s\n",lncnt, msg);
+  exit(1);
+}
+
 int main() {
+  printf("ok\n");
   int result = yyparse();
+  printf("%d 42\n",result);
   if (result == 0) printf("Success.\n");
   return result;
 }
