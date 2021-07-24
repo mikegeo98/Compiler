@@ -5,7 +5,7 @@ default: compiler
 lexer.cpp: lexer.l lexer.hpp
 	flex -s -o lexer.cpp lexer.l
 parser.hpp parser.cpp: parser.y
-	bison -dv -o parser.cpp parser.y
+	bison --debug -dv -o parser.cpp parser.y
 # Add your dependencies here, e.g.
 parser.o: parser.cpp lexer.hpp
 compiler: lexer.o parser.o

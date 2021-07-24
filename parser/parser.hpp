@@ -38,7 +38,7 @@
 # define YY_YY_PARSER_HPP_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -75,36 +75,21 @@ extern int yydebug;
     T_SKIP = 281,
     T_TRUE = 282,
     T_FALSE = 283,
-    T_PUTI = 284,
-    T_PUTB = 285,
-    T_PUTC = 286,
-    T_PUTS = 287,
-    T_GETI = 288,
-    T_GETB = 289,
-    T_GETC = 290,
-    T_GETS = 291,
-    T_ABS = 292,
-    T_ORD = 293,
-    T_CHR = 294,
-    T_STRLEN = 295,
-    T_STRCMP = 296,
-    T_STRCPY = 297,
-    T_STRCAT = 298,
-    T_ID = 299,
-    T_CONST = 300,
-    T_STRING = 301,
-    T_CONCHAR = 302,
-    T_NEQUAL = 303,
-    T_SOE = 304,
-    T_GOE = 305,
-    T_DECC = 306,
-    T_LPAR = 307,
-    T_RPAR = 308,
-    T_LBR = 309,
-    T_RBR = 310,
-    T_COMMA = 311,
-    T_ANKA = 312,
-    T_SEMI = 313
+    T_ID = 284,
+    T_CONST = 285,
+    T_STRING = 286,
+    T_CONCHAR = 287,
+    T_NEQUAL = 288,
+    T_SOE = 289,
+    T_GOE = 290,
+    T_DECC = 291,
+    T_LPAR = 292,
+    T_RPAR = 293,
+    T_LBR = 294,
+    T_RBR = 295,
+    T_COMMA = 296,
+    T_ANKA = 297,
+    T_SEMI = 298
   };
 #endif
 
