@@ -86,38 +86,44 @@
 
 %%
 program:
-    func-def 
+    func-def { $$ = $1; }
 ;
 func-def:
-    "def" header ':' rule1 rule2 "end"
+    "def" header ':' rule0 "end" { $2->add_block($4); $$ = $2; }
+;
+rule0:
+  rule1 rule2 { $1->merge($2); $$ = $1; }
 ;
 rule1:
-  func-def rule1
-| func-decl rule1
-| var-def rule1
-|  %empty
+  func-def rule1 { $2->append_decl($1); $$ = $2; }
+| func-decl rule1 { $2->append_decl($1); $$ = $2; }
+| var-def rule1 { $2->append_decl($1); $$ = $2; }
+|  %empty { $$ = new Block(); }
 ;
 rule2:
-  stmt 
-| stmt rule2
+  stmt { b = new Block(); b->append_stmt($1); $$ = b; }
+| stmt rule2 { $2->append_stmt($1); $$ = $2; }
 ;
 header:
-  type T_ID '(' formal rule3 ')'
-| type T_ID '(' ')'
-| T_ID '(' formal rule3 ')'
-| T_ID '(' ')'
+  type T_ID '(' rule35 ')' { new Fundecl($2,$1,$4); }
+| type T_ID '(' ')' { new Fundecl($2,$1,nullptr)}
+| T_ID '(' rule35 ')' { new Fundecl($1,TYPE_void,$3); }
+| T_ID '(' ')' { new Fundecl($1,TYPE_void,nullptr); }
+;
+rule35:
+  formal rule3 { $2->merge($1); $$ = $2; }
 ;
 rule3:
-  ';' formal rule3
-| %empty
+  ';' formal rule3 { $3->merge($2); $$ = $3; }
+| %empty { $$ = new Varlist(); }
 ;
 formal:
-  "ref" type T_ID rule4
-| type T_ID rule4
+  "ref" type T_ID rule4 { $4->fixtypes($2); $$ = $4; }
+| type T_ID rule4 { $3->fixtypes($1); $$ = $3; }
 ;
 rule4:
-  ',' T_ID rule4
-| %empty 
+  ',' T_ID rule4 { $3->append_vardecl($2); $$ = $3; }
+| %empty { $$ = new Varlist(); }
 ;
 type: 
   "int"
@@ -127,18 +133,18 @@ type:
 | "list" '[' type ']'
 ;
 func-decl:
-  "decl" header
+  "decl" header { $$ = $2}
 ;
 var-def:
-  type T_ID rule4
+  type T_ID rule4 { $3->fixtypes($1); $$ = $3; }
 ;
 stmt:
   simple
-| "exit"
-| "return" expr
+| "exit" { $$ = new Return(); }
+| "return" expr { $$ = new Return($2); }
 | "if" expr ':' rule2 "end" { $$ = new If($2, $4); }
 | "if" expr ':' rule2 rule5 "else" ':' rule2 "end" { $$ = new If($2, $4, $8, $5);/*elpizoume me to $5 na parei olo to elsif na to xwsei mesa*/ } 
-| "for" simplelist ';' expr ';' simplelist ':' rule2 "end"
+| "for" simplelist ';' expr ';' simplelist ':' rule2 "end" { $$ = new For($2,$4,$6,$8);}
 ;
 
 rule5:
@@ -146,24 +152,24 @@ rule5:
 | %empty { $$ = new Elsif()}
 ;
 simple:
-  "skip"
+  "skip" { $$ = new Stmt(); }
 | atom ":=" expr 
 | call
 ;
 simplelist:
-  simple rule6
+  simple rule6 {$2->append_stmt($1);$$ = $2;}
 ;
 call:
-  T_ID '(' expr rule7 ')'
+  T_ID '(' expr rule7 ')' 
 | T_ID '(' ')'
 ;
 rule6:
-  ',' simple rule6
-| %empty
+  ',' simple rule6 {$3 -> append_stmt($2);$$ = $3;}
+| %empty {$$ = new Block();}
 ;
 rule7:
-  ',' expr rule7
-| %empty
+  ',' expr rule7  {$3 -> append_exprls($2); $$ = $3; }
+| %empty          { $$ = new Expls(); }
 ;
 atom:
   T_ID { $$ = new Id($1); }
