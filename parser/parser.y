@@ -57,7 +57,7 @@
 
 %%
 program:
-    func-def {printf("lol/n");}
+    func-def 
 ;
 func-def:
     "def" header ':' rule1 rule2 "end"
@@ -184,8 +184,9 @@ expr:
 
 int main() {
   printf("ok\n");
+  yydebug=1;
   int result = yyparse();
-  printf("%d  42\n",result);
+  // printf("%d 42\n",result);
   if (result == 0) printf("Success.\n");
   return result;
 }

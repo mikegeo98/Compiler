@@ -3,6 +3,6 @@
 
 extern int lncnt;
 int yylex();
-void yyerror(const char *msg);
+void yyerror(const char *msg,...);
 extern int yydebug;
 #endif

@@ -1,0 +1,38 @@
+lexer.l 
+101
+"puti" {return T_PUTI;}
+"putb" {return T_PUTB;}
+"putc" {return T_PUTC;}
+"puts" {return T_PUTS;}
+
+"geti" {return T_GETI;}
+"getb" {return T_GETB;}
+"getc" {return T_GETC;}
+"gets" {return T_GETS;}
+
+"abs" {return T_ABS;}
+"ord" {return T_ORD;}
+"chr" {return T_CHR;}
+
+"strlen" {return T_STRLEN;}
+"strcmp" {return T_STRCMP;}
+"strcpy" {return T_STRCPY;}
+"strcat" {return T_STRCAT;}
+
+parser.y
+29
+%token T_PUTI "puti"
+%token T_PUTB "putb"
+%token T_PUTC "putc"
+%token T_PUTS "puts"
+%token T_GETI "geti"
+%token T_GETB "getb"
+%token T_GETC "getc"
+%token T_GETS "gets"
+%token T_ABS "abs"
+%token T_ORD "ord"
+%token T_CHR "chr"
+%token T_STRLEN "strlen"
+%token T_STRCMP "strcmp"
+%token T_STRCPY "strcpy"
+%token T_STRCAT "strcat"
