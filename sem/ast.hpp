@@ -338,6 +338,16 @@ class Return: public Stmt {
     Expr *retval;
 };
 
+class Funcal : public Stmt {
+  public:
+    Fundecl(std::string n, Expls *par = nullptr) : params(par), name(n) {}
+    ~Funcal() { delete params; }
+    
+  private:
+    std::string name;
+    Expls *params;
+}; 
+
 class Vardecl: public AST {
 public:
   Vardecl(Id *var, Type type): var(var), type(type) {}

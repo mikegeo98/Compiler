@@ -139,7 +139,7 @@ var-def:
   type T_ID rule4 { $3->fixtypes($1); $$ = $3; }
 ;
 stmt:
-  simple
+  simple { $$ = $1; }
 | "exit" { $$ = new Return(); }
 | "return" expr { $$ = new Return($2); }
 | "if" expr ':' rule2 "end" { $$ = new If($2, $4); }
@@ -154,17 +154,17 @@ rule5:
 simple:
   "skip" { $$ = new Stmt(); }
 | atom ":=" expr 
-| call
+| call { $$ = $1; }
 ;
 simplelist:
   simple rule6 {$2->append_stmt($1);$$ = $2;}
 ;
 call:
-  T_ID '(' expr rule7 ')' 
-| T_ID '(' ')'
+  T_ID '(' expr rule7 ')' { $4 -> append_exprls($3); $$ = new Funcal($1,$4); }
+| T_ID '(' ')' { $$ = new Funcal($1); }
 ;
 rule6:
-  ',' simple rule6 {$3 -> append_stmt($2);$$ = $3;}
+  ',' simple rule6 { $3 -> append_stmt($2); $$ = $3; }
 | %empty {$$ = new Block();}
 ;
 rule7:
@@ -174,7 +174,7 @@ rule7:
 atom:
   T_ID { $$ = new Id($1); }
 | T_STRING { $$ = new Const($1); }
-| atom '[' expr ']'
+| atom '[' expr ']' 
 | call
 ;
 expr:
