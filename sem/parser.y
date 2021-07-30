@@ -1,6 +1,7 @@
 %{
     #include <cstdio>
     #include "lexer.hpp"
+    #include "ast.hpp"
 %}
 %token T_AND T_OR T_NOT
 %token T_MOD 
@@ -126,9 +127,9 @@ rule4:
 | %empty { $$ = new Varlist(); }
 ;
 type: 
-  "int"
-| "bool"
-| "char"
+  "int"  { $$ = new Type(true,"int"); }
+| "bool" { $$ = new Type(true,"bool"); }
+| "char" { $$ = new Type(true,"char"); }
 | type '[' ']' 
 | "list" '[' type ']'
 ;
@@ -154,10 +155,20 @@ rule5:
 simple:
   "skip" { $$ = new Stmt(); }
 | atom ":=" expr 
+{ 
+  atom atm; 
+  switch($1->get_kind())
+  {
+    case "Const": atm.cnst = $1; break;
+    case "Id": atm.id = $1; break;
+    case "Funcal": atm.funcall = $1; break; 
+  }
+  $$ = new Ass(atm,$3); 
+}
 | call { $$ = $1; }
 ;
 simplelist:
-  simple rule6 {$2->append_stmt($1);$$ = $2;}
+  simple rule6 { $2->append_stmt($1); $$ = $2;}
 ;
 call:
   T_ID '(' expr rule7 ')' { $4 -> append_exprls($3); $$ = new Funcal($1,$4); }
@@ -175,10 +186,10 @@ atom:
   T_ID { $$ = new Id($1); }
 | T_STRING { $$ = new Const($1); }
 | atom '[' expr ']' 
-| call
+| call { $$ = $1; }
 ;
 expr:
-  atom
+  atom { $$ = $1; }
 | T_CONST { $$ = new Const($1); }
 | T_CONCHAR { $$ = new Const($1); }
 | '(' expr ')' { $$ = $2; }

@@ -10,17 +10,6 @@
 
 void yyerror(const char *msg,...);
 
-inline std::ostream& operator<<(std::ostream &out, Type t) {
-  switch (t) {
-    case TYPE_int: out << "int"; break;
-    case TYPE_bool: out << "bool"; break;
-    case TYPE_char: out << "char"; break;
-    case TYPE_list: out << "list"; break;
-    case TYPE_array: out << "array"; break;
-  }
-  return out;
-}
-
 class AST {
 public:
   virtual ~AST() {}
@@ -33,21 +22,22 @@ inline std::ostream& operator<< (std::ostream &out, const AST &t) {
   return out;
 }
 
+
+
 class Expr: public AST { //DES PARAKATW SXOLIO THELEI KONSTRAKTOR
 public:
-  virtual union u *eval() const = 0;
+  Expr() {}
+  ~Expr(){}
   void type_check(Type t) {
     sem();
     if (type != t) yyerror("Type mismatch");
   }
+  Type get_type()
+  {
+    return type;
+  }
+  virtual void sem() {}
 protected:
-  union {
-      int num;
-      char let;
-      bool les;
-      std::vector<auto> nil;
-  } u;
-  union u *num;
   Type type;
 };
 
@@ -63,15 +53,18 @@ public:
       expls.push_back(expr);
       size++;
   }
+  Type get_type(int i)
+  {
+    return expls[i]->get_type();
+  }
+  int get_size()
+  {
+    return size;
+  }
   virtual void printOn(std::ostream &out) const override {
       out << "Expression List(" ;
-    //   void run() const override {
-//     for (int i = 0; i < size; ++i) rt_stack.push_back(0);
-//     for (Stmt *s : stmt_list) s->run();
-//     for (int i = 0; i < size; ++i) rt_stack.pop_back();
-//   }
       for (auto i: expls){
-          i.printOn(out);
+          i->printOn(out);
       }
       out << ")";
   }
@@ -90,6 +83,45 @@ private:
     int size;
 };
 
+class Type {
+  public:
+    Type(bool iv, std::string ty, Expls *pa=nullptr): isvar(iv), type(ty), params(pa) {}
+    ~Type() { delete params; }
+
+    bool operator != (Type t)
+    {
+      if(isvar ^ t.isvar) return false;
+      if(type!=t.type) return false;
+      if(!isvar)
+      {
+        if (params->get_size() != (t.params)->get_size()) return false;
+        for ( int i=0;i<params->get_size();i++ )
+        {
+          if( params->get_type(i)!=(t.params)->get_type(i)) return false;
+        }
+      }
+    }
+
+    int get_param_cnt()
+    {
+      return params->get_size();
+    }
+
+    bool has_params()
+    {
+      return !isvar;
+    }
+
+    Type get_param_type(int i)
+    {
+      return params->get_type(i);
+    }
+  private:
+    bool isvar;
+    std::string type;
+    Expls *params;
+};
+
 class Stmt: public AST {
 public:
   ~Stmt(){}
@@ -106,20 +138,28 @@ extern int lncnt;
 
 class Id: public Expr {
 public:
-  Id(char v): var(v), offset(-1) {}
+  Id(char *v): var(v), offset(-1) {}
   virtual void printOn(std::ostream &out) const override {
     out << "Id(" << var << "@" << offset << ")";
   }
-//   virtual int eval() const override {
-//     return rt_stack[offset];
-//   } 
+
+  char *getName(){
+    return var;
+  }
+
+
+  std::string get_kind()
+  {
+    return "Id";
+  }
+
   virtual void sem() override {
     SymbolEntry *e = st.lookup(var);
     type = e->type;
     offset = e->offset;
   }
 protected:
-  char var;
+  char *var;
   int offset;
 };
 
@@ -129,11 +169,14 @@ public:
   virtual void printOn(std::ostream &out) const override {
     out << "Const(" << num << ")";
   }
-//   virtual union u *eval() const override {
-//     return num;
-//   }
+
   virtual void sem() override {
     type = TYPE_int;//NEEDS FIXING
+  }
+
+  std::string get_kind()
+  {
+    return "Const";
   }
 private:
   
@@ -146,24 +189,7 @@ public:
   virtual void printOn(std::ostream &out) const override {
     out << op << "(" << *left << ", " << *right << ")";
   }
-//   virtual union u *eval() const override {
-//     switch (op) {
-//       case '+': return left->eval() + right->eval();break;
-//       case '-': return left->eval() - right->eval();break;
-//       case '*': return left->eval() * right->eval();break;
-//       case '/': return left->eval() / right->eval();break;
-//       case T_MOD: return left->eval() % right->eval();break;
-//       case '=': return left->eval() == right->eval();break;
-//       case '<': return left->eval() < right->eval();break;
-//       case '>': return left->eval() > right->eval();break;
-//       case T_NEQUAL: return left->eval() != right->eval();break;
-//       case T_SOE: return left->eval() <= right->eval();break;
-//       case T_GOE: return left->eval() >= right->eval();break;
-//       case '#': return (left->eval()).append(right->eval());break;
-//       default: yyerror("unknown operator %d %c",op,op);
-//     }
-//     return 0;  // this will never be reached.
-//   }
+
   virtual void sem() override {
     left->type_check(TYPE_int);
     right->type_check(TYPE_int);
@@ -191,14 +217,7 @@ public:
     right->printOn(out);
     out << ")";
   }
-//   virtual union u *eval() const override {
-//     switch (op) {
-//       case '+': return right->eval();break;
-//       case '-': return -right->eval();break;
-//       default: yyerror("unknown operator %d %c",op,op);
-//     }
-//     return 0;  // this will never be reached.
-//   }
+
   virtual void sem() override {
     right->type_check(TYPE_int);
     switch (op) {
@@ -217,7 +236,7 @@ public:
     ~Elsif() 
     {
         for(auto c:cond)delete c; 
-        for(auto s:stmt1)delete stmt1;
+        for(auto s:stmt1)delete s;
     }
     void append_elsif(Expr *con, Stmt *stm)
     {
@@ -226,7 +245,7 @@ public:
     }
     virtual void printOn(std::ostream &out) const override {
         out<<"Elsifs(";
-        for(i=0;i<size;i++)
+        for(int i=0;i<size;i++)
         {
             out << "Elsif( ";
             cond[i]->printOn(out);
@@ -264,12 +283,7 @@ public:
     if (stmt2 != nullptr) out << ", " << *stmt2;
     out << ")";
   }
-//   virtual void run() const override {
-//     if (cond->eval())
-//       stmt1->run();
-//     else if (stmt2 != nullptr)
-//       stmt2->run();
-//   }
+
   virtual void sem() override {
     cond->type_check(TYPE_bool);
     stmt1->sem();
@@ -295,10 +309,7 @@ public:
     code->printOn(out); 
     out << ")";
   }
-//   virtual void run() const override {
-//     for (int times = expr->eval(), i = 0; i < times; ++i)
-//       stmt->run();
-//   }
+
   virtual void sem() override {
     st.openScope();
     init->sem();
@@ -340,13 +351,65 @@ class Return: public Stmt {
 
 class Funcal : public Stmt {
   public:
-    Fundecl(std::string n, Expls *par = nullptr) : params(par), name(n) {}
-    ~Funcal() { delete params; }
-    
+    Funcal(Id *n, Expls *par = nullptr) : params(par), name(n) {}
+    ~Funcal() { delete name; delete params; }
+    virtual void printOn(std::ostream &out) const override {
+      out<<"funcal(";
+      name->printOn(out);
+      out<<",";
+      params->printOn(out);
+      out<<")";
+    }
+    virtual void sem() override {
+      Type *fun = st.lookup(name);
+      if(fun == nullptr) {
+        yyerror("No such function %s\n",name->getName());
+        return;
+      }
+      if (params!=nullptr)
+      {
+        if(params->get_size()!=fun->get_param_cnt()) {
+          yyerror("wrong number of params");
+          return;
+        }
+        for(int i=0;i<params->get_size();i++)
+        {
+          if(fun->get_param_type(i)!=params->get_type(i))
+          {
+            yyerror("wrong parameter type in param #%d \n",i);
+            return;
+          }
+        }
+      }
+      else if(fun->has_params()) {
+        yyerror("function has parameters");
+        return;
+      }
+    }
+
+    std::string get_kind()
+    {
+      return "Funcal";
+    }
+
   private:
-    std::string name;
+    Id *name;
     Expls *params;
 }; 
+
+union atom {
+  Const * cnst;
+  Id *id;
+  Funcal *funcall;
+};
+
+class Ass: public Stmt {
+  public:
+    Ass (atom a, Expr *e): at(a), expr(e) {}
+  private:
+    atom at;
+    Expr *expr;
+};
 
 class Vardecl: public AST {
 public:
@@ -390,7 +453,7 @@ public:
   {
       for( int i=size-1;i>=size-nons;i--)
       {
-          var[i].chType(type);
+          var[i]->chType(type);
       }
       nons=0;
   }
@@ -406,7 +469,7 @@ public:
   virtual void printOn(std::ostream &out) const override {
     out << "Decl(";
     for(int i=0; i<size; i++){
-        var[i].printOn(out);
+        var[i]->printOn(out);
         //out<< var[i] << " : " << type[i] << " ";
     }  
     out<< ")";
@@ -423,7 +486,7 @@ private:
 
 class Fundecl: public AST {//POSSIBLE FUnCS TYPE
     public:
-        Fundecl(Id *id, Type type, Varlist *params, Block *block=nullptr): block(block), id(id),type(type), params(params){}
+        Fundecl(Id *i, Type ty, Varlist *pa, Block *bl=nullptr): block(bl), id(i),type(ty), params(pa){}
         ~Fundecl() {
             delete id;
             if (block!=nullptr)
@@ -491,11 +554,7 @@ public:
     }
     out << ")";
   }
-//   virtual void run() const override {
-//     for (int i = 0; i < size; ++i) rt_stack.push_back(0);
-//     for (Stmt *s : stmt_list) s->run();
-//     for (int i = 0; i < size; ++i) rt_stack.pop_back();
-//   }
+
   virtual void sem() override {
     st.openScope();
     for (Decl *d : decl_list) d->sem();
