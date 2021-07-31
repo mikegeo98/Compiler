@@ -361,8 +361,11 @@ class Funcal : public Stmt {
       out<<")";
     }
     virtual void sem() override {
-      Type *fun = st.lookup(name);
-      if(fun == nullptr) {
+      SymbolEntry *e = st.lookup(name);
+      Type type = e->type;
+      // offset = e->offset;
+      // Type *fun = st.lookup(name);
+      if(e == nullptr) {
         yyerror("No such function %s\n",name->getName());
         return;
       }
@@ -381,7 +384,7 @@ class Funcal : public Stmt {
           }
         }
       }
-      else if(fun->has_params()) {
+      else if(type.has_params()) {
         yyerror("function has parameters");
         return;
       }
@@ -424,12 +427,14 @@ public:
 
   virtual void sem() override {
     pos->type_check(new Type(true,"int"));
-    auto n=st.lookup(name);
-    if(n==nullptr) yyerror("no such array");
-    
+    SymbolEntry *e = st.lookup(var);
+    if(e!=nullptr) type = e->type;
+    // offset = e->offset;
+    else yyerror("no such array");
   }
 private:
   Id *name;
+  Type type;
   Expr *pos;
 };
 
@@ -439,7 +444,7 @@ public:
   ~Vardecl(){delete var;}
   virtual void printOn(std::ostream &out) const override {
     out << "Vardecl(";
-    id.printOn(out);
+    var->printOn(out);
     out<< ")";    
   }
   virtual void sem() override {
