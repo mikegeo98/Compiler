@@ -2,6 +2,7 @@
 
 %{
     #include "lexer.hpp"
+    #include "ast.hpp"
     #include "parser.hpp"
     // #define T_eof 0
     // #define T_AND 1001

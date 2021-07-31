@@ -1,0 +1,330 @@
+In file included from lexer.l:5:
+ast.hpp: In member function ‘virtual void Id::sem()’:
+ast.hpp:138:5: error: ‘SymbolEntry’ was not declared in this scope
+  138 |     SymbolEntry *e = st.lookup(var);
+      |     ^~~~~~~~~~~
+ast.hpp:138:18: error: ‘e’ was not declared in this scope
+  138 |     SymbolEntry *e = st.lookup(var);
+      |                  ^
+ast.hpp:138:22: error: ‘st’ was not declared in this scope; did you mean ‘std’?
+  138 |     SymbolEntry *e = st.lookup(var);
+      |                      ^~
+      |                      std
+ast.hpp: In constructor ‘Const::Const(u*)’:
+ast.hpp:149:25: error: class ‘Const’ does not have any field named ‘num’
+  149 |   Const(union u *numb): num(numb) {}
+      |                         ^~~
+ast.hpp: In member function ‘virtual void Const::printOn(std::ostream&) const’:
+ast.hpp:151:25: error: ‘num’ was not declared in this scope; did you mean ‘enum’?
+  151 |     out << "Const( " << num << ")";
+      |                         ^~~
+      |                         enum
+ast.hpp: In member function ‘virtual void Const::sem()’:
+ast.hpp:155:12: error: expected primary-expression before ‘;’ token
+  155 |     type = ;//NEEDS FIXING
+      |            ^
+ast.hpp: In member function ‘virtual void BinOp::sem()’:
+ast.hpp:175:22: error: ‘TYPE_int’ was not declared in this scope
+  175 |     left->type_check(TYPE_int);
+      |                      ^~~~~~~~
+ast.hpp:181:16: error: ‘TYPE_bool’ was not declared in this scope
+  181 |         type = TYPE_bool; break;
+      |                ^~~~~~~~~
+ast.hpp:183:16: error: expected primary-expression before ‘;’ token
+  183 |         type = ;//ONASOY;
+      |                ^
+ast.hpp: In member function ‘virtual void MonOp::sem()’:
+ast.hpp:203:23: error: ‘TYPE_int’ was not declared in this scope
+  203 |     right->type_check(TYPE_int);
+      |                       ^~~~~~~~
+ast.hpp: In member function ‘virtual void Elsif::sem()’:
+ast.hpp:242:33: error: ‘TYPE_bool’ was not declared in this scope
+  242 |             cond[i]->type_check(TYPE_bool);
+      |                                 ^~~~~~~~~
+ast.hpp: In member function ‘virtual void If::sem()’:
+ast.hpp:269:22: error: ‘TYPE_bool’ was not declared in this scope
+  269 |     cond->type_check(TYPE_bool);
+      |                      ^~~~~~~~~
+ast.hpp: At global scope:
+ast.hpp:283:12: error: expected ‘)’ before ‘*’ token
+  283 |   For(Block *f, Expr *e, Block *s, Stmt *c): init(f), cond(e), step(s), code(c) {}
+      |      ~     ^~
+      |            )
+ast.hpp:303:3: error: ‘Block’ does not name a type; did you mean ‘clock’?
+  303 |   Block *init;
+      |   ^~~~~
+      |   clock
+ast.hpp:305:3: error: ‘Block’ does not name a type; did you mean ‘clock’?
+  305 |   Block *step;
+      |   ^~~~~
+      |   clock
+ast.hpp: In destructor ‘virtual For::~For()’:
+ast.hpp:284:19: error: ‘init’ was not declared in this scope; did you mean ‘int’?
+  284 |   ~For() { delete init; delete cond; delete step; delete code; }
+      |                   ^~~~
+      |                   int
+ast.hpp:284:45: error: ‘step’ was not declared in this scope; did you mean ‘strsep’?
+  284 |   ~For() { delete init; delete cond; delete step; delete code; }
+      |                                             ^~~~
+      |                                             strsep
+ast.hpp: In member function ‘virtual void For::printOn(std::ostream&) const’:
+ast.hpp:287:5: error: ‘init’ was not declared in this scope; did you mean ‘int’?
+  287 |     init->printOn(out);
+      |     ^~~~
+      |     int
+ast.hpp:289:5: error: ‘step’ was not declared in this scope; did you mean ‘strsep’?
+  289 |     step->printOn(out);
+      |     ^~~~
+      |     strsep
+ast.hpp: In member function ‘virtual void For::sem()’:
+ast.hpp:295:5: error: ‘st’ was not declared in this scope; did you mean ‘std’?
+  295 |     st.openScope();
+      |     ^~
+      |     std
+ast.hpp:296:5: error: ‘init’ was not declared in this scope; did you mean ‘int’?
+  296 |     init->sem();
+      |     ^~~~
+      |     int
+ast.hpp:297:22: error: ‘TYPE_bool’ was not declared in this scope
+  297 |     cond->type_check(TYPE_bool);
+      |                      ^~~~~~~~~
+ast.hpp:298:5: error: ‘step’ was not declared in this scope; did you mean ‘strsep’?
+  298 |     step->sem();
+      |     ^~~~
+      |     strsep
+ast.hpp: In member function ‘virtual void Return::sem()’:
+ast.hpp:327:32: error: ‘st’ was not declared in this scope; did you mean ‘std’?
+  327 |             retval->type_check(st.findLastFunc());
+      |                                ^~
+      |                                std
+ast.hpp: In constructor ‘Funcal::Funcal(Id*, Expls*)’:
+ast.hpp:378:12: warning: ‘Funcal::params’ will be initialized after [-Wreorder]
+  378 |     Expls *params;
+      |            ^~~~~~
+ast.hpp:377:9: warning:   ‘Id* Funcal::name’ [-Wreorder]
+  377 |     Id *name;
+      |         ^~~~
+ast.hpp:335:5: warning:   when initialized here [-Wreorder]
+  335 |     Funcal(Id *n, Expls *par = nullptr) : params(par), name(n) {}
+      |     ^~~~~~
+ast.hpp: In member function ‘virtual void Funcal::sem()’:
+ast.hpp:345:19: error: ‘st’ was not declared in this scope; did you mean ‘std’?
+  345 |       Type *fun = st.lookup(name);
+      |                   ^~
+      |                   std
+ast.hpp: In member function ‘virtual void Vardecl::printOn(std::ostream&) const’:
+ast.hpp:401:5: error: ‘id’ was not declared in this scope; did you mean ‘Id’?
+  401 |     id.printOn(out);
+      |     ^~
+      |     Id
+ast.hpp: In member function ‘virtual void Vardecl::sem()’:
+ast.hpp:405:5: error: ‘st’ was not declared in this scope; did you mean ‘std’?
+  405 |     st.insert(*var,type);
+      |     ^~
+      |     std
+ast.hpp: At global scope:
+ast.hpp:423:43: error: ‘TYPE_nontype’ was not declared in this scope
+  423 |   void append_vardecl(Id *id, Type type = TYPE_nontype) {
+      |                                           ^~~~~~~~~~~~
+ast.hpp: In constructor ‘Varlist::Varlist()’:
+ast.hpp:418:36: error: no matching function for call to ‘Vardecl::Vardecl()’
+  418 |   Varlist(): var(), size(0), nons(0) {} // type(),
+      |                                    ^
+ast.hpp:397:3: note: candidate: ‘Vardecl::Vardecl(Id*, Type)’
+  397 |   Vardecl(Id *var, Type type): var(var), type(type) {}
+      |   ^~~~~~~
+ast.hpp:397:3: note:   candidate expects 2 arguments, 0 provided
+ast.hpp:395:7: note: candidate: ‘Vardecl::Vardecl(const Vardecl&)’
+  395 | class Vardecl: public AST {
+      |       ^~~~~~~
+ast.hpp:395:7: note:   candidate expects 1 argument, 0 provided
+ast.hpp: In member function ‘void Varlist::append_vardecl(Id*, Type)’:
+ast.hpp:426:16: error: ‘TYPE_nontype’ was not declared in this scope
+  426 |       if(type==TYPE_nontype)
+      |                ^~~~~~~~~~~~
+ast.hpp: At global scope:
+ast.hpp:470:46: error: ‘Block’ has not been declared
+  470 |         Fundecl(Id *i, Type ty, Varlist *pa, Block *bl=nullptr): block(bl), id(i),type(ty), params(pa){}
+      |                                              ^~~~~
+ast.hpp:498:24: error: ‘Block’ has not been declared
+  498 |         void add_block(Block *bl)
+      |                        ^~~~~
+ast.hpp:503:9: error: ‘Block’ does not name a type; did you mean ‘clock’?
+  503 |         Block *block;
+      |         ^~~~~
+      |         clock
+ast.hpp: In constructor ‘Fundecl::Fundecl(Id*, Type, Varlist*, int*)’:
+ast.hpp:470:66: error: class ‘Fundecl’ does not have any field named ‘block’
+  470 |         Fundecl(Id *i, Type ty, Varlist *pa, Block *bl=nullptr): block(bl), id(i),type(ty), params(pa){}
+      |                                                                  ^~~~~
+ast.hpp: In destructor ‘virtual Fundecl::~Fundecl()’:
+ast.hpp:473:17: error: ‘block’ was not declared in this scope; did you mean ‘clock’?
+  473 |             if (block!=nullptr)
+      |                 ^~~~~
+      |                 clock
+ast.hpp:474:24: error: type ‘<type error>’ argument given to ‘delete’, expected pointer
+  474 |                 delete block;
+      |                        ^~~~~
+ast.hpp: In member function ‘virtual void Fundecl::printOn(std::ostream&) const’:
+ast.hpp:482:17: error: ‘block’ was not declared in this scope; did you mean ‘clock’?
+  482 |             if (block!=nullptr)
+      |                 ^~~~~
+      |                 clock
+ast.hpp: In member function ‘virtual void Fundecl::sem()’:
+ast.hpp:488:13: error: ‘st’ was not declared in this scope; did you mean ‘std’?
+  488 |             st.insert(id,type);
+      |             ^~
+      |             std
+ast.hpp:491:17: error: ‘block’ was not declared in this scope; did you mean ‘clock’?
+  491 |             if (block!=nullptr)
+      |                 ^~~~~
+      |                 clock
+ast.hpp: In member function ‘bool Fundecl::isfuncdef()’:
+ast.hpp:496:20: error: ‘block’ was not declared in this scope; did you mean ‘clock’?
+  496 |             return block!=nullptr;
+      |                    ^~~~~
+      |                    clock
+ast.hpp: In member function ‘void Fundecl::add_block(int*)’:
+ast.hpp:500:13: error: ‘block’ was not declared in this scope; did you mean ‘clock’?
+  500 |             block = bl;
+      |             ^~~~~
+      |             clock
+ast.hpp: At global scope:
+ast.hpp:516:20: error: ‘Decl’ has not been declared
+  516 |   void append_decl(Decl *d) { decl_list.push_back(d); }
+      |                    ^~~~
+ast.hpp:547:15: error: ‘Decl’ was not declared in this scope
+  547 |   std::vector<Decl *> decl_list;
+      |               ^~~~
+ast.hpp:547:21: error: template argument 1 is invalid
+  547 |   std::vector<Decl *> decl_list;
+      |                     ^
+ast.hpp:547:21: error: template argument 2 is invalid
+ast.hpp: In destructor ‘virtual Block::~Block()’:
+ast.hpp:513:10: error: ‘Decl’ was not declared in this scope
+  513 |     for (Decl *d : decl_list) delete d;
+      |          ^~~~
+ast.hpp:513:18: error: found ‘:’ in nested-name-specifier, expected ‘::’
+  513 |     for (Decl *d : decl_list) delete d;
+      |                  ^
+      |                  ::
+ast.hpp:513:16: error: ‘d’ has not been declared
+  513 |     for (Decl *d : decl_list) delete d;
+      |                ^
+ast.hpp:514:5: error: expected primary-expression before ‘for’
+  514 |     for (Stmt *s : stmt_list) delete s;
+      |     ^~~
+ast.hpp:513:40: error: expected ‘;’ before ‘for’
+  513 |     for (Decl *d : decl_list) delete d;
+      |                                        ^
+      |                                        ;
+  514 |     for (Stmt *s : stmt_list) delete s;
+      |     ~~~                                 
+ast.hpp:514:5: error: expected primary-expression before ‘for’
+  514 |     for (Stmt *s : stmt_list) delete s;
+      |     ^~~
+ast.hpp:513:40: error: expected ‘)’ before ‘for’
+  513 |     for (Decl *d : decl_list) delete d;
+      |         ~                              ^
+      |                                        )
+  514 |     for (Stmt *s : stmt_list) delete s;
+      |     ~~~                                 
+ast.hpp: In member function ‘void Block::append_decl(int*)’:
+ast.hpp:516:41: error: request for member ‘push_back’ in ‘((Block*)this)->Block::decl_list’, which is of non-class type ‘int’
+  516 |   void append_decl(Decl *d) { decl_list.push_back(d); }
+      |                                         ^~~~~~~~~
+ast.hpp: In member function ‘virtual void Block::printOn(std::ostream&) const’:
+ast.hpp:526:10: error: ‘Decl’ was not declared in this scope
+  526 |     for (Decl *d : decl_list) {
+      |          ^~~~
+ast.hpp:526:18: error: found ‘:’ in nested-name-specifier, expected ‘::’
+  526 |     for (Decl *d : decl_list) {
+      |                  ^
+      |                  ::
+ast.hpp:526:16: error: ‘d’ has not been declared
+  526 |     for (Decl *d : decl_list) {
+      |                ^
+ast.hpp:531:5: error: expected primary-expression before ‘for’
+  531 |     for (Stmt *s : stmt_list) {
+      |     ^~~
+ast.hpp:530:6: error: expected ‘;’ before ‘for’
+  530 |     }
+      |      ^
+      |      ;
+  531 |     for (Stmt *s : stmt_list) {
+      |     ~~~
+ast.hpp:531:5: error: expected primary-expression before ‘for’
+  531 |     for (Stmt *s : stmt_list) {
+      |     ^~~
+ast.hpp:530:6: error: expected ‘)’ before ‘for’
+  530 |     }
+      |      ^
+      |      )
+  531 |     for (Stmt *s : stmt_list) {
+      |     ~~~
+ast.hpp:526:9: note: to match this ‘(’
+  526 |     for (Decl *d : decl_list) {
+      |         ^
+ast.hpp: In member function ‘virtual void Block::sem()’:
+ast.hpp:540:5: error: ‘st’ was not declared in this scope; did you mean ‘std’?
+  540 |     st.openScope();
+      |     ^~
+      |     std
+ast.hpp:541:10: error: ‘Decl’ was not declared in this scope
+  541 |     for (Decl *d : decl_list) d->sem();
+      |          ^~~~
+ast.hpp:541:18: error: found ‘:’ in nested-name-specifier, expected ‘::’
+  541 |     for (Decl *d : decl_list) d->sem();
+      |                  ^
+      |                  ::
+ast.hpp:541:16: error: ‘d’ has not been declared
+  541 |     for (Decl *d : decl_list) d->sem();
+      |                ^
+ast.hpp:542:5: error: expected primary-expression before ‘for’
+  542 |     for (Stmt *s : stmt_list) s->sem();
+      |     ^~~
+ast.hpp:541:40: error: expected ‘;’ before ‘for’
+  541 |     for (Decl *d : decl_list) d->sem();
+      |                                        ^
+      |                                        ;
+  542 |     for (Stmt *s : stmt_list) s->sem();
+      |     ~~~                                 
+ast.hpp:542:5: error: expected primary-expression before ‘for’
+  542 |     for (Stmt *s : stmt_list) s->sem();
+      |     ^~~
+ast.hpp:541:40: error: expected ‘)’ before ‘for’
+  541 |     for (Decl *d : decl_list) d->sem();
+      |         ~                              ^
+      |                                        )
+  542 |     for (Stmt *s : stmt_list) s->sem();
+      |     ~~~                                 
+In file included from lexer.l:6:
+parser.y: At global scope:
+parser.y:61:3: error: ‘fundecl’ does not name a type; did you mean ‘Fundecl’?
+   61 |   fundecl *fundecl;
+      |   ^~~~~~~
+      |   Fundecl
+parser.y:62:3: error: ‘fundef’ does not name a type
+   62 |   fundef *fundef;
+      |   ^~~~~~
+parser.y:63:3: error: ‘header’ does not name a type
+   63 |   header *header;
+      |   ^~~~~~
+parser.y:64:3: error: ‘formalist’ does not name a type
+   64 |   formalist *formalist;
+      |   ^~~~~~~~~
+parser.y:65:3: error: ‘formal’ does not name a type
+   65 |   formal *formal;
+      |   ^~~~~~
+parser.y:66:3: error: ‘varlist’ does not name a type; did you mean ‘Varlist’?
+   66 |   varlist *varlist;
+      |   ^~~~~~~
+      |   Varlist
+parser.y:72:3: error: ‘string’ does not name a type; did you mean ‘stdin’?
+   72 |   string str;
+      |   ^~~~~~
+      |   stdin
+lexer.cpp:1446:17: warning: ‘void yyunput(int, char*)’ defined but not used [-Wunused-function]
+ 1446 |     static void yyunput (int c, char * yy_bp )
+      |                 ^~~~~~~
+make: *** [<builtin>: lexer.o] Error 1

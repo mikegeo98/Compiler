@@ -5,10 +5,33 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "parser.hpp"
+#include <memory>
+// #include "parser.cpp"
 #include "lexer.hpp"
 
 void yyerror(const char *msg,...);
+
+class Expr;
+class Expls;
+
+class Type {
+  public:
+    Type(bool iv=true, std::string ty="", Expls *pa=nullptr, Type *o = nullptr): isvar(iv), type(ty), params(pa) obj(ob) {}
+    Type(const Type &t): isvar(t.isvar), type(t.type), params(t.params) obj(t.obj) {}
+    ~Type();
+    bool operator != (Type t);
+    int get_param_cnt();
+    bool has_params();
+    Type get_param_type(int i);
+    void make_fun(Expls *pars);
+    std::string get_type();
+
+  private:
+    bool isvar;
+    std::string type;
+    Expls *params;
+    Type *obj;
+};
 
 class AST {
 public:
@@ -73,9 +96,6 @@ public:
           i->sem();
       }
   }
-  int get_size(){
-      return size;
-  }
 
 
 private:
@@ -83,44 +103,7 @@ private:
     int size;
 };
 
-class Type {
-  public:
-    Type(bool iv, std::string ty, Expls *pa=nullptr): isvar(iv), type(ty), params(pa) {}
-    ~Type() { delete params; }
 
-    bool operator != (Type t)
-    {
-      if(isvar ^ t.isvar) return false;
-      if(type!=t.type) return false;
-      if(!isvar)
-      {
-        if (params->get_size() != (t.params)->get_size()) return false;
-        for ( int i=0;i<params->get_size();i++ )
-        {
-          if( params->get_type(i)!=(t.params)->get_type(i)) return false;
-        }
-      }
-    }
-
-    int get_param_cnt()
-    {
-      return params->get_size();
-    }
-
-    bool has_params()
-    {
-      return !isvar;
-    }
-
-    Type get_param_type(int i)
-    {
-      return params->get_type(i);
-    }
-  private:
-    bool isvar;
-    std::string type;
-    Expls *params;
-};
 
 class Stmt: public AST {
 public:
@@ -167,11 +150,11 @@ class Const: public Expr {
 public:
   Const(union u *numb): num(numb) {}
   virtual void printOn(std::ostream &out) const override {
-    out << "Const(" << num << ")";
+    out << "Const( " << num << ")";
   }
 
   virtual void sem() override {
-    type = TYPE_int;//NEEDS FIXING
+    type = ;//NEEDS FIXING
   }
 
   std::string get_kind()
@@ -191,15 +174,29 @@ public:
   }
 
   virtual void sem() override {
-    left->type_check(TYPE_int);
-    right->type_check(TYPE_int);
+    if(op!='#')left->type_check(right->get_type());
+    // right->type_check(TYPE_int);
     switch (op) {
-      case '+': case '-': case '*': case '/': case T_MOD:
-        type = TYPE_int; break;
-      case '=': case '<': case '>': case T_NEQUAL: case T_SOE: case T_GOE:
-        type = TYPE_bool; break;
+      case '+': case '-': case '*': case '/': case T_MOD: 
+      {
+          if((right->get_type()).get_type()=="int")
+            type = new Type(true,"int");
+          else
+            yyerror("type needs to be int"); 
+          break;
+      }
+      case T_OR: case T_AND: 
+      {
+          if((right->get_type()).get_type()=="bool")
+            type = new Type(true,"bool");
+          else
+            yyerror("type needs to be bool"); 
+          break;
+      }
+      case '=': case '<': case '>': case T_NEQUAL: case T_SOE: case T_GOE: 
+        type = right->get_type(); break;
       case '#':
-        type = ;//ONASOY;
+        type = new Type(true,"list");break;
     }
   }
 private:
@@ -219,10 +216,13 @@ public:
   }
 
   virtual void sem() override {
-    right->type_check(TYPE_int);
+    if(op!=T_NOT)right->type_check(new Type(true,"int"));
+    else right->type_check(new Type(true,"bool"));
     switch (op) {
       case '+': case '-':
-        type = TYPE_int; break;
+        type = new Type(true,"int"); break;
+      case T_NOT:
+        type = new Type(true,"bool")
     }
   }
 private:
@@ -397,7 +397,7 @@ class Funcal : public Stmt {
     Expls *params;
 }; 
 
-union atom {
+union Atom {
   Const * cnst;
   Id *id;
   Funcal *funcall;
@@ -405,13 +405,35 @@ union atom {
 
 class Ass: public Stmt {
   public:
-    Ass (atom a, Expr *e): at(a), expr(e) {}
+    Ass (Atom a, Expr *e): at(a), expr(e) {}
   private:
-    atom at;
+    Atom at;
     Expr *expr;
 };
 
-class Vardecl: public AST {
+class Arracc : public Expr{
+public:
+  Arracc(Id *i, Expr *e): name(i), pos(e) {}
+  ~Arracc() { delete name; delete pos; }
+  virtual void printOn(std::ostream &out) const override {
+    out << "Arrcall(";
+    name->printOn(out);
+    pos->printOn(out);
+    out<< ")";    
+  }
+
+  virtual void sem() override {
+    pos->type_check(new Type(true,"int"));
+    auto n=st.lookup(name);
+    if(n==nullptr) yyerror("no such array");
+    
+  }
+private:
+  Id *name;
+  Expr *pos;
+};
+
+class Vardecl: public AST { //MIPWS PREPEI NA NAI YPOKLASI TOU STMT?
 public:
   Vardecl(Id *var, Type type): var(var), type(type) {}
   ~Vardecl(){delete var;}
@@ -439,10 +461,10 @@ public:
     for (Vardecl *d : var) delete d;
     //for (Type *s : type) delete s;
   }
-  void append_vardecl(Id *id, Type type = TYPE_nontype) { 
+  void append_vardecl(Id *id, Type type = new Type(true,"non")) { 
       Vardecl tmp(id,type);
       var.push_back(&tmp); 
-      if(type==TYPE_nontype)
+      if(type.get_type()=="non")
       {
           nons++;
       }
@@ -568,5 +590,56 @@ private:
   int size;
 };
 
+Type::~Type()  { delete params; delete obj; }
+
+bool Type::operator != (Type t)
+{
+  if(isvar ^ t.isvar) return false;
+  if(type!=t.type) return false;
+  if(obj!=nullptr || t.obj!=nullptr)
+    if(obj!=t.obj) return false;
+  if(!isvar)
+  {
+    if (params->get_size() != (t.params)->get_size()) return false;
+    for ( int i=0;i<params->get_size();i++ )
+    {
+      if( params->get_type(i)!=(t.params)->get_type(i)) return false;
+    }
+  }
+  return true;
+}
+
+int Type::get_param_cnt()
+{
+  return params->get_size();
+}
+
+bool Type::has_params()
+{
+  return !isvar;
+}
+
+Type Type::get_param_type(int i)
+{
+  return params->get_type(i);
+}
+
+std::string Type::get_type()
+{
+  if (type=="list" || type == "array")
+  {
+    return type+obj->type;
+  }
+  else
+  {
+    return type;
+  }
+}
+
+void Type::make_fun(Expls *pars)
+{
+  params = pars;
+  isvar = false;
+}
 
 #endif

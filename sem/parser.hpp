@@ -79,23 +79,47 @@ extern int yydebug;
     T_CONST = 285,
     T_STRING = 286,
     T_CONCHAR = 287,
-    T_NEQUAL = 288,
-    T_SOE = 289,
-    T_GOE = 290,
-    T_DECC = 291,
-    T_LPAR = 292,
-    T_RPAR = 293,
-    T_LBR = 294,
-    T_RBR = 295,
-    T_COMMA = 296,
-    T_ANKA = 297,
-    T_SEMI = 298
+    T_DECC = 288,
+    T_LPAR = 289,
+    T_RPAR = 290,
+    T_LBR = 291,
+    T_RBR = 292,
+    T_COMMA = 293,
+    T_ANKA = 294,
+    T_SEMI = 295,
+    T_NEQUAL = 296,
+    T_SOE = 297,
+    T_GOE = 298
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+union YYSTYPE
+{
+#line 56 "parser.y"
+
+  Block *block;
+  Stmt *stmt;
+  Expr *expr;
+  Expls *expls;
+  fundecl *fundecl;
+  fundef *fundef;
+  header *header;
+  formalist *formalist;
+  formal *formal;
+  varlist *varlist;
+  Type type;
+  char var;
+  int num;
+  int op;
+  bool Bool;
+  string str;
+
+#line 120 "parser.hpp"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
