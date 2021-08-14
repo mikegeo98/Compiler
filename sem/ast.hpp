@@ -8,30 +8,9 @@
 #include <memory>
 // #include "parser.cpp"
 #include "lexer.hpp"
+#include "symbol.hpp"
 
-void yyerror(const char *msg,...);
-
-class Expr;
-class Expls;
-
-class Type {
-  public:
-    Type(bool iv=true, std::string ty="", Expls *pa=nullptr, Type *o = nullptr): isvar(iv), type(ty), params(pa) obj(ob) {}
-    Type(const Type &t): isvar(t.isvar), type(t.type), params(t.params) obj(t.obj) {}
-    ~Type();
-    bool operator != (Type t);
-    int get_param_cnt();
-    bool has_params();
-    Type get_param_type(int i);
-    void make_fun(Expls *pars);
-    std::string get_type();
-
-  private:
-    bool isvar;
-    std::string type;
-    Expls *params;
-    Type *obj;
-};
+//void yyerror(const char *msg,...);
 
 class AST {
 public:
@@ -112,8 +91,56 @@ public:
   {
       out<<"skip";
   }
-  virtual void run() const = 0;
   virtual void sem() override {}
+};
+
+class Decl: public AST { //isws xreiastei destructoras kapoia stigmi
+public:
+  virtual void sem();
+  virtual void printOn(std::ostream &out) const;
+};
+
+class Block: public Stmt {//DECLERATION
+public:
+  Block(): decl_list(), stmt_list(), size(0) {}
+  ~Block() {
+    for (Decl *d : decl_list) delete d;
+    for (Stmt *s : stmt_list) delete s;
+  }
+  void append_decl(Decl *d) { decl_list.push_back(d); }
+  void append_stmt(Stmt *s) { stmt_list.push_back(s); }
+  void merge(Block *b) {
+    stmt_list = b->stmt_list;
+    b->stmt_list.clear();
+    delete b;
+  }
+  virtual void printOn(std::ostream &out) const override {
+    out << "Block(";
+    bool first = true;
+    for (Decl *d : decl_list) {
+      if (!first) out << ", ";
+      first = false;
+      out << *d;
+    }
+    for (Stmt *s : stmt_list) {
+      if (!first) out << ", ";
+      first = false;
+      out << *s;
+    }
+    out << ")";
+  }
+
+  virtual void sem() override {
+    st.openScope();
+    for (Decl *d : decl_list) d->sem();
+    for (Stmt *s : stmt_list) s->sem();
+    size = st.getSizeOfCurrentScope();
+    st.closeScope();
+  }
+private:
+  std::vector<Decl *> decl_list;
+  std::vector<Stmt *> stmt_list;
+  int size;
 };
 
 extern std::vector<int> rt_stack;
@@ -146,22 +173,108 @@ protected:
   int offset;
 };
 
-class Const: public Expr {
+class ConstInt: public Expr {
 public:
-  Const(union u *numb): num(numb) {}
+  ConstInt(int numb): num(numb) {}
+  ~ConstInt();
   virtual void printOn(std::ostream &out) const override {
-    out << "Const( " << num << ")";
+    out << "ConstInt( " << num << ")";
   }
 
   virtual void sem() override {
-    type = ;//NEEDS FIXING
+    type = new Type(true,"int");
   }
 
   std::string get_kind()
   {
-    return "Const";
+    return "Const Int";
   }
 private:
+  int num;
+  
+};
+
+class ConstChar: public Expr {
+public:
+  ConstChar(char numb): num(numb) {}
+  ~ConstChar();
+  virtual void printOn(std::ostream &out) const override {
+    out << "ConstChar( " << num << ")";
+  }
+
+  virtual void sem() override {
+    type = new Type(true,"char");
+  }
+
+  std::string get_kind()
+  {
+    return "Const Char";
+  }
+private:
+  char num;
+  
+};
+
+class ConstString: public Expr {
+public:
+  ConstString(std::string numb): num(numb) {}
+  ~ConstString();
+  virtual void printOn(std::ostream &out) const override {
+    out << "ConstString( " << num << ")";
+  }
+
+  virtual void sem() override {
+    type = new Type(true,"string");
+  }
+
+  std::string get_kind()
+  {
+    return "Const String";
+  }
+private:
+  std::string num;
+  
+};
+
+class ConstBool: public Expr {
+public:
+  ConstBool(std::string numb): num(numb) {}
+  ~ConstBool();
+  virtual void printOn(std::ostream &out) const override {
+    out << "ConstBool( " << num << ")";
+  }
+
+  virtual void sem() override {
+    type = new Type(true,"bool");
+  }
+
+  std::string get_kind()
+  {
+    return "Const Bool";
+  }
+private:
+  std::string num;
+  
+};
+
+class ConstList: public Expr {
+public:
+  ConstList(std::string numb): num(numb) {}
+  ~ConstList();
+  virtual void printOn(std::ostream &out) const override {
+    out << "ConstList( " << num << ")";
+  }
+
+  virtual void sem() override {
+    type = new Type(true,"list");
+  }
+
+  std::string get_kind()
+  {
+    return "Const List";
+  }
+private:
+  std::string num;
   
 };
 
@@ -222,7 +335,7 @@ public:
       case '+': case '-':
         type = new Type(true,"int"); break;
       case T_NOT:
-        type = new Type(true,"bool")
+        type = new Type(true,"bool"); break;
     }
   }
 private:
@@ -258,7 +371,7 @@ public:
     virtual void sem() override {
         for(int i=0;i<size;i++)
         {
-            cond[i]->type_check(TYPE_bool);
+            cond[i]->type_check(new Type(true,"bool"));
             stmt1[i]->sem();
         }
     }
@@ -285,7 +398,7 @@ public:
   }
 
   virtual void sem() override {
-    cond->type_check(TYPE_bool);
+    cond->type_check(new Type(true,"bool"));
     stmt1->sem();
     if (elif != nullptr) elif->sem();
     if (stmt2 != nullptr) stmt2->sem();
@@ -313,7 +426,7 @@ public:
   virtual void sem() override {
     st.openScope();
     init->sem();
-    cond->type_check(TYPE_bool);
+    cond->type_check(new Type(true,"bool"));
     step->sem();
     code->sem();
     st.closeScope();
@@ -361,23 +474,23 @@ class Funcal : public Stmt {
       out<<")";
     }
     virtual void sem() override {
-      SymbolEntry *e = st.lookup(name);
+      SymbolEntry *e = st.lookup(name->getName());
       Type type = e->type;
-      // offset = e->offset;
-      // Type *fun = st.lookup(name);
+      //offset = e->offset;
+      //Type *fun = st.lookup(name->getName());
       if(e == nullptr) {
         yyerror("No such function %s\n",name->getName());
         return;
       }
       if (params!=nullptr)
       {
-        if(params->get_size()!=fun->get_param_cnt()) {
+        if(params->get_size()!=type.get_param_cnt()) {
           yyerror("wrong number of params");
           return;
         }
         for(int i=0;i<params->get_size();i++)
         {
-          if(fun->get_param_type(i)!=params->get_type(i))
+          if(type.get_param_type(i)!=params->get_type(i))
           {
             yyerror("wrong parameter type in param #%d \n",i);
             return;
@@ -401,14 +514,31 @@ class Funcal : public Stmt {
 }; 
 
 union Atom {
-  Const * cnst;
+  ConstInt * cnstint;
+  ConstChar * cnstchar;
+  ConstString * cnststring;
+  ConstBool * cnstbool;
+  ConstList * cnstlist;
   Id *id;
   Funcal *funcall;
 };
-
+//EPISHS EDW DEN EIXAMTE TELEIWSEI
 class Ass: public Stmt {
   public:
     Ass (Atom a, Expr *e): at(a), expr(e) {}
+    ~Ass() { delete expr; }  
+    virtual void printOn(std::ostream &out) const override {
+      out <<"Ass(";
+      expr->printOn(out);
+      out <<")"; //DEN EKTYPWNOUME TO AT, AFTO PREPEI NA ALLAKSEI
+    }
+    virtual void sem() override {
+
+      //expr->type_check(at -> new Type(true,"int")); PREPEI NA VROUME TON TYPO TOU AT KAPWS
+      if (!oti_valoume_meta){
+        yyerror("atom and expression don't match");
+      }
+    }
   private:
     Atom at;
     Expr *expr;
@@ -427,7 +557,7 @@ public:
 
   virtual void sem() override {
     pos->type_check(new Type(true,"int"));
-    SymbolEntry *e = st.lookup(var);
+    SymbolEntry *e = st.lookup(name->getName());
     if(e!=nullptr) type = e->type;
     // offset = e->offset;
     else yyerror("no such array");
@@ -438,7 +568,9 @@ private:
   Expr *pos;
 };
 
-class Vardecl: public AST { //MIPWS PREPEI NA NAI YPOKLASI TOU STMT?
+
+
+class Vardecl: public Decl { //MIPWS PREPEI NA NAI YPOKLASI TOU STMT?
 public:
   Vardecl(Id *var, Type type): var(var), type(type) {}
   ~Vardecl(){delete var;}
@@ -448,7 +580,7 @@ public:
     out<< ")";    
   }
   virtual void sem() override {
-    st.insert(*var,type);
+    st.insert(var->getName(),type);
   }
   void chType(Type ty)
   {
@@ -461,7 +593,7 @@ private:
 
 class Varlist: public Vardecl {//THE []S ARE WRONG + PASS BY REFERENCE
 public:
-  Varlist(): var(), size(0), nons(0) {} // type(),
+  Varlist(): size(0), nons(0) {}// type(),
   ~Varlist(){
     for (Vardecl *d : var) delete d;
     //for (Type *s : type) delete s;
@@ -508,10 +640,11 @@ public:
 private:
   std::vector<Vardecl *> var;
 //  std::vector<Type> type;
-  int size,nons;
+  int size;
+  int nons;
 };
 
-class Fundecl: public AST {//POSSIBLE FUnCS TYPE
+class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
     public:
         Fundecl(Id *i, Type ty, Varlist *pa, Block *bl=nullptr): block(bl), id(i),type(ty), params(pa){}
         ~Fundecl() {
@@ -531,7 +664,7 @@ class Fundecl: public AST {//POSSIBLE FUnCS TYPE
         }
         virtual void sem() override
         {
-            st.insert(id,type);
+            st.insert(id->getName(),type);
             st.openScope();
             params->sem();
             if (block!=nullptr)
@@ -552,48 +685,6 @@ class Fundecl: public AST {//POSSIBLE FUnCS TYPE
         Varlist *params;
 };
 
-class Block: public Stmt {//DECLERATION
-public:
-  Block(): decl_list(), stmt_list(), size(0) {}
-  ~Block() {
-    for (Decl *d : decl_list) delete d;
-    for (Stmt *s : stmt_list) delete s;
-  }
-  void append_decl(Decl *d) { decl_list.push_back(d); }
-  void append_stmt(Stmt *s) { stmt_list.push_back(s); }
-  void merge(Block *b) {
-    stmt_list = b->stmt_list;
-    b->stmt_list.clear();
-    delete b;
-  }
-  virtual void printOn(std::ostream &out) const override {
-    out << "Block(";
-    bool first = true;
-    for (Decl *d : decl_list) {
-      if (!first) out << ", ";
-      first = false;
-      out << *d;
-    }
-    for (Stmt *s : stmt_list) {
-      if (!first) out << ", ";
-      first = false;
-      out << *s;
-    }
-    out << ")";
-  }
-
-  virtual void sem() override {
-    st.openScope();
-    for (Decl *d : decl_list) d->sem();
-    for (Stmt *s : stmt_list) s->sem();
-    size = st.getSizeOfCurrentScope();
-    st.closeScope();
-  }
-private:
-  std::vector<Decl *> decl_list;
-  std::vector<Stmt *> stmt_list;
-  int size;
-};
 
 Type::~Type()  { delete params; delete obj; }
 

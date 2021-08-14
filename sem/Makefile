@@ -7,7 +7,7 @@ lexer.cpp: lexer.l lexer.hpp
 parser.hpp parser.cpp: parser.y
 	bison --debug -dv -o parser.cpp parser.y
 # Add your dependencies here, e.g.
-parser.o: parser.cpp lexer.hpp ast.hpp parser.hpp
+parser.o: parser.cpp lexer.hpp ast.hpp parser.hpp symbol.hpp
 compiler: lexer.o parser.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
 clean:

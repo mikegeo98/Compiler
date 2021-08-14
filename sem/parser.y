@@ -31,7 +31,7 @@
 %token<var> T_ID 
 %token<num> T_CONST 
 %token<str> T_STRING 
-%token<str> T_CONCHAR 
+%token<T_CONCHAR> T_CONCHAR 
 %token<op> T_DECC ":="
 %token<op> T_LPAR '('
 %token<op> T_RPAR ')'
@@ -58,29 +58,31 @@
   Stmt *stmt;
   Expr *expr;
   Expls *expls;
-  fundecl *fundecl;
-  fundef *fundef;
-  header *header;
-  formalist *formalist;
-  formal *formal;
-  varlist *varlist;
+  Fundecl *fundecl;
+  Funcal *funcal;
+//  formalist *formalist;
+//  formal *formal;
+  Varlist *varlist;
   Type type;
-  char var;
+  std::string var;
+  char chr;
   int num;
   int op;
-  bool Bool;
-  string str;
+  std::string Bool;
+  std::string str;
+  Elsif *elsif;
 }
 
 %type<block> rule1 rule2 simplelist rule6 rule0
-%type<stmt> stmt rule5 simple // EKXWRISI SE SYNARTISI??
+%type<stmt> stmt simple // EKXWRISI SE SYNARTISI??
+%type<elsif> rule5
 %type<expr> expr 
 %type<funcal> call 
 %type<expls> rule7
-%type<Fundecl> func-decl func-def program header
+%type<fundecl> func-decl func-def program header
 %type<varlist> rule4 var-def rule35 formal rule3
-%type<Type> type
-%type<Atom> atom
+%type<type> type
+%type<atom> atom
 
 %%
 program:
@@ -99,12 +101,12 @@ rule1:
 |  %empty { $$ = new Block(); }
 ;
 rule2:
-  stmt { b = new Block(); b->append_stmt($1); $$ = b; }
+  stmt {Block* b = new Block(); b->append_stmt($1); $$ = b; }
 | stmt rule2 { $2->append_stmt($1); $$ = $2; }
 ;
 header:
-  type T_ID '(' rule35 ')' {$1 -> make_fun($4); $$ = new Fundecl($2,$1,$4);}
-| type T_ID '(' ')' {$1 -> make_fun(new Expls()); $$ = new Fundecl($2,$1,nullptr)}
+  type T_ID '(' rule35 ')' {$1.make_fun($4); $$ = new Fundecl($2,$1,$4);}
+| type T_ID '(' ')' {$1.make_fun(new Expls()); $$ = new Fundecl($2,$1,nullptr)}
 | T_ID '(' rule35 ')' {$$ = new Fundecl($1,new Type(false,"void",$3),$3); }
 | T_ID '(' ')' {$$ = new Fundecl($1,new Type(false,"void"),nullptr); }
 ;
@@ -131,7 +133,7 @@ type:
 | "list" '[' type ']' { $$ = new Type(true,"list",nullptr,&($3));}
 ;
 func-decl:
-  "decl" header { $$ = $2}
+  "decl" header { $$ = $2; }
 ;
 var-def:
   type T_ID rule4 { $3->fixtypes($1); $$ = $3; }
@@ -141,13 +143,13 @@ stmt:
 | "exit" { $$ = new Return(); }
 | "return" expr { $$ = new Return($2); }
 | "if" expr ':' rule2 "end" { $$ = new If($2, $4); }
-| "if" expr ':' rule2 rule5 "else" ':' rule2 "end" { $$ = new If($2, $4, $8, $5);/*elpizoume me to $5 na parei olo to elsif na to xwsei mesa*/ } 
+| "if" expr ':' rule2 rule5 "else" ':' rule2 "end" { $$ = new If($2, $4, $8, $5); } 
 | "for" simplelist ';' expr ';' simplelist ':' rule2 "end" { $$ = new For($2,$4,$6,$8);}
 ;
 
 rule5:
   "elsif" expr ':' rule2 rule5 { $5->append_elsif($2,$4); $$ = $5; }
-| %empty { $$ = new Elsif()}
+| %empty { $$ = new Elsif(); }
 ;
 simple:
   "skip" { $$ = new Stmt(); }
@@ -156,7 +158,11 @@ simple:
   Atom atm; 
   switch($1->get_kind())
   {
-    case "Const": atm.cnst = $1; break;
+    case "ConstInt": atm.cnstint = $1; break;
+    case "ConstChar": atm.cnstchar = $1; break;
+    case "ConstString": atm.cnststring = $1; break;
+    case "ConstBool": atm.cnstbool = $1; break;
+    case "ConstList": atm.cnstlist = $1; break;
     case "Id": atm.id = $1; break;
     case "Funcal": atm.funcall = $1; break; 
     default: yyerror("atom has problem");
@@ -182,14 +188,14 @@ rule7:
 ;
 atom:
   T_ID { $$ = new Id($1); }
-| T_STRING { $$ = new Const($1); }
+| T_STRING { $$ = new ConstString($1); }
 | atom '[' expr ']' {  }
 | call { $$ = $1; }
 ;
 expr:
   atom { $$ = $1; }
-| T_CONST { $$ = new Const($1); }
-| T_CONCHAR { $$ = new Const($1); }
+| T_CONST { $$ = new ConstInt($1); }
+| T_CONCHAR { $$ = new ConstChar($1); }
 | '(' expr ')' { $$ = $2; }
 | '+' expr  { $$ = new MonOp($1, $2); }
 | '-' expr  { $$ = new MonOp($1, $2); }
@@ -204,29 +210,29 @@ expr:
 | expr '>' expr { $$ = new BinOp($1, $2, $3); }
 | expr T_SOE expr { $$ = new BinOp($1, $2, $3); }
 | expr T_GOE expr { $$ = new BinOp($1, $2, $3); }
-| "true" { $$ = new Const($1); }
-| "false" { $$ = new Const($1); }
+| "true" { $$ = new ConstBool($1); }
+| "false" { $$ = new ConstBool($1); }
 | T_NOT expr { $$ = new MonOp($1, $2); }
 | expr T_AND expr { $$ = new BinOp($1, $2, $3); }
 | expr T_OR  expr { $$ = new BinOp($1, $2, $3); }
 | "new" type '[' expr ']' 
-| "nil" { $$ = new Const($1); }
+| "nil" { $$ = new ConstList($1); }
 | "nil?" '(' expr ')'   
   { 
-    Expls a = new Expls(); 
+    Expls* a = new Expls(); 
     a -> append_exprls($3); 
     $$ = new Funcal(new Type(false, "bool", a),a); //COULD BE BETTER
   } 
 | expr '#' expr { $$ = new BinOp($1, $2, $3); }
 | "head" '(' expr ')' 
   { 
-    Expls a = new Expls(); 
+    Expls* a = new Expls(); 
     a -> append_exprls($3); 
     $$ = new Funcal(($3->get_type()).make_fun(a),a); //COULD BE BETTER
   } 
 | "tail" '(' expr ')'
   { 
-    Expls a = new Expls(); 
+    Expls* a = new Expls(); 
     a -> append_exprls($3); 
     $$ = new Funcal(new Type(false, "list", a, $3->get_type()),a); //COULD BE BETTER
   } 
