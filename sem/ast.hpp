@@ -513,7 +513,7 @@ class Funcal : public Stmt {
     Expls *params;
 }; 
 
-union Atom {
+struct Atom {
   ConstInt * cnstint;
   ConstChar * cnstchar;
   ConstString * cnststring;
@@ -535,8 +535,46 @@ class Ass: public Stmt {
     virtual void sem() override {
 
       //expr->type_check(at -> new Type(true,"int")); PREPEI NA VROUME TON TYPO TOU AT KAPWS
-      if (!oti_valoume_meta){
-        yyerror("atom and expression don't match");
+      if(at.cnstint!=nullptr)
+      {
+        yyerror("item does not support assgnment");
+        // expr->type_check(new Type(true,"int"));
+      }
+      else if(at.cnstbool!=nullptr)
+      {
+        yyerror("item does not support assgnment");
+        // expr->type_check(new Type(true,"bool"));
+      }
+      else if(at.cnststring!=nullptr)
+      {
+        yyerror("item does not support assgnment");
+        // expr->type_check(new Type(true,"string"));
+      }
+      else if(at.cnstlist!=nullptr)
+      {
+        yyerror("item does not support assgnment");
+        // expr->type_check(new Type(true,"list",nullptr,new Type(true,"any")));
+      }
+      else if(at.cnstchar!=nullptr)
+      {
+        yyerror("item does not support assgnment");
+        // expr->type_check(new Type(true,"char"));
+      }
+      else if(at.id!=nullptr)
+      {
+        SymbolEntry *e;
+        e = st.lookup((at.id)->getName());
+        Type type = e->type;
+        expr->type_check(type);
+      }
+      else if(at.funcall!=nullptr)
+      {
+        yyerror("item does not support assgnment");
+        // expr->type_check(new Type(false,"int"));
+      }
+      else
+      {
+        yyerror("shit fuck wrong type class ass");
       }
     }
   private:
@@ -624,9 +662,6 @@ public:
 
 
 
-
-
-
   int get_size(){
       return size;
   }
@@ -670,10 +705,18 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
         virtual void sem() override
         {
             st.insert(id->getName(),type);
+            if(block!=nullptr)
+            {
+              st.addFunc(type);
+            }
             st.openScope();
             params->sem();
             if (block!=nullptr)
                 block->sem();
+            if(block!=nullptr)
+            {
+              st.remFunc();
+            }
             st.closeScope();
         }
         bool isfuncdef(){
@@ -696,7 +739,7 @@ Type::~Type()  { delete params; delete obj; }
 bool Type::operator != (Type t)
 {
   if(isvar ^ t.isvar) return false;
-  if(type!=t.type) return false;
+  if(type!=t.type||type=="any"||t.type=="any") return false;
   if(obj!=nullptr || t.obj!=nullptr)
     if(obj!=t.obj) return false;
   if(!isvar)

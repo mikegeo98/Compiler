@@ -156,6 +156,13 @@ simple:
 | atom ":=" expr 
 { 
   Atom atm; 
+  atm.cnstbool = nullptr;
+  atm.cnstchar = nullptr;
+  atm.cnstint = nullptr;
+  atm.cnststring = nullptr;
+  atm.id = nullptr;
+  atm.constList = nullptr;
+  atm.funcall = nullptr;
   switch($1->get_kind())
   {
     case "ConstInt": atm.cnstint = $1; break;

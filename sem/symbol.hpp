@@ -75,9 +75,21 @@ public:
   void insert(std::string c, Type t) { scopes.back().insert(c, t); }
   int getSizeOfCurrentScope() const { return scopes.back().getSize(); }
   int getCurrentNesting() const { return scopes.size() - 1; }
-
-private:
+  void addFunc(Type type)
+  {
+    funs.push_back(type);
+  }
+  void remFunc()
+  {
+    funs.pop_back();
+  }
+  Type findLastFunc()
+  {
+    return funs.back();
+  }
+private:  
   std::vector<Scope> scopes;
+  std::vector<Type> funs;
 };
 
 extern SymbolTable st;
