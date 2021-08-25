@@ -31,7 +31,7 @@
 %token<var> T_ID 
 %token<num> T_CONST 
 %token<str> T_STRING 
-%token<T_CONCHAR> T_CONCHAR 
+%token<chr> T_CONCHAR 
 %token<op> T_DECC ":="
 %token<op> T_LPAR '('
 %token<op> T_RPAR ')'
@@ -63,14 +63,17 @@
 //  formalist *formalist;
 //  formal *formal;
   Varlist *varlist;
-  Type type;
-  std::string var;
+  Type *type; //ASTERAKI POU DEN YPIRXE
+  char *var;
   char chr;
   int num;
   int op;
-  std::string Bool;
-  std::string str;
+  char *Bool;
+  char *str;
   Elsif *elsif;
+  Atom *atom;
+  Id *id;
+  ConstChar *constchar;
 }
 
 %type<block> rule1 rule2 simplelist rule6 rule0
@@ -105,10 +108,10 @@ rule2:
 | stmt rule2 { $2->append_stmt($1); $$ = $2; }
 ;
 header:
-  type T_ID '(' rule35 ')' {$1.make_fun($4); $$ = new Fundecl($2,$1,$4);}
-| type T_ID '(' ')' {$1.make_fun(new Expls()); $$ = new Fundecl($2,$1,nullptr)}
-| T_ID '(' rule35 ')' {$$ = new Fundecl($1,new Type(false,"void",$3),$3); }
-| T_ID '(' ')' {$$ = new Fundecl($1,new Type(false,"void"),nullptr); }
+  type T_ID '(' rule35 ')' {$1->make_fun($4); $$ = new Fundecl(new Id($2),$1,$4);}
+| type T_ID '(' ')' {$1->make_fun(new Expls()); $$ = new Fundecl(new Id($2),$1,nullptr);}
+| T_ID '(' rule35 ')' {$$ = new Fundecl(new Id($1),new Type(false,"void",$3),$3); }
+| T_ID '(' ')' {$$ = new Fundecl(new Id($1),new Type(false,"void"),nullptr); }
 ;
 rule35:
   formal rule3 { $2->merge($1); $$ = $2; }
@@ -122,7 +125,7 @@ formal:
 | type T_ID rule4 { $3->fixtypes($1); $$ = $3; }
 ;
 rule4:
-  ',' T_ID rule4 { $3->append_vardecl($2); $$ = $3; }
+  ',' T_ID rule4 { $3->append_vardecl(new Id($2)); $$ = $3; }
 | %empty { $$ = new Varlist(); }
 ;
 type: 
@@ -161,8 +164,10 @@ simple:
   atm.cnstint = nullptr;
   atm.cnststring = nullptr;
   atm.id = nullptr;
-  atm.constList = nullptr;
+  atm.cnstlist = nullptr;
   atm.funcall = nullptr;
+  
+  
   switch($1->get_kind())
   {
     case "ConstInt": atm.cnstint = $1; break;
@@ -182,8 +187,8 @@ simplelist:
   simple rule6 { $2->append_stmt($1); $$ = $2;}
 ;
 call:
-  T_ID '(' expr rule7 ')' { $4 -> append_exprls($3); $$ = new Funcal($1,$4); }
-| T_ID '(' ')' { $$ = new Funcal($1); }
+  T_ID '(' expr rule7 ')' { $4 -> append_exprls($3); $$ = new Funcal(new Id($1),$4); }
+| T_ID '(' ')' { $$ = new Funcal(new Id($1)); }
 ;
 rule6:
   ',' simple rule6 { $3 -> append_stmt($2); $$ = $3; }
@@ -196,7 +201,7 @@ rule7:
 atom:
   T_ID { $$ = new Id($1); }
 | T_STRING { $$ = new ConstString($1); }
-| atom '[' expr ']' {  }
+| atom '[' expr ']' {  }   //KATI LEIPEI EDW
 | call { $$ = $1; }
 ;
 expr:
@@ -235,7 +240,7 @@ expr:
   { 
     Expls* a = new Expls(); 
     a -> append_exprls($3); 
-    $$ = new Funcal(($3->get_type()).make_fun(a),a); //COULD BE BETTER
+    $$ = new Funcal($3->get_type().make_fun(a),a); //COULD BE BETTER
   } 
 | "tail" '(' expr ')'
   { 

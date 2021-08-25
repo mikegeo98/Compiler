@@ -464,7 +464,7 @@ class Return: public Stmt {
 
 class Funcal : public Stmt {
   public:
-    Funcal(Id *n, Expls *par = nullptr) : params(par), name(n) {}
+    Funcal(Id *n, Expls *par = nullptr) : name(n), params(par) {}
     ~Funcal() { delete name; delete params; }
     virtual void printOn(std::ostream &out) const override {
       out<<"funcal(";
@@ -734,12 +734,12 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
 };
 
 
-Type::~Type()  { delete params; delete obj; }
+Type::~Type()  { delete type; delete params; delete obj; }
 
 bool Type::operator != (Type t)
 {
   if(isvar ^ t.isvar) return false;
-  if(type!=t.type||type=="any"||t.type=="any") return false;
+  if(type!=t.type||std::string(type)=="any"||std::string(t.type)=="any") return false;
   if(obj!=nullptr || t.obj!=nullptr)
     if(obj!=t.obj) return false;
   if(!isvar)
@@ -770,9 +770,9 @@ Type Type::get_param_type(int i)
 
 std::string Type::get_type()
 {
-  if (type=="list" || type == "array")
+  if (std::string(type)=="list" || std::string(type) == "array")
   {
-    return type+obj->type;
+    return std::string(type)+std::string(obj->type);
   }
   else
   {

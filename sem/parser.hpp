@@ -105,16 +105,19 @@ union YYSTYPE
 //  formalist *formalist;
 //  formal *formal;
   Varlist *varlist;
-  Type type;
-  std::string var;
+  Type *type; //ASTERAKI POU DEN YPIRXE
+  char *var;
   char chr;
   int num;
   int op;
-  std::string Bool;
-  std::string str;
+  char *Bool;
+  char *str;
   Elsif *elsif;
+  Atom *atom;
+  Id *id;
+  ConstChar *constchar;
 
-#line 118 "parser.hpp" /* yacc.c:1909  */
+#line 121 "parser.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

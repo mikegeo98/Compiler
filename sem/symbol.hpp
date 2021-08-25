@@ -3,7 +3,7 @@
 
 #include <map>
 #include <vector>
-
+#include <string.h>
 //void yyerror(const char *msg);
 
 class Expr;
@@ -11,7 +11,7 @@ class Expls;
 
 class Type {
   public:
-    Type(bool iv=true, std::string ty="", Expls *pa=nullptr, Type *o = nullptr): isvar(iv), type(ty), params(pa), obj(o) {}
+    Type(bool iv=true, std::string ty="", Expls *pa=nullptr, Type *o = nullptr): isvar(iv), type(nullptr), params(pa), obj(o) {strcpy(type,ty.c_str());}
     Type(const Type &t): isvar(t.isvar), type(t.type), params(t.params), obj(t.obj) {}
     ~Type();
     bool operator != (Type t);
@@ -23,7 +23,7 @@ class Type {
 
   private:
     bool isvar;
-    std::string type;
+    char *type;
     Expls *params;
     Type *obj;
 };
