@@ -1517,7 +1517,7 @@ yyreduce:
 
   case 11:
 #line 111 "parser.y" /* yacc.c:1646  */
-    {(yyvsp[-4].type)->make_fun((yyvsp[-1].varlist)); (yyval.fundecl) = new Fundecl(new Id((yyvsp[-3].var)),(yyvsp[-4].type),(yyvsp[-1].varlist));}
+    {(yyvsp[-4].type)->make_fun2((yyvsp[-1].varlist)); (yyval.fundecl) = new Fundecl(new Id((yyvsp[-3].var)),(yyvsp[-4].type),(yyvsp[-1].varlist));}
 #line 1522 "parser.cpp" /* yacc.c:1646  */
     break;
 
@@ -1529,7 +1529,7 @@ yyreduce:
 
   case 13:
 #line 113 "parser.y" /* yacc.c:1646  */
-    {(yyval.fundecl) = new Fundecl(new Id((yyvsp[-3].var)),new Type(false,"void",(yyvsp[-1].varlist)),(yyvsp[-1].varlist)); }
+    {(yyval.fundecl) = new Fundecl(new Id((yyvsp[-3].var)),new Type(false,"void",nullptr,nullptr,(yyvsp[-1].varlist)),(yyvsp[-1].varlist)); }
 #line 1534 "parser.cpp" /* yacc.c:1646  */
     break;
 
@@ -1601,13 +1601,13 @@ yyreduce:
 
   case 25:
 #line 135 "parser.y" /* yacc.c:1646  */
-    { (yyval.type) = new Type(true,"array", nullptr, &((yyvsp[-2].type)));}
+    { (yyval.type) = new Type(true,"array", nullptr, (yyvsp[-2].type), nullptr);}
 #line 1606 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 26:
 #line 136 "parser.y" /* yacc.c:1646  */
-    { (yyval.type) = new Type(true,"list",nullptr,&((yyvsp[-1].type)));}
+    { (yyval.type) = new Type(true,"list",nullptr, (yyvsp[-1].type), nullptr);}
 #line 1612 "parser.cpp" /* yacc.c:1646  */
     break;
 

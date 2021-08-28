@@ -108,9 +108,9 @@ rule2:
 | stmt rule2 { $2->append_stmt($1); $$ = $2; }
 ;
 header:
-  type T_ID '(' rule35 ')' {$1->make_fun($4); $$ = new Fundecl(new Id($2),$1,$4);}
+  type T_ID '(' rule35 ')' {$1->make_fun2($4); $$ = new Fundecl(new Id($2),$1,$4);}
 | type T_ID '(' ')' {$1->make_fun(new Expls()); $$ = new Fundecl(new Id($2),$1,nullptr);}
-| T_ID '(' rule35 ')' {$$ = new Fundecl(new Id($1),new Type(false,"void",$3),$3); }
+| T_ID '(' rule35 ')' {$$ = new Fundecl(new Id($1),new Type(false,"void",nullptr,nullptr,$3),$3); }
 | T_ID '(' ')' {$$ = new Fundecl(new Id($1),new Type(false,"void"),nullptr); }
 ;
 rule35:
@@ -132,8 +132,8 @@ type:
   "int"  { $$ = new Type(true,"int"); }
 | "bool" { $$ = new Type(true,"bool"); }
 | "char" { $$ = new Type(true,"char"); }
-| type '[' ']' { $$ = new Type(true,"array", nullptr, &($1));}
-| "list" '[' type ']' { $$ = new Type(true,"list",nullptr,&($3));}
+| type '[' ']' { $$ = new Type(true,"array", nullptr, $1, nullptr);}
+| "list" '[' type ']' { $$ = new Type(true,"list",nullptr, $3, nullptr);}
 ;
 func-decl:
   "decl" header { $$ = $2; }

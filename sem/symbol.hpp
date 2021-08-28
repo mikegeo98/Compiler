@@ -8,6 +8,7 @@
 
 class Expr;
 class Expls;
+class Varlist;
 
 class Type {
   public:

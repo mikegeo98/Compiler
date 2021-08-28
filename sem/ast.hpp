@@ -11,7 +11,7 @@
 #include "symbol.hpp"
 
 //void yyerror(const char *msg,...);
-
+//std::string c = "";
 class AST {
 public:
   virtual ~AST() {}
@@ -651,7 +651,7 @@ public:
   {
       type=ty;
   }
-  Type get_type(int i)
+  Type get_type()
   {
     return type;
   }
@@ -662,7 +662,7 @@ private:
 
 class Varlist: public Vardecl {//THE []S ARE WRONG + PASS BY REFERENCE
 public:
-  Varlist(): size(0), nons(0) {}// type(),
+  Varlist(): Vardecl(new Id(""), new Type()), size(0), nons(0)  {}// type(),
   ~Varlist(){
     for (Vardecl *d : var) delete d;
     //for (Type *s : type) delete s;
@@ -769,71 +769,5 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
 };
 
 
-Type::~Type()  { delete type; delete params; delete obj; delete params2;}
-
-bool Type::operator != (Type t)
-{
-  if(isvar ^ t.isvar) return false;
-  if(type!=t.type||std::string(type)=="any"||std::string(t.type)=="any") return false;
-  if(obj!=nullptr || t.obj!=nullptr)
-    if(obj!=t.obj) return false;
-  if(!isvar)
-  {
-    if (params->get_size() != (t.params)->get_size()) return false;
-    for ( int i=0;i<params->get_size();i++ )
-    {
-      if( params->get_type(i)!=(t.params)->get_type(i)) return false;
-    }
-  }
-  return true;
-}
-
-int Type::get_param_cnt()
-{
-  if (params!= nullptr)
-    return params->get_size();
-  if (params2!= nullptr)
-    return params2->get_size();
-  yyerror("no params");
-  
-}
-
-bool Type::has_params()
-{
-  return !isvar;
-}
-
-Type Type::get_param_type(int i)
-{
-  if (params!= nullptr)
-    return params->get_type(i);
-  if (params2!= nullptr)
-    return params2->get_type(i);
-  yyerror("no params");
-}
-
-std::string Type::get_type()
-{
-  if (std::string(type)=="list" || std::string(type) == "array")
-  {
-    return std::string(type)+std::string(obj->type);
-  }
-  else
-  {
-    return type;
-  }
-}
-
-void Type::make_fun(Expls *pars)
-{
-  params = pars;
-  isvar = false;
-}
-
-void Type::make_fun2(Varlist *pars)
-{
-  params2 = pars;
-  isvar = false;
-}
 
 #endif
