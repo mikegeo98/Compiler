@@ -11,14 +11,15 @@ class Expls;
 
 class Type {
   public:
-    Type(bool iv=true, std::string ty="", Expls *pa=nullptr, Type *o = nullptr): isvar(iv), type(nullptr), params(pa), obj(o) {strcpy(type,ty.c_str());}
-    Type(const Type &t): isvar(t.isvar), type(t.type), params(t.params), obj(t.obj) {}
+    Type(bool iv=true, std::string ty="", Expls *pa=nullptr, Type *o = nullptr, Varlist *pa2 = nullptr): isvar(iv), type(nullptr), params(pa), obj(o), params2(pa2) {strcpy(type,ty.c_str());}
+    Type(const Type &t): isvar(t.isvar), type(t.type), params(t.params), obj(t.obj), params2(t.params2) {}
     ~Type();
     bool operator != (Type t);
     int get_param_cnt();
     bool has_params();
     Type get_param_type(int i);
     void make_fun(Expls *pars);
+    void make_fun2(Varlist *pars);
     std::string get_type();
 
   private:
@@ -26,6 +27,7 @@ class Type {
     char *type;
     Expls *params;
     Type *obj;
+    Varlist *params2;
 };
 
 struct SymbolEntry {

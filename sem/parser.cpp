@@ -1680,7 +1680,7 @@ yyreduce:
   case 38:
 #line 160 "parser.y" /* yacc.c:1646  */
     { 
-  Atom atm; 
+  /*Atom atm; 
   atm.cnstbool = nullptr;
   atm.cnstchar = nullptr;
   atm.cnstint = nullptr;
@@ -1690,18 +1690,18 @@ yyreduce:
   atm.funcall = nullptr;
   
   
-  switch((yyvsp[-2].atom)->get_kind())
+  switch(($1->get_kind()).c_str())
   {
-    case "ConstInt": atm.cnstint = (yyvsp[-2].atom); break;
-    case "ConstChar": atm.cnstchar = (yyvsp[-2].atom); break;
-    case "ConstString": atm.cnststring = (yyvsp[-2].atom); break;
-    case "ConstBool": atm.cnstbool = (yyvsp[-2].atom); break;
-    case "ConstList": atm.cnstlist = (yyvsp[-2].atom); break;
-    case "Id": atm.id = (yyvsp[-2].atom); break;
-    case "Funcal": atm.funcall = (yyvsp[-2].atom); break; 
+    case "ConstInt": atm.cnstint = $1; break;
+    case "ConstChar": atm.cnstchar = $1; break;
+    case "ConstString": atm.cnststring = $1; break;
+    case "ConstBool": atm.cnstbool = $1; break;
+    case "ConstList": atm.cnstlist = $1; break;
+    case "Id": atm.id = $1; break;
+    case "Funcal": atm.funcall = $1; break; 
     default: yyerror("atom has problem");
-  }
-  (yyval.stmt) = new Ass(atm,(yyvsp[0].expr)); 
+  } */
+  (yyval.stmt) = new Ass((yyvsp[-2].atom),(yyvsp[0].expr)); 
 }
 #line 1707 "parser.cpp" /* yacc.c:1646  */
     break;
@@ -1768,7 +1768,7 @@ yyreduce:
 
   case 49:
 #line 204 "parser.y" /* yacc.c:1646  */
-    {  }
+    { (yyval.atom) = new Arracc((yyvsp[-3].atom),(yyvsp[-1].expr)); }
 #line 1773 "parser.cpp" /* yacc.c:1646  */
     break;
 
@@ -1921,7 +1921,7 @@ yyreduce:
     { 
     Expls* a = new Expls(); 
     a -> append_exprls((yyvsp[-1].expr)); 
-    (yyval.expr) = new Funcal(new Type(false, "bool", a),a); //COULD BE BETTER
+    (yyval.expr) = new Funcal(new Id((yyvsp[-3].var)),a); //(false, "bool", a),a); COULD BE BETTER
   }
 #line 1927 "parser.cpp" /* yacc.c:1646  */
     break;
@@ -1937,7 +1937,7 @@ yyreduce:
     { 
     Expls* a = new Expls(); 
     a -> append_exprls((yyvsp[-1].expr)); 
-    (yyval.expr) = new Funcal((yyvsp[-1].expr)->get_type().make_fun(a),a); //COULD BE BETTER
+    (yyval.expr) = new Funcal(new Id((yyvsp[-3].var)),a); //COULD BE BETTER
   }
 #line 1943 "parser.cpp" /* yacc.c:1646  */
     break;
@@ -1947,7 +1947,7 @@ yyreduce:
     { 
     Expls* a = new Expls(); 
     a -> append_exprls((yyvsp[-1].expr)); 
-    (yyval.expr) = new Funcal(new Type(false, "list", a, (yyvsp[-1].expr)->get_type()),a); //COULD BE BETTER
+    (yyval.expr) = new Funcal(new Id((yyvsp[-3].var)),a); //COULD BE BETTER
   }
 #line 1953 "parser.cpp" /* yacc.c:1646  */
     break;

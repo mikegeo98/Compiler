@@ -158,7 +158,7 @@ simple:
   "skip" { $$ = new Stmt(); }
 | atom ":=" expr 
 { 
-  Atom atm; 
+  /*Atom atm; 
   atm.cnstbool = nullptr;
   atm.cnstchar = nullptr;
   atm.cnstint = nullptr;
@@ -168,7 +168,7 @@ simple:
   atm.funcall = nullptr;
   
   
-  switch($1->get_kind())
+  switch(($1->get_kind()).c_str())
   {
     case "ConstInt": atm.cnstint = $1; break;
     case "ConstChar": atm.cnstchar = $1; break;
@@ -178,8 +178,8 @@ simple:
     case "Id": atm.id = $1; break;
     case "Funcal": atm.funcall = $1; break; 
     default: yyerror("atom has problem");
-  }
-  $$ = new Ass(atm,$3); 
+  } */
+  $$ = new Ass($1,$3); 
 }
 | call { $$ = $1; }
 ;
@@ -201,7 +201,7 @@ rule7:
 atom:
   T_ID { $$ = new Id($1); }
 | T_STRING { $$ = new ConstString($1); }
-| atom '[' expr ']' {  }   //KATI LEIPEI EDW
+| atom '[' expr ']' { $$ = new Arracc($1,$3); }  
 | call { $$ = $1; }
 ;
 expr:
@@ -233,20 +233,20 @@ expr:
   { 
     Expls* a = new Expls(); 
     a -> append_exprls($3); 
-    $$ = new Funcal(new Type(false, "bool", a),a); //COULD BE BETTER
+    $$ = new Funcal(new Id($1),a); //(false, "bool", a),a); COULD BE BETTER
   } 
 | expr '#' expr { $$ = new BinOp($1, $2, $3); }
 | "head" '(' expr ')' 
   { 
     Expls* a = new Expls(); 
     a -> append_exprls($3); 
-    $$ = new Funcal($3->get_type().make_fun(a),a); //COULD BE BETTER
+    $$ = new Funcal(new Id($1),a); //COULD BE BETTER
   } 
 | "tail" '(' expr ')'
   { 
     Expls* a = new Expls(); 
     a -> append_exprls($3); 
-    $$ = new Funcal(new Type(false, "list", a, $3->get_type()),a); //COULD BE BETTER
+    $$ = new Funcal(new Id($1),a); //COULD BE BETTER
   } 
 ;
 

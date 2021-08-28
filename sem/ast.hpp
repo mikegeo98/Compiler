@@ -94,6 +94,34 @@ public:
   virtual void sem() override {}
 };
 
+class Atom: public Stmt, public Expr{
+  public:
+    virtual void printOn(std::ostream &out) const override {
+      out<<var;
+    }
+    virtual void sem() override {
+
+    }
+    char* getName(){
+      return var;
+    }
+    std::string get_kind(){
+      return kind;
+    }
+    // ConstInt * cnstint;
+    // ConstChar * cnstchar;
+    // ConstString * cnststring;
+    // ConstBool * cnstbool;
+    // ConstList * cnstlist;
+    // Id *id;
+    // Funcal *funcall;
+  protected:
+    std::string kind;
+    char * var;
+    
+};
+//EPISHS EDW DEN EIXAMTE TELEIWSEI
+
 class Decl: public AST { //isws xreiastei destructoras kapoia stigmi
 public:
   virtual void sem();
@@ -146,9 +174,9 @@ private:
 extern std::vector<int> rt_stack;
 extern int lncnt;
 
-class Id: public Expr {
+class Id: public Atom {
 public:
-  Id(char *v): var(v), offset(-1) {}
+  Id(char *v): offset(-1) { kind = "Id"; var = v;}
   virtual void printOn(std::ostream &out) const override {
     out << "Id(" << var << "@" << offset << ")";
   }
@@ -169,13 +197,13 @@ public:
     offset = e->offset;
   }
 protected:
-  char *var;
+  //char *var;
   int offset;
 };
 
-class ConstInt: public Expr {
+class ConstInt: public Atom {
 public:
-  ConstInt(int numb): num(numb) {}
+  ConstInt(int numb): num(numb) { kind = "ConstInt";}
   ~ConstInt();
   virtual void printOn(std::ostream &out) const override {
     out << "ConstInt( " << num << ")";
@@ -191,12 +219,11 @@ public:
   }
 private:
   int num;
-  
 };
 
-class ConstChar: public Expr {
+class ConstChar: public Atom {
 public:
-  ConstChar(char numb): num(numb) {}
+  ConstChar(char numb): num(numb) { kind = "ConstChar"; }
   ~ConstChar();
   virtual void printOn(std::ostream &out) const override {
     out << "ConstChar( " << num << ")";
@@ -212,12 +239,12 @@ public:
   }
 private:
   char num;
-  
+  std::string kind;
 };
 
-class ConstString: public Expr {
+class ConstString: public Atom {
 public:
-  ConstString(std::string numb): num(numb) {}
+  ConstString(std::string numb): num(numb) { kind = "ConstString"; }
   ~ConstString();
   virtual void printOn(std::ostream &out) const override {
     out << "ConstString( " << num << ")";
@@ -236,9 +263,9 @@ private:
   
 };
 
-class ConstBool: public Expr {
+class ConstBool: public Atom {
 public:
-  ConstBool(std::string numb): num(numb) {}
+  ConstBool(std::string numb): num(numb) { kind = "ConstBool"; }
   ~ConstBool();
   virtual void printOn(std::ostream &out) const override {
     out << "ConstBool( " << num << ")";
@@ -257,9 +284,9 @@ private:
   
 };
 
-class ConstList: public Expr {
+class ConstList: public Atom {
 public:
-  ConstList(std::string numb): num(numb) {}
+  ConstList(std::string numb): num(numb) { kind = "ConstList"; }
   ~ConstList();
   virtual void printOn(std::ostream &out) const override {
     out << "ConstList( " << num << ")";
@@ -462,9 +489,9 @@ class Return: public Stmt {
     Expr *retval;
 };
 
-class Funcal : public Stmt {
+class Funcal : public Atom {
   public:
-    Funcal(Id *n, Expls *par = nullptr) : name(n), params(par) {}
+    Funcal(Id *n, Expls *par = nullptr) : name(n), params(par) { kind = "Funcal"; }
     ~Funcal() { delete name; delete params; }
     virtual void printOn(std::ostream &out) const override {
       out<<"funcal(";
@@ -513,19 +540,10 @@ class Funcal : public Stmt {
     Expls *params;
 }; 
 
-struct Atom {
-  ConstInt * cnstint;
-  ConstChar * cnstchar;
-  ConstString * cnststring;
-  ConstBool * cnstbool;
-  ConstList * cnstlist;
-  Id *id;
-  Funcal *funcall;
-};
-//EPISHS EDW DEN EIXAMTE TELEIWSEI
+
 class Ass: public Stmt {
   public:
-    Ass (Atom a, Expr *e): at(a), expr(e) {}
+    Ass (Atom *a, Expr *e): at(a), expr(e) {}
     ~Ass() { delete expr; }  
     virtual void printOn(std::ostream &out) const override {
       out <<"Ass(";
@@ -535,56 +553,65 @@ class Ass: public Stmt {
     virtual void sem() override {
 
       //expr->type_check(at -> new Type(true,"int")); PREPEI NA VROUME TON TYPO TOU AT KAPWS
-      if(at.cnstint!=nullptr)
-      {
-        yyerror("item does not support assgnment");
-        // expr->type_check(new Type(true,"int"));
-      }
-      else if(at.cnstbool!=nullptr)
-      {
-        yyerror("item does not support assgnment");
-        // expr->type_check(new Type(true,"bool"));
-      }
-      else if(at.cnststring!=nullptr)
-      {
-        yyerror("item does not support assgnment");
-        // expr->type_check(new Type(true,"string"));
-      }
-      else if(at.cnstlist!=nullptr)
-      {
-        yyerror("item does not support assgnment");
-        // expr->type_check(new Type(true,"list",nullptr,new Type(true,"any")));
-      }
-      else if(at.cnstchar!=nullptr)
-      {
-        yyerror("item does not support assgnment");
-        // expr->type_check(new Type(true,"char"));
-      }
-      else if(at.id!=nullptr)
-      {
+      if (at->get_kind() == "Id"){
         SymbolEntry *e;
-        e = st.lookup((at.id)->getName());
+        e = st.lookup(at->getName());
         Type type = e->type;
         expr->type_check(type);
       }
-      else if(at.funcall!=nullptr)
-      {
-        yyerror("item does not support assgnment");
-        // expr->type_check(new Type(false,"int"));
+      else {
+        yyerror("Item does not support assignment");
       }
-      else
-      {
-        yyerror("shit fuck wrong type class ass");
-      }
+      // if(at.cnstint!=nullptr)
+      // {
+      //   yyerror("item does not support assgnment");
+      //   // expr->type_check(new Type(true,"int"));
+      // }
+      // else if(at.cnstbool!=nullptr)
+      // {
+      //   yyerror("item does not support assgnment");
+      //   // expr->type_check(new Type(true,"bool"));
+      // }
+      // else if(at.cnststring!=nullptr)
+      // {
+      //   yyerror("item does not support assgnment");
+      //   // expr->type_check(new Type(true,"string"));
+      // }
+      // else if(at.cnstlist!=nullptr)
+      // {
+      //   yyerror("item does not support assgnment");
+      //   // expr->type_check(new Type(true,"list",nullptr,new Type(true,"any")));
+      // }
+      // else if(at.cnstchar!=nullptr)
+      // {
+      //   yyerror("item does not support assgnment");
+      //   // expr->type_check(new Type(true,"char"));
+      // }
+      // else if(at.id!=nullptr)
+      // {
+      //   SymbolEntry *e;
+      //   e = st.lookup((at.id)->getName());
+      //   Type type = e->type;
+      //   expr->type_check(type);
+      // }
+      // else if(at.funcall!=nullptr)
+      // {
+      //   yyerror("item does not support assgnment");
+      //   // expr->type_check(new Type(false,"int"));
+      // }
+      // else
+      // {
+      //   yyerror("shit fuck wrong type class ass");
+      // }
     }
   private:
-    Atom at;
+    Atom *at;
     Expr *expr;
 };
 
-class Arracc : public Expr{
+class Arracc : public Atom{ //Pithanon na min exei lythei entelws h fash me Arracc
 public:
-  Arracc(Id *i, Expr *e): name(i), pos(e) {}
+  Arracc(Atom *i, Expr *e): name(i), pos(e) {}
   ~Arracc() { delete name; delete pos; }
   virtual void printOn(std::ostream &out) const override {
     out << "Arrcall(";
@@ -601,7 +628,7 @@ public:
     else yyerror("no such array");
   }
 private:
-  Id *name;
+  Atom *name;
   Type type;
   Expr *pos;
 };
@@ -623,6 +650,10 @@ public:
   void chType(Type ty)
   {
       type=ty;
+  }
+  Type get_type(int i)
+  {
+    return type;
   }
 private:
   Id *var;
@@ -664,6 +695,10 @@ public:
 
   int get_size(){
       return size;
+  }
+  Type get_type(int i)
+  {
+    return var[i]->get_type();
   }
   virtual void printOn(std::ostream &out) const override {
     out << "Decl(";
@@ -734,7 +769,7 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
 };
 
 
-Type::~Type()  { delete type; delete params; delete obj; }
+Type::~Type()  { delete type; delete params; delete obj; delete params2;}
 
 bool Type::operator != (Type t)
 {
@@ -755,7 +790,12 @@ bool Type::operator != (Type t)
 
 int Type::get_param_cnt()
 {
-  return params->get_size();
+  if (params!= nullptr)
+    return params->get_size();
+  if (params2!= nullptr)
+    return params2->get_size();
+  yyerror("no params");
+  
 }
 
 bool Type::has_params()
@@ -765,7 +805,11 @@ bool Type::has_params()
 
 Type Type::get_param_type(int i)
 {
-  return params->get_type(i);
+  if (params!= nullptr)
+    return params->get_type(i);
+  if (params2!= nullptr)
+    return params2->get_type(i);
+  yyerror("no params");
 }
 
 std::string Type::get_type()
@@ -783,6 +827,12 @@ std::string Type::get_type()
 void Type::make_fun(Expls *pars)
 {
   params = pars;
+  isvar = false;
+}
+
+void Type::make_fun2(Varlist *pars)
+{
+  params2 = pars;
   isvar = false;
 }
 
