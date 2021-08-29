@@ -43,6 +43,26 @@ protected:
   Type type;
 };
 
+class Arinit: public Expr {
+  public:
+    Arinit(Type ty, Expr *sz):  size(sz) {type=ty;}
+    ~Arinit() {delete size;}
+    virtual void printOn(std::ostream &out) const override
+    {
+      out<<"array(";
+      // type.printOn(out);
+      out<<",";
+      size->printOn(out);
+      out<<")"; 
+    }
+    virtual void sem() override
+    {
+      size->type_check(new Type(true,"int"));
+    }
+  private:
+    Expr *size;
+};
+
 class Expls: public Expr { //MALLON LEEIPEI H SEM STA EXPRESSIONS
 public:
   Expls(): expls(),size(0) {}

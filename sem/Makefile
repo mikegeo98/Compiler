@@ -2,15 +2,15 @@
 CXX=c++
 CXXFLAGS=-Wall -std=c++11
 default: compiler
-lexer.cpp: lexer.l lexer.hpp
+lexer.cpp: lexer.l 
 	flex -s -o lexer.cpp lexer.l
+lexer.o : lexer.cpp lexer.hpp parser.hpp ast.hpp symbol.hpp
 parser.hpp parser.cpp: parser.y
-	bison --debug -dv -o parser.cpp parser.y
+	bison -dv -o parser.cpp parser.y
 # Add your dependencies here, e.g.
-lexer.o : lexer.hpp lexer.cpp
-parser.o: lexer.hpp symbol.hpp parser.cpp ast.hpp ast.cpp parser.hpp 
+parser.o: parser.cpp lexer.hpp ast.hpp ast.cpp symbol.hpp 
 compiler: lexer.o parser.o 
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o compiler lexer.o parser.o
 clean:
 	$(RM) lexer.cpp parser.cpp parser.hpp parser.output *.o
 distclean: clean

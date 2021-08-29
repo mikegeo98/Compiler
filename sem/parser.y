@@ -227,7 +227,7 @@ expr:
 | T_NOT expr { $$ = new MonOp($1, $2); }
 | expr T_AND expr { $$ = new BinOp($1, $2, $3); }
 | expr T_OR  expr { $$ = new BinOp($1, $2, $3); }
-| "new" type '[' expr ']' 
+| "new" type '[' expr ']' { $$ = new Arinit($2,$4); }
 | "nil" { $$ = new ConstList($1); }
 | "nil?" '(' expr ')'   
   { 
