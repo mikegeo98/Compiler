@@ -4,7 +4,7 @@
 extern int lncnt;
 int yylex();
 void yyerror(const char *msg,...);
-extern int yydebug;
+// extern int yydebug;
 
 #ifndef YYTOKENTYPE //ONASOY AYTO EINAI LATHOS
 # define YYTOKENTYPE

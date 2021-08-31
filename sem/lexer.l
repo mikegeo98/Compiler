@@ -84,7 +84,7 @@ W [ \t\r]
 "head" {return T_HEAD;}
 
 "decl" {return T_DECL;}
-"def" {return T_DEF;}
+"def" {printf("def\n");return T_DEF;}
 "ref" {return T_REF;}
 "return" {return T_RETURN;}
 
@@ -99,7 +99,7 @@ W [ \t\r]
 "true" {return T_TRUE;}
 "false" {return T_FALSE;}
 
-{L}{LC}* {return T_ID;}
+{L}{LC}* {printf("%d T_ID/n",T_ID);return T_ID;}
 {D}+ {return T_CONST;}
 ["][^"]*["] {return T_STRING;}
 ['][^']['] {return T_CONCHAR;}
@@ -107,7 +107,7 @@ W [ \t\r]
 ['][\\][x][0-9a-f][0-9a-f]['] {return T_CONCHAR;}
 
 
-[\+\-\*\/\#\=\<\>\(\)\,\;\:\[\]]   { return yytext[0]; }
+[\+\-\*\/\#\=\<\>\(\)\,\;\:\[\]]   { printf("%c symbol\n",yytext[0]); return yytext[0]; }
 "<>" {return T_NEQUAL;}
 "<=" {return T_SOE;}
 ">=" {return T_GOE;}
@@ -126,7 +126,7 @@ W [ \t\r]
 . {printf ("ERROR Line %d\n",lncnt);}
 
 %%
-void yyerror(const char *msg)
+void yyerror(const char *msg,...)
 {
   fprintf(stderr,"%s %d\n",msg,lncnt);
   exit(1);

@@ -89,7 +89,7 @@
 
 %%
 program:
-    func-def { $$ = $1; }
+    func-def { printf("start");$$ = $1; }
 ;
 func-def:
     "def" header ':' rule0 "end" { $2->add_block($4); $$ = $2; }
@@ -111,7 +111,7 @@ header:
   type T_ID '(' rule35 ')' {$1->make_fun2($4); $$ = new Fundecl(new Id($2),$1,$4);}
 | type T_ID '(' ')' {$1->make_fun(new Expls()); $$ = new Fundecl(new Id($2),$1,nullptr);}
 | T_ID '(' rule35 ')' {$$ = new Fundecl(new Id($1),new Type(false,"void",nullptr,nullptr,$3),$3); }
-| T_ID '(' ')' {$$ = new Fundecl(new Id($1),new Type(false,"void"),nullptr); }
+| T_ID '(' ')' { printf("we are here 1"); $$ = new Fundecl(new Id($1),new Type(false,"void"),nullptr); }
 ;
 rule35:
   formal rule3 { $2->merge($1); $$ = $2; }
@@ -262,7 +262,7 @@ expr:
 
 int main() {
   printf("ok \n");
-  yydebug=1;
+  // yydebug=1;
   int result = yyparse();
   // printf("%d 42\n",result);
   if (result == 0) printf("Success.\n");

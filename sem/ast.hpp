@@ -29,14 +29,15 @@ inline std::ostream& operator<< (std::ostream &out, const AST &t) {
 class Expr: public AST { //DES PARAKATW SXOLIO THELEI KONSTRAKTOR
 public:
   Expr() {}
+  Expr(Expr &ex): type(ex.type) {}
   ~Expr(){}
-  void type_check(Type t) {
+  void type_check(Type *t) {
     sem();
-    if (type != t) yyerror("Type mismatch");
+    if (type != *t) yyerror("Type mismatch");
   }
-  Type get_type()
+  Type *get_type()
   {
-    return type;
+    return &type;
   }
   virtual void sem() {}
 protected:
@@ -75,7 +76,7 @@ public:
       expls.push_back(expr);
       size++;
   }
-  Type get_type(int i)
+  Type *get_type(int i)
   {
     return expls[i]->get_type();
   }
@@ -116,6 +117,7 @@ public:
 
 class Atom: public Stmt, public Expr{
   public:
+    ~Atom(){ delete var;}
     virtual void printOn(std::ostream &out) const override {
       out<<var;
     }
@@ -128,6 +130,10 @@ class Atom: public Stmt, public Expr{
     std::string get_kind(){
       return kind;
     }
+    char * get_var()
+    {
+      return var;
+    }
     // ConstInt * cnstint;
     // ConstChar * cnstchar;
     // ConstString * cnststring;
@@ -136,16 +142,17 @@ class Atom: public Stmt, public Expr{
     // Id *id;
     // Funcal *funcall;
   protected:
-    std::string kind;
     char * var;
+    std::string kind;
     
 };
 //EPISHS EDW DEN EIXAMTE TELEIWSEI
 
 class Decl: public AST { //isws xreiastei destructoras kapoia stigmi
 public:
-  virtual void sem();
-  virtual void printOn(std::ostream &out) const;
+  ~Decl() {}
+  virtual void sem() {}
+  virtual void printOn(std::ostream &out) const {}
 };
 
 class Block: public Stmt {//DECLERATION
@@ -197,6 +204,16 @@ extern int lncnt;
 class Id: public Atom {
 public:
   Id(char *v): offset(-1) { kind = "Id"; var = v;}
+  Id(const Id &id): offset(id.offset) { kind = id.kind; var = new char[200]; strcpy(var,id.var); }
+  Id &operator =(Id &id)
+  {
+    offset=id.offset;
+    kind=id.kind;
+    var = new char[200];
+    strcpy(var,id.var);
+    return *this;
+  }
+  ~Id() {}
   virtual void printOn(std::ostream &out) const override {
     out << "Id(" << var << "@" << offset << ")";
   }
@@ -224,7 +241,7 @@ protected:
 class ConstInt: public Atom {
 public:
   ConstInt(int numb): num(numb) { kind = "ConstInt";}
-  ~ConstInt();
+  ~ConstInt() {}
   virtual void printOn(std::ostream &out) const override {
     out << "ConstInt( " << num << ")";
   }
@@ -244,7 +261,7 @@ private:
 class ConstChar: public Atom {
 public:
   ConstChar(char numb): num(numb) { kind = "ConstChar"; }
-  ~ConstChar();
+  ~ConstChar() {}
   virtual void printOn(std::ostream &out) const override {
     out << "ConstChar( " << num << ")";
   }
@@ -265,7 +282,7 @@ private:
 class ConstString: public Atom {
 public:
   ConstString(std::string numb): num(numb) { kind = "ConstString"; }
-  ~ConstString();
+  ~ConstString() {}
   virtual void printOn(std::ostream &out) const override {
     out << "ConstString( " << num << ")";
   }
@@ -286,7 +303,7 @@ private:
 class ConstBool: public Atom {
 public:
   ConstBool(std::string numb): num(numb) { kind = "ConstBool"; }
-  ~ConstBool();
+  ~ConstBool() {}
   virtual void printOn(std::ostream &out) const override {
     out << "ConstBool( " << num << ")";
   }
@@ -307,7 +324,7 @@ private:
 class ConstList: public Atom {
 public:
   ConstList(std::string numb): num(numb) { kind = "ConstList"; }
-  ~ConstList();
+  ~ConstList() {}
   virtual void printOn(std::ostream &out) const override {
     out << "ConstList( " << num << ")";
   }
@@ -339,7 +356,7 @@ public:
     switch (op) {
       case '+': case '-': case '*': case '/': case T_MOD: 
       {
-          if((right->get_type()).get_type()=="int")
+          if((right->get_type())->get_type()=="int")
             type = new Type(true,"int");
           else
             yyerror("type needs to be int"); 
@@ -347,7 +364,7 @@ public:
       }
       case T_OR: case T_AND: 
       {
-          if((right->get_type()).get_type()=="bool")
+          if((right->get_type())->get_type()=="bool")
             type = new Type(true,"bool");
           else
             yyerror("type needs to be bool"); 
@@ -502,8 +519,10 @@ class Return: public Stmt {
         }
     }
     virtual void sem() override {
-        if(retval != nullptr) 
-            retval->type_check(st.findLastFunc());
+        if(retval != nullptr) {
+            Type *temp=new Type(st.findLastFunc());
+            retval->type_check(temp);
+        }
     }
   private:
     Expr *retval;
@@ -577,7 +596,7 @@ class Ass: public Stmt {
         SymbolEntry *e;
         e = st.lookup(at->getName());
         Type type = e->type;
-        expr->type_check(type);
+        expr->type_check(&type);
       }
       else {
         yyerror("Item does not support assignment");
@@ -658,6 +677,12 @@ private:
 class Vardecl: public Decl { //MIPWS PREPEI NA NAI YPOKLASI TOU STMT?
 public:
   Vardecl(Id *var, Type type): var(var), type(type) {}
+  Vardecl(Vardecl &vd):  type(vd.type) {char *tmp = new char(200); strcpy(tmp,vd.var->get_var());var = new Id(tmp);}
+  Vardecl &operator = (Vardecl &vd){
+    type = vd.type;
+    var = new Id(*(vd.var));
+    return *this;
+  }
   ~Vardecl(){delete var;}
   virtual void printOn(std::ostream &out) const override {
     out << "Vardecl(";
@@ -671,9 +696,9 @@ public:
   {
       type=ty;
   }
-  Type get_type()
+  Type *get_type()
   {
-    return type;
+    return &type;
   }
 private:
   Id *var;
@@ -683,6 +708,15 @@ private:
 class Varlist: public Vardecl {//THE []S ARE WRONG + PASS BY REFERENCE
 public:
   Varlist(): Vardecl(new Id(""), new Type()), size(0), nons(0)  {}// type(),
+  Varlist(Varlist &vl): Vardecl(new Id(""), new Type())
+  {
+    size=vl.size;
+    nons=vl.nons;
+    for(auto k:vl.var)
+    {
+      var.push_back(new Vardecl(*k));
+    }
+  }
   ~Varlist(){
     for (Vardecl *d : var) delete d;
     //for (Type *s : type) delete s;
@@ -716,7 +750,7 @@ public:
   int get_size(){
       return size;
   }
-  Type get_type(int i)
+  Type *get_type(int i)
   {
     return var[i]->get_type();
   }
@@ -788,6 +822,105 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
         Varlist *params;
 };
 
+inline Type::Type(const Type &t): isvar(t.isvar){ 
+    type = new char[200]; 
+    strcpy(type,t.type);
+    params = t.params==nullptr?nullptr:new Expls(*t.params);
+    if(t.obj==nullptr)
+      obj=nullptr;
+    else
+      obj = new Type(t.obj);
+    params2 = t.params2==nullptr?nullptr:new Varlist(*t.params2);
+}
 
+inline Type::~Type()  { delete type; delete params; delete obj; delete params2;}
+
+inline bool Type::operator != (Type t)
+{
+  if(isvar ^ t.isvar) return false;
+  if(type!=t.type||std::string(type)=="any"||std::string(t.type)=="any") return false;
+  if(obj!=nullptr || t.obj!=nullptr)
+    if(obj!=t.obj) return false;
+  if(!isvar)
+  {
+    if (params == nullptr && t.params == nullptr){
+      if (params2->get_size() != (t.params2)->get_size()) return false;
+        for ( int i=0;i<params2->get_size();i++ )
+        {
+          if( params2->get_type(i)!=(t.params2)->get_type(i)) return false;
+        }
+    }
+    else if (params2 == nullptr && t.params2 == nullptr){
+      if (params->get_size() != (t.params)->get_size()) return false;
+        for ( int i=0;i<params->get_size();i++ )
+        {
+          if( params->get_type(i)!=(t.params)->get_type(i)) return false;
+        }
+    }
+    else if (params == nullptr && t.params2 == nullptr){
+      if (params2->get_size() != (t.params)->get_size()) return false;
+        for ( int i=0;i<params2->get_size();i++ )
+        {
+          if( params2->get_type(i)!=(t.params)->get_type(i)) return false;
+        }
+    }
+    else {
+      if (params->get_size() != (t.params2)->get_size()) return false;
+        for ( int i=0;i<params->get_size();i++ )
+        {
+          if( params->get_type(i)!=(t.params2)->get_type(i)) return false;
+        }
+    }
+  }
+  return true;
+}
+
+inline int Type::get_param_cnt()
+{
+  if (params!= nullptr)
+    return params->get_size();
+  if (params2!= nullptr)
+    return params2->get_size();
+  yyerror("no params");
+  
+}
+
+inline bool Type::has_params()
+{
+  return !isvar;
+}
+
+inline Type *Type::get_param_type(int i)
+{
+  if (params!= nullptr)
+    return params->get_type(i);
+  if (params2!= nullptr)
+    return params2->get_type(i);
+  yyerror("no params");
+}
+
+inline std::string Type::get_type()
+{
+  if (std::string(type)=="list" || std::string(type) == "array")
+  {
+    return std::string(type)+std::string(obj->type);
+  }
+  else
+  {
+    return type;
+  }
+}
+
+inline void Type::make_fun(Expls *pars)
+{
+  params = pars;
+  isvar = false;
+}
+
+inline void Type::make_fun2(Varlist *pars)
+{
+  params2 = pars;
+  isvar = false;
+}
 
 #endif

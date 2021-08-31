@@ -935,7 +935,7 @@ YY_RULE_SETUP
 case 15:
 YY_RULE_SETUP
 #line 87 "lexer.l"
-{return T_DEF;}
+{printf("def\n");return T_DEF;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
@@ -995,7 +995,7 @@ YY_RULE_SETUP
 case 27:
 YY_RULE_SETUP
 #line 102 "lexer.l"
-{return T_ID;}
+{printf("%d T_ID/n",T_ID);return T_ID;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
@@ -1027,7 +1027,7 @@ YY_RULE_SETUP
 case 33:
 YY_RULE_SETUP
 #line 110 "lexer.l"
-{ return yytext[0]; }
+{ printf("%c symbol\n",yytext[0]); return yytext[0]; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
@@ -2114,7 +2114,7 @@ void yyfree (void * ptr )
 
 #line 128 "lexer.l"
 
-void yyerror(const char *msg)
+void yyerror(const char *msg,...)
 {
   fprintf(stderr,"%s %d\n",msg,lncnt);
   exit(1);

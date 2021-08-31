@@ -109,7 +109,7 @@
 # define YY_YY_PARSER_HPP_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -1559,7 +1559,7 @@ yyreduce:
     {
   case 2:
 #line 92 "parser.y"
-             { (yyval.fundecl) = (yyvsp[0].fundecl); }
+             { printf("start");(yyval.fundecl) = (yyvsp[0].fundecl); }
 #line 1564 "parser.cpp"
     break;
 
@@ -1631,7 +1631,7 @@ yyreduce:
 
   case 14:
 #line 114 "parser.y"
-               {(yyval.fundecl) = new Fundecl(new Id((yyvsp[-2].var)),new Type(false,"void"),nullptr); }
+               { printf("we are here 1"); (yyval.fundecl) = new Fundecl(new Id((yyvsp[-2].var)),new Type(false,"void"),nullptr); }
 #line 1636 "parser.cpp"
     break;
 

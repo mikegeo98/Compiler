@@ -12,13 +12,14 @@ class Varlist;
 
 class Type {
   public:
-    Type(bool iv=true, std::string ty="", Expls *pa=nullptr, Type *o = nullptr, Varlist *pa2 = nullptr): isvar(iv), type(nullptr), params(pa), obj(o), params2(pa2) {strcpy(type,ty.c_str());}
-    Type(const Type &t): isvar(t.isvar), type(t.type), params(t.params), obj(t.obj), params2(t.params2) {}
+    Type(bool iv=true, std::string ty="", Expls *pa=nullptr, Type *o = nullptr, Varlist *pa2 = nullptr): isvar(iv), type(nullptr), params(pa), obj(o), params2(pa2) {type = new char[200];strcpy(type,ty.c_str());}
+    Type(const Type &t);
     ~Type();
+    // Type &operator = (Type &ty)
     bool operator != (Type t);
     int get_param_cnt();
     bool has_params();
-    Type get_param_type(int i);
+    Type *get_param_type(int i);
     void make_fun(Expls *pars);
     void make_fun2(Varlist *pars);
     std::string get_type();
@@ -88,13 +89,14 @@ public:
   }
   Type findLastFunc()
   {
-    return funs.back();
+    Type t=new Type(funs.back());
+    return t;
   }
 private:  
   std::vector<Scope> scopes;
   std::vector<Type> funs;
 };
 
-extern SymbolTable st;
+inline SymbolTable st;
 
 #endif
