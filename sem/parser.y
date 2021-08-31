@@ -125,8 +125,8 @@ formal:
 | type T_ID rule4 { $3->fixtypes($1); $$ = $3; }
 ;
 rule4:
-  ',' T_ID rule4 { $3->append_vardecl(new Id($2)); $$ = $3; }
-| %empty { $$ = new Varlist(); }
+  ',' T_ID rule4 {printf("%s Before entering append vardecl\n",$2); $3->append_vardecl(new Id($2)); $$ = $3; }
+| %empty {printf("We are at the end of rule 4 \n"); $$ = new Varlist(); }
 ;
 type: 
   "int"  { $$ = new Type(true,"int"); }
@@ -200,7 +200,7 @@ rule7:
 ;
 atom:
   T_ID { $$ = new Id($1); }
-| T_STRING { $$ = new ConstString($1); }
+| T_STRING {if ($1 == nullptr) printf("NULL\n"); else printf("%s\n", $1); $$ = new ConstString($1); }
 | atom '[' expr ']' { $$ = new Arracc($1,$3); }  
 | call { $$ = $1; }
 ;

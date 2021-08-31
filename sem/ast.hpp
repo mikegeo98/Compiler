@@ -203,7 +203,7 @@ extern int lncnt;
 
 class Id: public Atom {
 public:
-  Id(char *v): offset(-1) { kind = "Id"; var = v;}
+  Id(char *v): offset(-1) {printf("%s Id constructor \n", v); kind = "Id"; var = v;}
   Id(const Id &id): offset(id.offset) { kind = id.kind; var = new char[200]; strcpy(var,id.var); }
   Id &operator =(Id &id)
   {

@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/compiler",
-            "args": ["<${workspaceFolder}/test.tony"],
+            "args": ["-<${workspaceFolder}/test.tony"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

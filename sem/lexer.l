@@ -3,7 +3,7 @@
 %{
     #include "lexer.hpp"
     #include "ast.hpp"
-    // #include "parser.hpp"
+    #include "parser.hpp"
     // #define T_eof 0
     // #define T_AND 1001
     // #define T_OR 1002
@@ -99,12 +99,12 @@ W [ \t\r]
 "true" {return T_TRUE;}
 "false" {return T_FALSE;}
 
-{L}{LC}* {printf("%d T_ID/n",T_ID);return T_ID;}
-{D}+ {return T_CONST;}
-["][^"]*["] {return T_STRING;}
-['][^']['] {return T_CONCHAR;}
-['][\\][0nrt'"\\]['] {return T_CONCHAR;}
-['][\\][x][0-9a-f][0-9a-f]['] {return T_CONCHAR;}
+{L}{LC}* {printf("TID %s\n",yytext);yylval.var = yytext;return T_ID;}
+{D}+ {yylval.num = atoi(yytext); return T_CONST;}
+["][^"]*["] {yylval.str = yytext; return T_STRING;}
+['][^']['] {yylval.chr = yytext[0];return T_CONCHAR;}
+['][\\][0nrt'"\\]['] {yylval.chr = yytext[0]; return T_CONCHAR;}
+['][\\][x][0-9a-f][0-9a-f]['] {yylval.chr = yytext[0]; return T_CONCHAR;}
 
 
 [\+\-\*\/\#\=\<\>\(\)\,\;\:\[\]]   { printf("%c symbol\n",yytext[0]); return yytext[0]; }

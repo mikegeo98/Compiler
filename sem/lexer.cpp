@@ -530,7 +530,7 @@ char *yytext;
 #line 4 "lexer.l"
     #include "lexer.hpp"
     #include "ast.hpp"
-    // #include "parser.hpp"
+    #include "parser.hpp"
     // #define T_eof 0
     // #define T_AND 1001
     // #define T_OR 1002
@@ -995,34 +995,34 @@ YY_RULE_SETUP
 case 27:
 YY_RULE_SETUP
 #line 102 "lexer.l"
-{printf("%d T_ID/n",T_ID);return T_ID;}
+{printf("TID %s\n",yytext);yylval.var = yytext;return T_ID;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 103 "lexer.l"
-{return T_CONST;}
+{yylval.num = atoi(yytext); return T_CONST;}
 	YY_BREAK
 case 29:
 /* rule 29 can match eol */
 YY_RULE_SETUP
 #line 104 "lexer.l"
-{return T_STRING;}
+{yylval.str = yytext; return T_STRING;}
 	YY_BREAK
 case 30:
 /* rule 30 can match eol */
 YY_RULE_SETUP
 #line 105 "lexer.l"
-{return T_CONCHAR;}
+{yylval.chr = yytext[0];return T_CONCHAR;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 106 "lexer.l"
-{return T_CONCHAR;}
+{yylval.chr = yytext[0]; return T_CONCHAR;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 107 "lexer.l"
-{return T_CONCHAR;}
+{yylval.chr = yytext[0]; return T_CONCHAR;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
