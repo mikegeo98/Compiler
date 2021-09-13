@@ -117,7 +117,7 @@ public:
 
 class Atom: public Stmt, public Expr{
   public:
-    ~Atom(){ delete var;}
+    ~Atom(){ /*printf("%c%c%c%c%c%c%c%c%c%c Atom\n",var[0],var[1],var[2],var[3],var[4],var[5],var[6],var[7],var[8],var[9]);*/ delete[] var;}
     virtual void printOn(std::ostream &out) const override {
       out<<var;
     }
@@ -203,7 +203,12 @@ extern int lncnt;
 
 class Id: public Atom {
 public:
-  Id(char *v): offset(-1) {printf("%s Id constructor \n", v); kind = "Id"; var = v;}
+  Id(char *v): offset(-1) {
+    //printf("%s Id constructor \n", v); 
+    kind = "Id"; 
+    var = new char[200];
+    strcpy(var,v);
+  }
   Id(const Id &id): offset(id.offset) { kind = id.kind; var = new char[200]; strcpy(var,id.var); }
   Id &operator =(Id &id)
   {
@@ -213,7 +218,7 @@ public:
     strcpy(var,id.var);
     return *this;
   }
-  ~Id() {}
+  ~Id() {printf("%c Id\n",var[0]);}
   virtual void printOn(std::ostream &out) const override {
     out << "Id(" << var << "@" << offset << ")";
   }
@@ -302,7 +307,7 @@ private:
 
 class ConstBool: public Atom {
 public:
-  ConstBool(std::string numb): num(numb) { kind = "ConstBool"; }
+  ConstBool(std::string numb) {num=numb; kind = "ConstBool"; }
   ~ConstBool() {}
   virtual void printOn(std::ostream &out) const override {
     out << "ConstBool( " << num << ")";
@@ -833,7 +838,12 @@ inline Type::Type(const Type &t): isvar(t.isvar){
     params2 = t.params2==nullptr?nullptr:new Varlist(*t.params2);
 }
 
-inline Type::~Type()  { delete type; delete params; delete obj; delete params2;}
+inline Type::~Type()  { 
+  delete[] type; 
+  delete params; 
+  delete obj; 
+  delete params2;
+}
 
 inline bool Type::operator != (Type t)
 {

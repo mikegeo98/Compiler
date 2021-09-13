@@ -223,7 +223,7 @@ expr:
 | expr T_SOE expr { $$ = new BinOp($1, $2, $3); }
 | expr T_GOE expr { $$ = new BinOp($1, $2, $3); }
 | "true" { $$ = new ConstBool($1); }
-| "false" { $$ = new ConstBool($1); }
+| "false" { printf("here");$$ = new ConstBool($1);printf("and here\n"); }
 | T_NOT expr { $$ = new MonOp($1, $2); }
 | expr T_AND expr { $$ = new BinOp($1, $2, $3); }
 | expr T_OR  expr { $$ = new BinOp($1, $2, $3); }
