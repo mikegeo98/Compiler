@@ -12,7 +12,12 @@ class Varlist;
 
 class Type {
   public:
-    Type(bool iv=true, std::string ty="", Expls *pa=nullptr, Type *o = nullptr, Varlist *pa2 = nullptr): isvar(iv), type(nullptr), params(pa), obj(o), params2(pa2) {type = new char[200];strcpy(type,ty.c_str());}
+    Type(bool iv=true, std::string ty="", Expls *pa=nullptr, Type *o = nullptr, Varlist *pa2 = nullptr): isvar(iv), type(nullptr), params(pa), obj(o), params2(pa2) {
+      type = new char[200];
+      printf("%d Type::Type() ",ty.c_str()[4]=='\0');
+      strcpy(type,ty.c_str()); 
+      printf("%s eisai edw re malaka?\n",type);
+    }
     Type(const Type &t);
     ~Type();
     // Type &operator = (Type &ty)

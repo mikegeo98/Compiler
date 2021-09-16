@@ -1,0 +1,3 @@
+clear
+make
+valgrind --leak-check=yes ./compiler < test.tony

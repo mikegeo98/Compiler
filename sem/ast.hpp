@@ -682,7 +682,12 @@ private:
 class Vardecl: public Decl { //MIPWS PREPEI NA NAI YPOKLASI TOU STMT?
 public:
   Vardecl(Id *var, Type type): var(var), type(type) {}
-  Vardecl(Vardecl &vd):  type(vd.type) {char *tmp = new char(200); strcpy(tmp,vd.var->get_var());var = new Id(tmp);}
+  Vardecl(Vardecl &vd):  type(vd.type) {
+    char *tmp = new char(200); 
+    printf("%s VD IN Vardecl::Vardecl(Vardecl &vd)",vd.var->get_var()); 
+    strcpy(tmp,vd.var->get_var());
+    var = new Id(tmp);
+  }
   Vardecl &operator = (Vardecl &vd){
     type = vd.type;
     var = new Id(*(vd.var));
@@ -780,7 +785,7 @@ private:
 
 class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
     public:
-        Fundecl(Id *i, Type *ty, Varlist *pa, Block *bl=nullptr): block(bl), id(i),type(ty), params(pa){std::cout<<ty->get_type()<<"type in Id::Id()";}
+        Fundecl(Id *i, Type *ty, Varlist *pa, Block *bl=nullptr): block(bl), id(i),type(*ty), params(pa){std::cout<<type.get_type()<<"type in Fundecl::Fundecl()";}
         ~Fundecl() {
             delete id;
             if (block!=nullptr)
@@ -800,6 +805,7 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
         {
             // id->printOn(std::cout);
             st.openScope();
+            std::cout<<type.get_type()<<"type in Fundecl::sem()";
             // std::cout<<type.get_type();
             // std::string a(id->getName());
             // std::cout<<a<<" in Fundecl::sem()\n";
