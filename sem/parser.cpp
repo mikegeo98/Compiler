@@ -184,7 +184,7 @@ union YYSTYPE
   char chr;
   int num;
   int op;
-  char *Bool;
+  int Bool;
   char *str;
   Elsif *elsif;
   Atom *atom;
@@ -577,7 +577,7 @@ static const yytype_uint8 yyrline[] =
      187,   190,   191,   194,   195,   198,   199,   202,   203,   204,
      205,   208,   209,   210,   211,   212,   213,   214,   215,   216,
      217,   218,   219,   220,   221,   222,   223,   224,   225,   226,
-     227,   228,   229,   230,   231,   232,   238,   239,   245
+     227,   228,   229,   230,   231,   232,   240,   241,   249
 };
 #endif
 
@@ -1559,7 +1559,7 @@ yyreduce:
     {
   case 2:
 #line 92 "parser.y"
-             { printf("start");(yyval.fundecl) = (yyvsp[0].fundecl); }
+             { printf("start\n");(yyvsp[0].fundecl)->sem(); }
 #line 1564 "parser.cpp"
     break;
 
@@ -1631,7 +1631,7 @@ yyreduce:
 
   case 14:
 #line 114 "parser.y"
-               { printf("we are here 1"); (yyval.fundecl) = new Fundecl(new Id((yyvsp[-2].var)),new Type(false,"void"),nullptr); }
+               { printf("we are here 1"); (yyval.fundecl) = new Fundecl(new Id((yyvsp[-2].var)),new Type(false,"void"),nullptr);}
 #line 1636 "parser.cpp"
     break;
 
@@ -1667,7 +1667,7 @@ yyreduce:
 
   case 20:
 #line 128 "parser.y"
-                 {printf("%s Before entering append vardecl\n",(yyvsp[-1].var)); (yyvsp[0].varlist)->append_vardecl(new Id((yyvsp[-1].var))); (yyval.varlist) = (yyvsp[0].varlist); }
+                 {/*printf("%s Before entering append vardecl\n",$2);*/ (yyvsp[0].varlist)->append_vardecl(new Id((yyvsp[-1].var))); (yyval.varlist) = (yyvsp[0].varlist); }
 #line 1672 "parser.cpp"
     break;
 
@@ -1984,7 +1984,7 @@ yyreduce:
 
   case 69:
 #line 226 "parser.y"
-          { printf("here");/*$$ = new ConstBool($1);*/printf("and here\n"); }
+          { printf("here");(yyval.expr) = new ConstBool((yyvsp[0].Bool));printf("and here\n"); }
 #line 1989 "parser.cpp"
     break;
 
@@ -2014,7 +2014,7 @@ yyreduce:
 
   case 74:
 #line 231 "parser.y"
-        { (yyval.expr) = new ConstList((yyvsp[0].var)); }
+        { (yyval.expr) = new ConstList((yyvsp[0].op)); }
 #line 2019 "parser.cpp"
     break;
 
@@ -2023,39 +2023,45 @@ yyreduce:
   { 
     Expls* a = new Expls(); 
     a -> append_exprls((yyvsp[-1].expr)); 
-    (yyval.expr) = new Funcal(new Id((yyvsp[-3].var)),a); //(false, "bool", a),a); COULD BE BETTER
+    char* c=new char[10];
+    strcpy(c,"nil?");
+    (yyval.expr) = new Funcal(new Id(c),a); //(false, "bool", a),a); COULD BE BETTER
   }
-#line 2029 "parser.cpp"
+#line 2031 "parser.cpp"
     break;
 
   case 76:
-#line 238 "parser.y"
+#line 240 "parser.y"
                 { (yyval.expr) = new BinOp((yyvsp[-2].expr), (yyvsp[-1].op), (yyvsp[0].expr)); }
-#line 2035 "parser.cpp"
+#line 2037 "parser.cpp"
     break;
 
   case 77:
-#line 240 "parser.y"
+#line 242 "parser.y"
   { 
     Expls* a = new Expls(); 
     a -> append_exprls((yyvsp[-1].expr)); 
-    (yyval.expr) = new Funcal(new Id((yyvsp[-3].var)),a); //COULD BE BETTER
+    char* c=new char[10];
+    strcpy(c,"head");
+    (yyval.expr) = new Funcal(new Id(c),a); //COULD BE BETTER
   }
-#line 2045 "parser.cpp"
+#line 2049 "parser.cpp"
     break;
 
   case 78:
-#line 246 "parser.y"
+#line 250 "parser.y"
   { 
     Expls* a = new Expls(); 
     a -> append_exprls((yyvsp[-1].expr)); 
-    (yyval.expr) = new Funcal(new Id((yyvsp[-3].var)),a); //COULD BE BETTER
+    char* c=new char[10];
+    strcpy(c,"tail");
+    (yyval.expr) = new Funcal(new Id(c),a); //COULD BE BETTER
   }
-#line 2055 "parser.cpp"
+#line 2061 "parser.cpp"
     break;
 
 
-#line 2059 "parser.cpp"
+#line 2065 "parser.cpp"
 
       default: break;
     }
@@ -2287,7 +2293,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 254 "parser.y"
+#line 260 "parser.y"
 
 
 // void yyerror (const char * msg)
@@ -2301,6 +2307,7 @@ int main() {
   printf("ok \n");
   // yydebug=1;
   int result = yyparse();
+  std::ios::sync_with_stdio(false);
   // printf("%d 42\n",result);
   if (result == 0) printf("Success.\n");
   return result;

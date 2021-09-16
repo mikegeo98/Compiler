@@ -204,7 +204,7 @@ extern int lncnt;
 class Id: public Atom {
 public:
   Id(char *v): offset(-1) {
-    //printf("%s Id constructor \n", v); 
+    printf("%s Id constructor to moyni tis manas sosu\n", v); 
     kind = "Id"; 
     var = new char[200];
     strcpy(var,v);
@@ -218,7 +218,7 @@ public:
     strcpy(var,id.var);
     return *this;
   }
-  ~Id() {printf("%c Id\n",var[0]);}
+  ~Id() {/*printf("%c Id\n",var[0]);*/}
   virtual void printOn(std::ostream &out) const override {
     out << "Id(" << var << "@" << offset << ")";
   }
@@ -307,7 +307,7 @@ private:
 
 class ConstBool: public Atom {
 public:
-  ConstBool(std::string numb) {num=numb; kind = "ConstBool"; }
+  ConstBool(int numb) {num=numb; kind = "ConstBool"; }//maybe string
   ~ConstBool() {}
   virtual void printOn(std::ostream &out) const override {
     out << "ConstBool( " << num << ")";
@@ -322,13 +322,13 @@ public:
     return "Const Bool";
   }
 private:
-  std::string num;
+  int num;//maybe string
   
 };
 
 class ConstList: public Atom {
 public:
-  ConstList(std::string numb): num(numb) { kind = "ConstList"; }
+  ConstList(int numb): num(numb) { kind = "ConstList"; }
   ~ConstList() {}
   virtual void printOn(std::ostream &out) const override {
     out << "ConstList( " << num << ")";
@@ -343,7 +343,7 @@ public:
     return "Const List";
   }
 private:
-  std::string num;
+  int num;
   
 };
 
@@ -780,7 +780,7 @@ private:
 
 class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
     public:
-        Fundecl(Id *i, Type ty, Varlist *pa, Block *bl=nullptr): block(bl), id(i),type(ty), params(pa){}
+        Fundecl(Id *i, Type *ty, Varlist *pa, Block *bl=nullptr): block(bl), id(i),type(ty), params(pa){std::cout<<ty->get_type()<<"type in Id::Id()";}
         ~Fundecl() {
             delete id;
             if (block!=nullptr)
@@ -798,19 +798,27 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
         }
         virtual void sem() override
         {
-            st.insert(id->getName(),type);
-            if(block!=nullptr)
-            {
-              st.addFunc(type);
-            }
+            // id->printOn(std::cout);
             st.openScope();
-            params->sem();
-            if (block!=nullptr)
-                block->sem();
-            if(block!=nullptr)
-            {
-              st.remFunc();
-            }
+            // std::cout<<type.get_type();
+            // std::string a(id->getName());
+            // std::cout<<a<<" in Fundecl::sem()\n";
+            // printf("%s in Fundecl::sem()\n",a);
+            st.insert(id->getName(),type);
+            // printf("%s inserted in st\n",id->getName());
+            // if(block!=nullptr)
+            // {
+            //   st.addFunc(type);
+            // }
+            // st.openScope();
+            // params->sem();
+            // if (block!=nullptr)
+            //     block->sem();
+            // if(block!=nullptr)
+            // {
+            //   st.remFunc();
+            // }
+            // st.closeScope();
             st.closeScope();
         }
         bool isfuncdef(){

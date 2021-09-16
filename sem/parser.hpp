@@ -113,7 +113,7 @@ union YYSTYPE
   char chr;
   int num;
   int op;
-  char *Bool;
+  int Bool;
   char *str;
   Elsif *elsif;
   Atom *atom;

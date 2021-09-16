@@ -10,7 +10,7 @@
 %token T_INT "int" 
 %token T_LIST "list"
 %token T_NEW "new"
-%token<var> T_NIL "nil"
+%token<op> T_NIL "nil"
 %token<var> T_ISNIL "nil?"
 %token<var> T_TAIL "tail"
 %token<var> T_HEAD "head"
@@ -68,7 +68,7 @@
   char chr;
   int num;
   int op;
-  char *Bool;
+  int Bool;
   char *str;
   Elsif *elsif;
   Atom *atom;
@@ -89,7 +89,7 @@
 
 %%
 program:
-    func-def { printf("start");$$ = $1; }
+    func-def { printf("start\n");$1->sem(); }
 ;
 func-def:
     "def" header ':' rule0 "end" { $2->add_block($4); $$ = $2; }
@@ -111,7 +111,7 @@ header:
   type T_ID '(' rule35 ')' {$1->make_fun2($4); $$ = new Fundecl(new Id($2),$1,$4);}
 | type T_ID '(' ')' {$1->make_fun(new Expls()); $$ = new Fundecl(new Id($2),$1,nullptr);}
 | T_ID '(' rule35 ')' {$$ = new Fundecl(new Id($1),new Type(false,"void",nullptr,nullptr,$3),$3); }
-| T_ID '(' ')' { printf("we are here 1"); $$ = new Fundecl(new Id($1),new Type(false,"void"),nullptr); }
+| T_ID '(' ')' { printf("we are here 1"); $$ = new Fundecl(new Id($1),new Type(false,"void"),nullptr);}
 ;
 rule35:
   formal rule3 { $2->merge($1); $$ = $2; }
@@ -125,7 +125,7 @@ formal:
 | type T_ID rule4 { $3->fixtypes($1); $$ = $3; }
 ;
 rule4:
-  ',' T_ID rule4 {printf("%s Before entering append vardecl\n",$2); $3->append_vardecl(new Id($2)); $$ = $3; }
+  ',' T_ID rule4 {/*printf("%s Before entering append vardecl\n",$2);*/ $3->append_vardecl(new Id($2)); $$ = $3; }
 | %empty {printf("We are at the end of rule 4 \n"); $$ = new Varlist(); }
 ;
 type: 
@@ -222,31 +222,37 @@ expr:
 | expr '>' expr { $$ = new BinOp($1, $2, $3); }
 | expr T_SOE expr { $$ = new BinOp($1, $2, $3); }
 | expr T_GOE expr { $$ = new BinOp($1, $2, $3); }
-| "true" { $$ = new ConstBool($1); }
-| "false" { printf("here");$$ = new ConstBool($1);printf("and here\n"); }
+| T_TRUE { $$ = new ConstBool($1); }
+| T_FALSE { printf("here");$$ = new ConstBool($1);printf("and here\n"); }
 | T_NOT expr { $$ = new MonOp($1, $2); }
 | expr T_AND expr { $$ = new BinOp($1, $2, $3); }
 | expr T_OR  expr { $$ = new BinOp($1, $2, $3); }
 | "new" type '[' expr ']' { $$ = new Arinit($2,$4); }
-| "nil" { $$ = new ConstList($1); }
+| T_NIL { $$ = new ConstList($1); }
 | "nil?" '(' expr ')'   
   { 
     Expls* a = new Expls(); 
     a -> append_exprls($3); 
-    $$ = new Funcal(new Id($1),a); //(false, "bool", a),a); COULD BE BETTER
+    char* c=new char[10];
+    strcpy(c,"nil?");
+    $$ = new Funcal(new Id(c),a); //(false, "bool", a),a); COULD BE BETTER
   } 
 | expr '#' expr { $$ = new BinOp($1, $2, $3); }
 | "head" '(' expr ')' 
   { 
     Expls* a = new Expls(); 
     a -> append_exprls($3); 
-    $$ = new Funcal(new Id($1),a); //COULD BE BETTER
+    char* c=new char[10];
+    strcpy(c,"head");
+    $$ = new Funcal(new Id(c),a); //COULD BE BETTER
   } 
 | "tail" '(' expr ')'
   { 
     Expls* a = new Expls(); 
     a -> append_exprls($3); 
-    $$ = new Funcal(new Id($1),a); //COULD BE BETTER
+    char* c=new char[10];
+    strcpy(c,"tail");
+    $$ = new Funcal(new Id(c),a); //COULD BE BETTER
   } 
 ;
 
@@ -264,6 +270,7 @@ int main() {
   printf("ok \n");
   // yydebug=1;
   int result = yyparse();
+  std::ios::sync_with_stdio(false);
   // printf("%d 42\n",result);
   if (result == 0) printf("Success.\n");
   return result;

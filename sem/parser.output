@@ -141,7 +141,7 @@ Terminals, with rules where they appear
     "int" (264) 21
     "list" (265) 25
     "new" (266) 72
-    "nil" <var> (267) 73
+    "nil" <op> (267) 73
     "nil?" <var> (268) 74
     "tail" <var> (269) 77
     "head" <var> (270) 76

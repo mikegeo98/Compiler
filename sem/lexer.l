@@ -101,7 +101,7 @@ W [ \t\r]
 
 {L}{LC}* {printf("TID %s\n",yytext);yylval.var = yytext;return T_ID;}
 {D}+ {yylval.num = atoi(yytext); return T_CONST;}
-["][^"]*["] {yylval.str = yytext; return T_STRING;}
+["]([^"\\\n]|\\.|\\\n)*["] {yylval.str = yytext; return T_STRING;}
 ['][^']['] {yylval.chr = yytext[0];return T_CONCHAR;}
 ['][\\][0nrt'"\\]['] {yylval.chr = yytext[0]; return T_CONCHAR;}
 ['][\\][x][0-9a-f][0-9a-f]['] {yylval.chr = yytext[0]; return T_CONCHAR;}

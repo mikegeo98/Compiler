@@ -36,7 +36,7 @@ struct SymbolEntry {
   Type type;
   int nesting, offset;
   SymbolEntry() {}
-  SymbolEntry(Type t, int nst, int ofs) : type(t), nesting(nst), offset(ofs) {}
+  SymbolEntry(Type *t, int nst, int ofs) : type(t), nesting(nst), offset(ofs) {}
 };
 
 class Scope {
@@ -50,7 +50,7 @@ public:
   void insert(std::string c, Type t) {
     if (locals.find(c) != locals.end())
       yyerror("Duplicate variable");
-    locals[c] = SymbolEntry(t, nesting, offset++);
+    locals[c] = SymbolEntry(&t, nesting, offset++);
     ++size;
   }
   int getSize() const { return size; }
@@ -76,7 +76,12 @@ public:
     yyerror("Variable not found");
     return nullptr;
   }
-  void insert(std::string c, Type t) { scopes.back().insert(c, t); }
+  void insert(std::string c, Type t) { 
+    // printf("%s in SymbolTable::insert\n",c);
+    // std::cout<<c<<" in SymbolTable::insert\n";
+    std::cout<<t.get_type()<<" type in insert::Symbolentry\n";
+    scopes.back().insert(c, t); 
+  }
   int getSizeOfCurrentScope() const { return scopes.back().getSize(); }
   int getCurrentNesting() const { return scopes.size() - 1; }
   void addFunc(Type type)
