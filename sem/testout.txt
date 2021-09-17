@@ -1,0 +1,1319 @@
+ok 
+def
+TID solve
+( symbol
+) symbol
+we are here 1Type::type() has type DICK
+solve Id constructor to moyni tis manas sosu
+Type::type() has type void
+voidtype in Fundecl::Fundecl(): symbol
+def
+TID hanoi
+( symbol
+Type::type() has type int
+TID rings
+; symbol
+We are at the end of rule 4 
+Type::type() has type DICK
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+Type::type() has type char
+[ symbol
+] symbol
+Type::type() has type array
+TID source
+, symbol
+TID target
+, symbol
+TID auxiliary
+) symbol
+We are at the end of rule 4 
+Type::type() has type DICK
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+TID YYVAL auxiliary
+auxiliary Before entering append vardecl
+Type::type() has type non
+Type::type() has type DICK
+Type::type() has type DICK
+auxiliary Id constructor to moyni tis manas sosu
+TID YYVAL auxiliary
+target Before entering append vardecl
+Type::type() has type non
+Type::type() has type DICK
+Type::type() has type DICK
+target Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+hanoi Id constructor to moyni tis manas sosu
+Type::type() has type void
+Decl(0 
+0 
+)Type::type() has type DICK
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+voidtype in Fundecl::Fundecl(): symbol
+def
+TID move
+( symbol
+Type::type() has type char
+[ symbol
+] symbol
+Type::type() has type array
+TID source
+, symbol
+TID target
+) symbol
+We are at the end of rule 4 
+Type::type() has type DICK
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+TID YYVAL target
+target Before entering append vardecl
+Type::type() has type non
+Type::type() has type DICK
+Type::type() has type DICK
+target Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+move Id constructor to moyni tis manas sosu
+Type::type() has type void
+Decl(0 
+0 
+)Type::type() has type DICK
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+voidtype in Fundecl::Fundecl(): symbol
+TID puts
+( symbol
+"Moving from "
+Type::type() has type DICK
+) symbol
+Type::type() has type DICK
+Type::type() has type DICK
+puts Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+TID puts
+( symbol
+TID source
+) symbol
+Type::type() has type DICK
+source Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+Type::type() has type DICK
+puts Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+TID puts
+( symbol
+" to "
+Type::type() has type DICK
+) symbol
+Type::type() has type DICK
+Type::type() has type DICK
+puts Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+TID puts
+( symbol
+TID target
+) symbol
+Type::type() has type DICK
+target Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+Type::type() has type DICK
+puts Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+TID puts
+( symbol
+".\n"
+Type::type() has type DICK
+) symbol
+Type::type() has type DICK
+Type::type() has type DICK
+puts Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+TID rings
+Type::type() has type DICK
+rings Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+: symbol
+Type::type() has type DICK
+TID hanoi
+( symbol
+TID rings
+- symbol
+Type::type() has type DICK
+rings Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+, symbol
+Type::type() has type DICK
+TID source
+, symbol
+Type::type() has type DICK
+source Id constructor to moyni tis manas sosu
+TID auxiliary
+, symbol
+Type::type() has type DICK
+auxiliary Id constructor to moyni tis manas sosu
+TID target
+) symbol
+Type::type() has type DICK
+target Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+Type::type() has type DICK
+hanoi Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+TID move
+( symbog a token: Next token is token "def" ()
+Shifting token "def" ()
+Entering state 1
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 8
+Reading a token: Next token is token '(' ()
+Shifting token '(' ()
+Entering state 13
+Reading a token: Next token is token "char" ()
+Shifting token "char" ()
+Entering state 5
+Reducing stack by rule 23 (line 134):
+   $1 = token "char" ()
+-> $$ = nterm type ()
+Stack now 0 1 9 14 1 9 14 1 8 13
+Entering state 22
+Reading a token: Next token is token '[' ()
+Shifting token '[' ()
+Entering state 16
+Reading a token: Next token is token ']' ()
+Shifting token ']' ()
+Entering state 31
+Reducing stack by rule 24 (line 135):
+   $1 = nterm type ()
+   $2 = token '[' ()
+   $3 = token ']' ()
+-> $$ = nterm type ()
+Stack now 0 1 9 14 1 9 14 1 8 13
+Entering state 22
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 37
+Reading a token: Next token is token ',' ()
+Shifting token ',' ()
+Entering state 60
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 89
+Reading a token: Next token is token ')' ()
+Reducing stack by rule 20 (line 129):
+-> $$ = nterm rule4 ()
+Stack now 0 1 9 14 1 9 14 1 8 13 22 37 60 89
+Entering state 120
+Reducing stack by rule 19 (line 128):
+   $1 = token ',' ()
+   $2 = token T_ID ()
+   $3 = nterm rule4 ()
+-> $$ = nterm rule4 ()
+Stack now 0 1 9 14 1 9 14 1 8 13 22 37
+Entering state 61
+Reducing stack by rule 18 (line 125):
+   $1 = nterm type ()
+   $2 = token T_ID ()
+   $3 = nterm rule4 ()
+-> $$ = nterm formal ()
+Stack now 0 1 9 14 1 9 14 1 8 13
+Entering state 21
+Next token is token ')' ()
+Reducing stack by rule 16 (line 121):
+-> $$ = nterm rule3 ()
+Stack now 0 1 9 14 1 9 14 1 8 13 21
+Entering state 36
+Reducing stack by rule 14 (line 117):
+   $1 = nterm formal ()
+   $2 = nterm rule3 ()
+-> $$ = nterm rule35 ()
+Stack now 0 1 9 14 1 9 14 1 8 13
+Entering state 20
+Next token is token ')' ()
+Shifting token ')' ()
+Entering state 34
+Reducing stack by rule 12 (line 113):
+   $1 = token T_ID ()
+   $2 = token '(' ()
+   $3 = nterm rule35 ()
+   $4 = token ')' ()
+-> $$ = nterm header ()
+Stack now 0 1 9 14 1 9 14 1
+Entering state 9
+Reading a token: Next token is token ':' ()
+Shifting token ':' ()
+Entering state 14
+Reading a token: Next token is token T_ID ()
+Reducing stack by rule 7 (line 104):
+-> $$ = nterm rule1 ()
+Stack now 0 1 9 14 1 9 14 1 9 14
+Entering state 26
+Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token '(' ()
+Shifting token '(' ()
+Entering state 81
+Reading a token: Next token is token T_STRING ()
+Shifting token T_STRING ()
+Entering state 47
+Reducing stack by rule 47 (line 203):
+   $1 = token T_STRING ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 46 81
+Entering state 76
+Reading a token: Next token is token ')' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 46 81
+Entering state 117
+Next token is token ')' ()
+Reducing stack by rule 45 (line 199):
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 46 81 117
+Entering state 144
+Next token is token ')' ()
+Shifting token ')' ()
+Entering state 156
+Reducing stack by rule 40 (line 190):
+   $1 = token T_ID ()
+   $2 = token '(' ()
+   $3 = nterm expr ()
+   $4 = nterm rule7 ()
+   $5 = token ')' ()
+-> $$ = nterm call ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26
+Entering state 51
+Reading a token: Next token is token T_ID ()
+Reducing stack by rule 38 (line 184):
+   $1 = nterm call ()
+-> $$ = nterm simple ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26
+Entering state 50
+Reducing stack by rule 28 (line 145):
+   $1 = nterm simple ()
+-> $$ = nterm stmt ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26
+Entering state 49
+Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token '(' ()
+Shifting token '(' ()
+Entering state 81
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token ')' ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 46 81
+Entering state 76
+Next token is token ')' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 46 81
+Entering state 117
+Next token is token ')' ()
+Reducing stack by rule 45 (line 199):
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 46 81 117
+Entering state 144
+Next token is token ')' ()
+Shifting token ')' ()
+Entering state 156
+Reducing stack by rule 40 (line 190):
+   $1 = token T_ID ()
+   $2 = token '(' ()
+   $3 = nterm expr ()
+   $4 = nterm rule7 ()
+   $5 = token ')' ()
+-> $$ = nterm call ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49
+Entering state 51
+Reading a token: Next token is token T_ID ()
+Reducing stack by rule 38 (line 184):
+   $1 = nterm call ()
+-> $$ = nterm simple ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49
+Entering state 50
+Reducing stack by rule 28 (line 145):
+   $1 = nterm simple ()
+-> $$ = nterm stmt ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49
+Entering state 49
+Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token '(' ()
+Shifting token '(' ()
+Entering state 81
+Reading a token: Next token is token T_STRING ()
+Shifting token T_STRING ()
+Entering state 47
+Reducing stack by rule 47 (line 203):
+   $1 = token T_STRING ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 46 81
+Entering state 76
+Reading a token: Next token is token ')' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 46 81
+Entering state 117
+Next token is token ')' ()
+Reducing stack by rule 45 (line 199):
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 46 81 117
+Entering state 144
+Next token is token ')' ()
+Shifting token ')' ()
+Entering state 156
+Reducing stack by rule 40 (line 190):
+   $1 = token T_ID ()
+   $2 = token '(' ()
+   $3 = nterm expr ()
+   $4 = nterm rule7 ()
+   $5 = token ')' ()
+-> $$ = nterm call ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49
+Entering state 51
+Reading a token: Next token is token T_ID ()
+Reducing stack by rule 38 (line 184):
+   $1 = nterm call ()
+-> $$ = nterm simple ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49
+Entering state 50
+Reducing stack by rule 28 (line 145):
+   $1 = nterm simple ()
+-> $$ = nterm stmt ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49
+Entering state 49
+Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token '(' ()
+Shifting token '(' ()
+Entering state 81
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token ')' ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49 46 81
+Entering state 76
+Next token is token ')' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49 46 81
+Entering state 117
+Next token is token ')' ()
+Reducing stack by rule 45 (line 199):
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49 46 81 117
+Entering state 144
+Next token is token ')' ()
+Shifting token ')' ()
+Entering state 156
+Reducing stack by rule 40 (line 190):
+   $1 = token T_ID ()
+   $2 = token '(' ()
+   $3 = nterm expr ()
+   $4 = nterm rule7 ()
+   $5 = token ')' ()
+-> $$ = nterm call ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49
+Entering state 51
+Reading a token: Next token is token T_ID ()
+Reducing stack by rule 38 (line 184):
+   $1 = nterm call ()
+-> $$ = nterm simple ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49
+Entering state 50
+Reducing stack by rule 28 (line 145):
+   $1 = nterm simple ()
+-> $$ = nterm stmt ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49
+Entering state 49
+Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token '(' ()
+Shifting token '(' ()
+Entering state 81
+Reading a token: Next token is token T_STRING ()
+Shifting token T_STRING ()
+Entering state 47
+Reducing stack by rule 47 (line 203):
+   $1 = token T_STRING ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49 49 46 81
+Entering state 76
+Reading a token: Next token is token ')' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49 49 46 81
+Entering state 117
+Next token is token ')' ()
+Reducing stack by rule 45 (line 199):
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49 49 46 81 117
+Entering state 144
+Next token is token ')' ()
+Shifting token ')' ()
+Entering state 156
+Reducing stack by rule 40 (line 190):
+   $1 = token T_ID ()
+   $2 = token '(' ()
+   $3 = nterm expr ()
+   $4 = nterm rule7 ()
+   $5 = token ')' ()
+-> $$ = nterm call ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49 49
+Entering state 51
+Reading a token: Next token is token "end" ()
+Reducing stack by rule 38 (line 184):
+   $1 = nterm call ()
+-> $$ = nterm simple ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49 49
+Entering state 50
+Reducing stack by rule 28 (line 145):
+   $1 = nterm simple ()
+-> $$ = nterm stmt ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49 49
+Entering state 49
+Next token is token "end" ()
+Reducing stack by rule 8 (line 107):
+   $1 = nterm stmt ()
+-> $$ = nterm rule2 ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49 49
+Entering state 82
+Reducing stack by rule 9 (line 108):
+   $1 = nterm stmt ()
+   $2 = nterm rule2 ()
+-> $$ = nterm rule2 ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49 49
+Entering state 82
+Reducing stack by rule 9 (line 108):
+   $1 = nterm stmt ()
+   $2 = nterm rule2 ()
+-> $$ = nterm rule2 ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49 49
+Entering state 82
+Reducing stack by rule 9 (line 108):
+   $1 = nterm stmt ()
+   $2 = nterm rule2 ()
+-> $$ = nterm rule2 ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26 49
+Entering state 82
+Reducing stack by rule 9 (line 108):
+   $1 = nterm stmt ()
+   $2 = nterm rule2 ()
+-> $$ = nterm rule2 ()
+Stack now 0 1 9 14 1 9 14 1 9 14 26
+Entering state 48
+Reducing stack by rule 3 (line 98):
+   $1 = nterm rule1 ()
+   $2 = nterm rule2 ()
+-> $$ = nterm rule0 ()
+Stack now 0 1 9 14 1 9 14 1 9 14
+Entering state 25
+Next token is token "end" ()
+Shifting token "end" ()
+Entering state 40
+Reducing stack by rule 2 (line 95):
+   $1 = token "def" ()
+   $2 = nterm header ()
+   $3 = token ':' ()
+   $4 = nterm rule0 ()
+   $5 = token "end" ()
+-> $$ = nterm func-def ()
+Stack now 0 1 9 14 1 9 14
+Entering state 24
+Reading a token: Next token is token "if" ()
+Reducing stack by rule 7 (line 104):
+-> $$ = nterm rule1 ()
+Stack now 0 1 9 14 1 9 14 24
+Entering state 39
+Reducing stack by rule 4 (line 101):
+   $1 = nterm func-def ()
+   $2 = nterm rule1 ()
+-> $$ = nterm rule1 ()
+Stack now 0 1 9 14 1 9 14
+Entering state 26
+Next token is token "if" ()
+Shifting token "if" ()
+Entering state 44
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token T_GOE ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 26 44
+Entering state 76
+Next token is token T_GOE ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44
+Entering state 80
+Next token is token T_GOE ()
+Shifting token T_GOE ()
+Entering state 106
+Reading a token: Next token is token T_CONST ()
+Shifting token T_CONST ()
+Entering state 70
+Reducing stack by rule 51 (line 209):
+   $1 = token T_CONST ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 106
+Entering state 134
+Reading a token: Next token is token ':' ()
+Reducing stack by rule 66 (line 224):
+   $1 = nterm expr ()
+   $2 = token T_GOE ()
+   $3 = nterm expr ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44
+Entering state 80
+Next token is token ':' ()
+Shifting token ':' ()
+Entering state 115
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token '(' ()
+Shifting token '(' ()
+Entering state 81
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token '-' ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81
+Entering state 76
+Next token is token '-' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81
+Entering state 117
+Next token is token '-' ()
+Shifting token '-' ()
+Entering state 109
+Reading a token: Next token is token T_CONST ()
+Shifting token T_CONST ()
+Entering state 70
+Reducing stack by rule 51 (line 209):
+   $1 = token T_CONST ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81 117 109
+Entering state 137
+Reading a token: Next token is token ',' ()
+Reducing stack by rule 57 (line 215):
+   $1 = nterm expr ()
+   $2 = token '-' ()
+   $3 = nterm expr ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81
+Entering state 117
+Next token is token ',' ()
+Shifting token ',' ()
+Entering state 143
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token ',' ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81 117 143
+Entering state 76
+Next token is token ',' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81 117 143
+Entering state 155
+Next token is token ',' ()
+Shifting token ',' ()
+Entering state 143
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token ',' ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81 117 143 155 143
+Entering state 76
+Next token is token ',' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81 117 143 155 143
+Entering state 155
+Next token is token ',' ()
+Shifting token ',' ()
+Entering state 143
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token ')' ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81 117 143 155 143 155 143
+Entering state 76
+Next token is token ')' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81 117 143 155 143 155 143
+Entering state 155
+Next token is token ')' ()
+Reducing stack by rule 45 (line 199):
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81 117 143 155 143 155 143 155
+Entering state 161
+Reducing stack by rule 44 (line 198):
+   $1 = token ',' ()
+   $2 = nterm expr ()
+   $3 = nterm rule7 ()
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81 117 143 155 143 155
+Entering state 161
+Reducing stack by rule 44 (line 198):
+   $1 = token ',' ()
+   $2 = nterm expr ()
+   $3 = nterm rule7 ()
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81 117 143 155
+Entering state 161
+Reducing stack by rule 44 (line 198):
+   $1 = token ',' ()
+   $2 = nterm expr ()
+   $3 = nterm rule7 ()
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 46 81 117
+Entering state 144
+Next token is token ')' ()
+Shifting token ')' ()
+Entering state 156
+Reducing stack by rule 40 (line 190):
+   $1 = token T_ID ()
+   $2 = token '(' ()
+   $3 = nterm expr ()
+   $4 = nterm rule7 ()
+   $5 = token ')' ()
+-> $$ = nterm call ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115
+Entering state 51
+Reading a token: Next token is token T_ID ()
+Reducing stack by rule 38 (line 184):
+   $1 = nterm call ()
+-> $$ = nterm simple ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115
+Entering state 50
+Reducing stack by rule 28 (line 145):
+   $1 = nterm simple ()
+-> $$ = nterm stmt ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115
+Entering state 49
+Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token '(' ()
+Shifting token '(' ()
+Entering state 81
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token ',' ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 46 81
+Entering state 76
+Next token is token ',' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 46 81
+Entering state 117
+Next token is token ',' ()
+Shifting token ',' ()
+Entering state 143
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token ')' ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 46 81 117 143
+Entering state 76
+Next token is token ')' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 46 81 117 143
+Entering state 155
+Next token is token ')' ()
+Reducing stack by rule 45 (line 199):
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 46 81 117 143 155
+Entering state 161
+Reducing stack by rule 44 (line 198):
+   $1 = token ',' ()
+   $2 = nterm expr ()
+   $3 = nterm rule7 ()
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 46 81 117
+Entering state 144
+Next token is token ')' ()
+Shifting token ')' ()
+Entering state 156
+Reducing stack by rule 40 (line 190):
+   $1 = token T_ID ()
+   $2 = token '(' ()
+   $3 = nterm expr ()
+   $4 = nterm rule7 ()
+   $5 = token ')' ()
+-> $$ = nterm call ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49
+Entering state 51
+Reading a token: Next token is token T_ID ()
+Reducing stack by rule 38 (line 184):
+   $1 = nterm call ()
+-> $$ = nterm simple ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49
+Entering state 50
+Reducing stack by rule 28 (line 145):
+   $1 = nterm simple ()
+-> $$ = nterm stmt ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49
+Entering state 49
+Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token '(' ()
+Shifting token '(' ()
+Entering state 81
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token '-' ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81
+Entering state 76
+Next token is token '-' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81
+Entering state 117
+Next token is token '-' ()
+Shifting token '-' ()
+Entering state 109
+Reading a token: Next token is token T_CONST ()
+Shifting token T_CONST ()
+Entering state 70
+Reducing stack by rule 51 (line 209):
+   $1 = token T_CONST ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81 117 109
+Entering state 137
+Reading a token: Next token is token ',' ()
+Reducing stack by rule 57 (line 215):
+   $1 = nterm expr ()
+   $2 = token '-' ()
+   $3 = nterm expr ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81
+Entering state 117
+Next token is token ',' ()
+Shifting token ',' ()
+Entering state 143
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token ',' ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81 117 143
+Entering state 76
+Next token is token ',' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81 117 143
+Entering state 155
+Next token is token ',' ()
+Shifting token ',' ()
+Entering state 143
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token ',' ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81 117 143 155 143
+Entering state 76
+Next token is token ',' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81 117 143 155 143
+Entering state 155
+Next token is token ',' ()
+Shifting token ',' ()
+Entering state 143
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token ')' ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81 117 143 155 143 155 143
+Entering state 76
+Next token is token ')' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81 117 143 155 143 155 143
+Entering state 155
+Next token is token ')' ()
+Reducing stack by rule 45 (line 199):
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81 117 143 155 143 155 143 155
+Entering state 161
+Reducing stack by rule 44 (line 198):
+   $1 = token ',' ()
+   $2 = nterm expr ()
+   $3 = nterm rule7 ()
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81 117 143 155 143 155
+Entering state 161
+Reducing stack by rule 44 (line 198):
+   $1 = token ',' ()
+   $2 = nterm expr ()
+   $3 = nterm rule7 ()
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81 117 143 155
+Entering state 161
+Reducing stack by rule 44 (line 198):
+   $1 = token ',' ()
+   $2 = nterm expr ()
+   $3 = nterm rule7 ()
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49 46 81 117
+Entering state 144
+Next token is token ')' ()
+Shifting token ')' ()
+Entering state 156
+Reducing stack by rule 40 (line 190):
+   $1 = token T_ID ()
+   $2 = token '(' ()
+   $3 = nterm expr ()
+   $4 = nterm rule7 ()
+   $5 = token ')' ()
+-> $$ = nterm call ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49
+Entering state 51
+Reading a token: Next token is token "end" ()
+Reducing stack by rule 38 (line 184):
+   $1 = nterm call ()
+-> $$ = nterm simple ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49
+Entering state 50
+Reducing stack by rule 28 (line 145):
+   $1 = nterm simple ()
+-> $$ = nterm stmt ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49
+Entering state 49
+Next token is token "end" ()
+Reducing stack by rule 8 (line 107):
+   $1 = nterm stmt ()
+-> $$ = nterm rule2 ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49 49
+Entering state 82
+Reducing stack by rule 9 (line 108):
+   $1 = nterm stmt ()
+   $2 = nterm rule2 ()
+-> $$ = nterm rule2 ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115 49
+Entering state 82
+Reducing stack by rule 9 (line 108):
+   $1 = nterm stmt ()
+   $2 = nterm rule2 ()
+-> $$ = nterm rule2 ()
+Stack now 0 1 9 14 1 9 14 26 44 80 115
+Entering state 142
+Next token is token "end" ()
+Shifting token "end" ()
+Entering state 153
+Reducing stack by rule 31 (line 148):
+   $1 = token "if" ()
+   $2 = nterm expr ()
+   $3 = token ':' ()
+   $4 = nterm rule2 ()
+   $5 = token "end" ()
+-> $$ = nterm stmt ()
+Stack now 0 1 9 14 1 9 14 26
+Entering state 49
+Reading a token: Next token is token "end" ()
+Reducing stack by rule 8 (line 107):
+   $1 = nterm stmt ()
+-> $$ = nterm rule2 ()
+Stack now 0 1 9 14 1 9 14 26
+Entering state 48
+Reducing stack by rule 3 (line 98):
+   $1 = nterm rule1 ()
+   $2 = nterm rule2 ()
+-> $$ = nterm rule0 ()
+Stack now 0 1 9 14 1 9 14
+Entering state 25
+Next token is token "end" ()
+Shifting token "end" ()
+Entering state 40
+Reducing stack by rule 2 (line 95):
+   $1 = token "def" ()
+   $2 = nterm header ()
+   $3 = token ':' ()
+   $4 = nterm rule0 ()
+   $5 = token "end" ()
+-> $$ = nterm func-def ()
+Stack now 0 1 9 14
+Entering state 24
+Reading a token: Next token is token "int" ()
+Shifting token "int" ()
+Entering state 6
+Reducing stack by rule 21 (line 132):
+   $1 = token "int" ()
+-> $$ = nterm type ()
+Stack now 0 1 9 14 24
+Entering state 27
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 53
+Reading a token: Next token is token T_ID ()
+Reducing stack by rule 20 (line 129):
+-> $$ = nterm rule4 ()
+Stack now 0 1 9 14 24 27 53
+Entering state 85
+Reducing stack by rule 27 (line 142):
+   $1 = nterm type ()
+   $2 = token T_ID ()
+   $3 = nterm rule4 ()
+-> $$ = nterm var-def ()
+Stack now 0 1 9 14 24
+Entering state 29
+Next token is token T_ID ()
+Reducing stack by rule 7 (line 104):
+-> $$ = nterm rule1 ()
+Stack now 0 1 9 14 24 29
+Entering state 55
+Reducing stack by rule 6 (line 103):
+   $1 = nterm var-def ()
+   $2 = nterm rule1 ()
+-> $$ = nterm rule1 ()
+Stack now 0 1 9 14 24
+Entering state 39
+Reducing stack by rule 4 (line 101):
+   $1 = nterm func-def ()
+   $2 = nterm rule1 ()
+-> $$ = nterm rule1 ()
+Stack now 0 1 9 14
+Entering state 26
+Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token '(' ()
+Shifting token '(' ()
+Entering state 81
+Reading a token: Next token is token T_STRING ()
+Shifting token T_STRING ()
+Entering state 47
+Reducing stack by rule 47 (line 203):
+   $1 = token T_STRING ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 26 46 81
+Entering state 76
+Reading a token: Next token is token ')' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 26 46 81
+Entering state 117
+Next token is token ')' ()
+Reducing stack by rule 45 (line 199):
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 26 46 81 117
+Entering state 144
+Next token is token ')' ()
+Shifting token ')' ()
+Entering state 156
+Reducing stack by rule 40 (line 190):
+   $1 = token T_ID ()
+   $2 = token '(' ()
+   $3 = nterm expr ()
+   $4 = nterm rule7 ()
+   $5 = token ')' ()
+-> $$ = nterm call ()
+Stack now 0 1 9 14 26
+Entering state 51
+Reading a token: Next token is token T_ID ()
+Reducing stack by rule 38 (line 184):
+   $1 = nterm call ()
+-> $$ = nterm simple ()
+Stack now 0 1 9 14 26
+Entering state 50
+Reducing stack by rule 28 (line 145):
+   $1 = nterm simple ()
+-> $$ = nterm stmt ()
+Stack now 0 1 9 14 26
+Entering state 49
+Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token ":=" ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 26 49
+Entering state 52
+Next token is token ":=" ()
+Shifting token ":=" ()
+Entering state 83
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token '(' ()
+Shifting token '(' ()
+Entering state 81
+Reading a token: Next token is token ')' ()
+Shifting token ')' ()
+Entering state 116
+Reducing stack by rule 41 (line 191):
+   $1 = token T_ID ()
+   $2 = token '(' ()
+   $3 = token ')' ()
+-> $$ = nterm call ()
+Stack now 0 1 9 14 26 49 52 83
+Entering state 75
+Reducing stack by rule 49 (line 205):
+   $1 = nterm call ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 26 49 52 83
+Entering state 76
+Reading a token: Next token is token T_ID ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 26 49 52 83
+Entering state 118
+Next token is token T_ID ()
+Reducing stack by rule 37 (line 159):
+   $1 = nterm atom ()
+   $2 = token ":=" ()
+   $3 = nterm expr ()
+-> $$ = nterm simple ()
+Stack now 0 1 9 14 26 49
+Entering state 50
+Reducing stack by rule 28 (line 145):
+   $1 = nterm simple ()
+-> $$ = nterm stmt ()
+Stack now 0 1 9 14 26 49
+Entering state 49
+Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token '(' ()
+Shifting token '(' ()
+Entering state 81
+Reading a token: Next token is token T_ID ()
+Shifting token T_ID ()
+Entering state 46
+Reading a token: Next token is token ',' ()
+Reducing stack by rule 46 (line 202):
+   $1 = token T_ID ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 26 49 49 46 81
+Entering state 76
+Next token is token ',' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 26 49 49 46 81
+Entering state 117
+Next token is token ',' ()
+Shifting token ',' ()
+Entering state 143
+Reading a token: Next token is token T_STRING ()
+Shifting token T_STRING ()
+Entering state 47
+Reducing stack by rule 47 (line 203):
+   $1 = token T_STRING ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 26 49 49 46 81 117 143
+Entering state 76
+Reading a token: Next token is token ',' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 26 49 49 46 81 117 143
+Entering state 155
+Next token is token ',' ()
+Shifting token ',' ()
+Entering state 143
+Reading a token: Next token is token T_STRING ()
+Shifting token T_STRING ()
+Entering state 47
+Reducing stack by rule 47 (line 203):
+   $1 = token T_STRING ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 26 49 49 46 81 117 143 155 143
+Entering state 76
+Reading a token: Next token is token ',' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 26 49 49 46 81 117 143 155 143
+Entering state 155
+Next token is token ',' ()
+Shifting token ',' ()
+Entering state 143
+Reading a token: Next token is token T_STRING ()
+Shifting token T_STRING ()
+Entering state 47
+Reducing stack by rule 47 (line 203):
+   $1 = token T_STRING ()
+-> $$ = nterm atom ()
+Stack now 0 1 9 14 26 49 49 46 81 117 143 155 143 155 143
+Entering state 76
+Reading a token: Next token is token ')' ()
+Reducing stack by rule 50 (line 208):
+   $1 = nterm atom ()
+-> $$ = nterm expr ()
+Stack now 0 1 9 14 26 49 49 46 81 117 143 155 143 155 143
+Entering state 155
+Next token is token ')' ()
+Reducing stack by rule 45 (line 199):
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 26 49 49 46 81 117 143 155 143 155 143 155
+Entering state 161
+Reducing stack by rule 44 (line 198):
+   $1 = token ',' ()
+   $2 = nterm expr ()
+   $3 = nterm rule7 ()
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 26 49 49 46 81 117 143 155 143 155
+Entering state 161
+Reducing stack by rule 44 (line 198):
+   $1 = token ',' ()
+   $2 = nterm expr ()
+   $3 = nterm rule7 ()
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 26 49 49 46 81 117 143 155
+Entering state 161
+Reducing stack by rule 44 (line 198):
+   $1 = token ',' ()
+   $2 = nterm expr ()
+   $3 = nterm rule7 ()
+-> $$ = nterm rule7 ()
+Stack now 0 1 9 14 26 49 49 46 81 117
+Entering state 144
+Next token is token ')' ()
+Shifting token ')' ()
+Entering state 156
+Reducing stack by rule 40 (line 190):
+   $1 = token T_ID ()
+   $2 = token '(' ()
+   $3 = nterm expr ()
+   $4 = nterm rule7 ()
+   $5 = token ')' ()
+-> $$ = nterm call ()
+Stack now 0 1 9 14 26 49 49
+Entering state 51
+Reading a token: Next token is token "end" ()
+Reducing stack by rule 38 (line 184):
+   $1 = nterm call ()
+-> $$ = nterm simple ()
+Stack now 0 1 9 14 26 49 49
+Entering state 50
+Reducing stack by rule 28 (line 145):
+   $1 = nterm simple ()
+-> $$ = nterm stmt ()
+Stack now 0 1 9 14 26 49 49
+Entering state 49
+Next token is token "end" ()
+Reducing stack by rule 8 (line 107):
+   $1 = nterm stmt ()
+-> $$ = nterm rule2 ()
+Stack now 0 1 9 14 26 49 49
+Entering state 82
+Reducing stack by rule 9 (line 108):
+   $1 = nterm stmt ()
+   $2 = nterm rule2 ()
+-> $$ = nterm rule2 ()
+Stack now 0 1 9 14 26 49
+Entering state 82
+Reducing stack by rule 9 (line 108):
+   $1 = nterm stmt ()
+   $2 = nterm rule2 ()
+-> $$ = nterm rule2 ()
+Stack now 0 1 9 14 26
+Entering state 48
+Reducing stack by rule 3 (line 98):
+   $1 = nterm rule1 ()
+   $2 = nterm rule2 ()
+-> $$ = nterm rule0 ()
+Stack now 0 1 9 14
+Entering state 25
+Next token is token "end" ()
+Shifting token "end" ()
+Entering state 40
+Reducing stack by rule 2 (line 95):
+   $1 = token "def" ()
+   $2 = nterm header ()
+   $3 = token ':' ()
+   $4 = nterm rule0 ()
+   $5 = token "end" ()
+-> $$ = nterm func-def ()
+Stack now 0
+Entering state 3
+Reducing stack by rule 1 (line 92):
+   $1 = nterm func-def ()
+free(): double free detected in tcache 2

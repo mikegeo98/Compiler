@@ -125,7 +125,7 @@ formal:
 | type T_ID rule4 { $3->fixtypes($1); $$ = $3; }
 ;
 rule4:
-  ',' T_ID rule4 {/*printf("%s Before entering append vardecl\n",$2);*/ $3->append_vardecl(new Id($2)); $$ = $3; }
+  ',' T_ID rule4 {printf("TID YYVAL %s\n",yylval.var);printf("%s Before entering append vardecl\n",$2); $3->append_vardecl(new Id($2)); $$ = $3; }
 | %empty {printf("We are at the end of rule 4 \n"); $$ = new Varlist(); }
 ;
 type: 

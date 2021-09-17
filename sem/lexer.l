@@ -99,9 +99,9 @@ W [ \t\r]
 "true" {return T_TRUE;}
 "false" {return T_FALSE;}
 
-{L}{LC}* {printf("TID %s\n",yytext);yylval.var = yytext;return T_ID;}
+{L}{LC}* {printf("TID %s\n",yytext);yylval.var = (char*)malloc(strlen(yytext) + 1);strcpy(yylval.var,yytext);return T_ID;}
 {D}+ {yylval.num = atoi(yytext); return T_CONST;}
-["]([^"\\\n]|\\.|\\\n)*["] {yylval.str = yytext; return T_STRING;}
+["]([^"\\\n]|\\.|\\\n)*["] {yylval.str = (char*)malloc(strlen(yytext) + 1);strcpy(yylval.str,yytext); return T_STRING;}
 ['][^']['] {yylval.chr = yytext[0];return T_CONCHAR;}
 ['][\\][0nrt'"\\]['] {yylval.chr = yytext[0]; return T_CONCHAR;}
 ['][\\][x][0-9a-f][0-9a-f]['] {yylval.chr = yytext[0]; return T_CONCHAR;}

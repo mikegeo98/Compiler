@@ -999,7 +999,7 @@ YY_RULE_SETUP
 case 27:
 YY_RULE_SETUP
 #line 102 "lexer.l"
-{printf("TID %s\n",yytext);yylval.var = yytext;return T_ID;}
+{printf("TID %s\n",yytext);yylval.var = (char*)malloc(strlen(yytext) + 1);strcpy(yylval.var,yytext);return T_ID;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
@@ -1010,7 +1010,7 @@ case 29:
 /* rule 29 can match eol */
 YY_RULE_SETUP
 #line 104 "lexer.l"
-{yylval.str = yytext; return T_STRING;}
+{yylval.str = (char*)malloc(strlen(yytext) + 1);strcpy(yylval.str,yytext); return T_STRING;}
 	YY_BREAK
 case 30:
 /* rule 30 can match eol */

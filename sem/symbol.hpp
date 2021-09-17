@@ -12,11 +12,13 @@ class Varlist;
 
 class Type {
   public:
-    Type(bool iv=true, std::string ty="", Expls *pa=nullptr, Type *o = nullptr, Varlist *pa2 = nullptr): isvar(iv), type(nullptr), params(pa), obj(o), params2(pa2) {
+    Type(bool iv=true, std::string ty="DICK", Expls *pa=nullptr, Type *o = nullptr, Varlist *pa2 = nullptr): isvar(iv), type(nullptr), params(pa), obj(o), params2(pa2) {
       type = new char[200];
-      printf("%d Type::Type() ",ty.c_str()[4]=='\0');
+      
+      // printf("%d Type::Type() ",ty.c_str()[4]=='\0');
       strcpy(type,ty.c_str()); 
-      printf("%s eisai edw re malaka?\n",type);
+      printf("Type::type() has type %s\n",type);
+      // printf("%s eisai edw re malaka?\n",type);
     }
     Type(const Type &t);
     ~Type();
@@ -27,7 +29,7 @@ class Type {
     Type *get_param_type(int i);
     void make_fun(Expls *pars);
     void make_fun2(Varlist *pars);
-    std::string get_type();
+    std::string get_type() const;
 
   private:
     bool isvar;

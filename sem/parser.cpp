@@ -1571,7 +1571,7 @@ yyreduce:
 
   case 20:
 #line 128 "parser.y" /* yacc.c:1646  */
-    {/*printf("%s Before entering append vardecl\n",$2);*/ (yyvsp[0].varlist)->append_vardecl(new Id((yyvsp[-1].var))); (yyval.varlist) = (yyvsp[0].varlist); }
+    {printf("TID YYVAL %s\n",yylval.var);printf("%s Before entering append vardecl\n",(yyvsp[-1].var)); (yyvsp[0].varlist)->append_vardecl(new Id((yyvsp[-1].var))); (yyval.varlist) = (yyvsp[0].varlist); }
 #line 1576 "parser.cpp" /* yacc.c:1646  */
     break;
 

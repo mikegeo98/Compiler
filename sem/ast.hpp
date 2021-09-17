@@ -681,7 +681,9 @@ private:
 
 class Vardecl: public Decl { //MIPWS PREPEI NA NAI YPOKLASI TOU STMT?
 public:
-  Vardecl(Id *var, Type type): var(var), type(type) {}
+  Vardecl(Id *v, Type *ty): var(v), type(*ty) {
+    printf("%s is var %s is type in Vardecl::Vardecl()",var->get_var(),type.get_type());
+  }
   Vardecl(Vardecl &vd):  type(vd.type) {
     char *tmp = new char(200); 
     printf("%s VD IN Vardecl::Vardecl(Vardecl &vd)",vd.var->get_var()); 
@@ -697,7 +699,7 @@ public:
   virtual void printOn(std::ostream &out) const override {
     out << "Vardecl(";
     var->printOn(out);
-    out<< ")";    
+    out<<"type="<<(&type)->get_type()<< ")";    
   }
   virtual void sem() override {
     st.insert(var->getName(),type);
@@ -731,21 +733,26 @@ public:
     for (Vardecl *d : var) delete d;
     //for (Type *s : type) delete s;
   }
-  void append_vardecl(Id *id, Type type = new Type(true,"non")) { 
-      Vardecl tmp(id,type);
-      var.push_back(&tmp); 
-      if(type.get_type()=="non")
+  void append_vardecl(Id *id, Type *type = new Type(true,"non")) { 
+      Vardecl *tmp=new Vardecl(id,type);
+      tmp->printOn(std::cout);
+      std::cout<<"at Varlist::append_vardecl(Id *id, Type type = new Type(true,\"non\"))\n";
+      var.push_back(tmp); //δεικτης 
+      if(type->get_type()=="non")
       {
           nons++;
       }
       //type.push_back(type); 
       size++;
+      this->printOn(std::cout);
+      std::cout<<"at Varlist::append_vardecl(Id *id, Type type = new Type(true,\"non\"))\n";
   }
-  void fixtypes(Type type)
+  void fixtypes(Type *type)
   {
+    // printf("")
       for( int i=size-1;i>=size-nons;i--)
       {
-          var[i]->chType(type);
+          var[i]->chType(*type);
       }
       nons=0;
   }
@@ -766,8 +773,18 @@ public:
   }
   virtual void printOn(std::ostream &out) const override {
     out << "Decl(";
+    out << size;
+    out << " \n";
+    out << var.size();
+    out << " \n";
     for(int i=0; i<size; i++){
-        var[i]->printOn(out);
+        if(var[i]==nullptr){
+          out<<"we have a problem varlist has null member "<<i<<"\n";
+        }
+        else{
+          out<<"hello"<<var[i]->get_type()->get_type()<<'\n';
+          // var[i]->printOn(out);
+        }
         //out<< var[i] << " : " << type[i] << " ";
     }  
     out<< ")";
@@ -805,26 +822,26 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
         {
             // id->printOn(std::cout);
             st.openScope();
-            std::cout<<type.get_type()<<"type in Fundecl::sem()";
+            // std::cout<<type.get_type()<<"type in Fundecl::sem()";
             // std::cout<<type.get_type();
             // std::string a(id->getName());
             // std::cout<<a<<" in Fundecl::sem()\n";
             // printf("%s in Fundecl::sem()\n",a);
             st.insert(id->getName(),type);
             // printf("%s inserted in st\n",id->getName());
-            // if(block!=nullptr)
-            // {
-            //   st.addFunc(type);
-            // }
-            // st.openScope();
-            // params->sem();
-            // if (block!=nullptr)
-            //     block->sem();
-            // if(block!=nullptr)
-            // {
-            //   st.remFunc();
-            // }
-            // st.closeScope();
+            if(block!=nullptr)
+            {
+              st.addFunc(type);
+            }
+            st.openScope();
+            params->sem();
+            if (block!=nullptr)
+                block->sem();
+            if(block!=nullptr)
+            {
+              st.remFunc();
+            }
+            st.closeScope();
             st.closeScope();
         }
         bool isfuncdef(){
@@ -849,7 +866,10 @@ inline Type::Type(const Type &t): isvar(t.isvar){
       obj=nullptr;
     else
       obj = new Type(t.obj);
-    params2 = t.params2==nullptr?nullptr:new Varlist(*t.params2);
+    if (t.params2 != nullptr){
+      t.params2->printOn(std::cout);
+    }
+    params2 = t.params2==nullptr?nullptr:new Varlist(*t.params2); 
 }
 
 inline Type::~Type()  { 
@@ -901,10 +921,14 @@ inline bool Type::operator != (Type t)
 
 inline int Type::get_param_cnt()
 {
-  if (params!= nullptr)
+  if (params!= nullptr){
+    printf("Type::get_param_cntmpika sto params2 branch \n");
     return params->get_size();
-  if (params2!= nullptr)
+  }
+  if (params2!= nullptr){
+    printf("Type::get_param_cntmpika sto params2 branch \n");
     return params2->get_size();
+  }
   yyerror("no params");
   
 }
@@ -923,7 +947,7 @@ inline Type *Type::get_param_type(int i)
   yyerror("no params");
 }
 
-inline std::string Type::get_type()
+inline std::string Type::get_type() const
 {
   if (std::string(type)=="list" || std::string(type) == "array")
   {

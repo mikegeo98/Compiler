@@ -1,0 +1,166 @@
+ok 
+def
+TID main
+( symbol
+) symbol
+we are here 1Type::type() has type DICK
+main Id constructor to moyni tis manas sosu
+Type::type() has type void
+voidtype in Fundecl::Fundecl(): symbol
+def
+Type::type() has type int
+TID f
+( symbol
+Type::type() has type int
+TID a
+; symbol
+We are at the end of rule 4 
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+ is var рв1я is type in Vardecl::Vardecl()Type::type() has type int
+TID b
+) symbol
+We are at the end of rule 4 
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+ is var рв1я is type in Vardecl::Vardecl()Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+ is var рв1я is type in Vardecl::Vardecl()Type::type() has type DICK
+f Id constructor to moyni tis manas sosu
+Decl(0 
+0 
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+ is var аб1я is type in Vardecl::Vardecl()inttype in Fundecl::Fundecl(): symbol
+def
+Type::type() has type int
+TID g
+( symbol
+) symbol
+Type::type() has type DICK
+Type::type() has type DICK
+g Id constructor to moyni tis manas sosu
+inttype in Fundecl::Fundecl(): symbol
+def
+Type::type() has type int
+TID h1
+( symbol
+) symbol
+Type::type() has type DICK
+Type::type() has type DICK
+h1 Id constructor to moyni tis manas sosu
+inttype in Fundecl::Fundecl(): symbol
+def
+Type::type() has type int
+TID h11
+( symbol
+) symbol
+Type::type() has type DICK
+Type::type() has type DICK
+h11 Id constructor to moyni tis manas sosu
+inttype in Fundecl::Fundecl(): symbol
+TID a
+Type::type() has type DICK
+a Id constructor to moyni tis manas sosu
+TID a
++ symbol
+Type::type() has type DICK
+a Id constructor to moyni tis manas sosu
+TID b
+Type::type() has type DICK
+b Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+TID a
+Type::type() has type DICK
+a Id constructor to moyni tis manas sosu
+TID h11
+( symbol
+) symbol
+Type::type() has type DICK
+h11 Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+Type::type() has type int
+TID a
+def
+We are at the end of rule 4 
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+ is var рв1я is type in Vardecl::Vardecl()Type::type() has type int
+TID h2
+( symbol
+) symbol
+Type::type() has type DICK
+Type::type() has type DICK
+h2 Id constructor to moyni tis manas sosu
+inttype in Fundecl::Fundecl(): symbol
+def
+Type::type() has type int
+TID ff
+( symbol
+Type::type() has type int
+TID a
+) symbol
+We are at the end of rule 4 
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+ is var рв1я is type in Vardecl::Vardecl()Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+ is var рв1я is type in Vardecl::Vardecl()Type::type() has type DICK
+ff Id constructor to moyni tis manas sosu
+Decl(0 
+0 
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+ is var аб1я is type in Vardecl::Vardecl()inttype in Fundecl::Fundecl(): symbol
+def
+Type::type() has type int
+TID gg
+( symbol
+) symbol
+Type::type() has type DICK
+Type::type() has type DICK
+gg Id constructor to moyni tis manas sosu
+inttype in Fundecl::Fundecl(): symbol
+def
+Type::type() has type int
+TID hh1
+( symbol
+) symbol
+Type::type() has type DICK
+Type::type() has type DICK
+hh1 Id constructor to moyni tis manas sosu
+inttype in Fundecl::Fundecl(): symbol
+TID a
+Type::type() has type DICK
+a Id constructor to moyni tis manas sosu
+TID a
++ symbol
+Type::type() has type DICK
+a Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+Type::type() has type DICK
+TID a
+Type::type() has type DICK
+a Id constructor to moyni tis manas sosu
+Type::type() has type int
+TID a
+def
+We are at the end of rule 4 
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+ is var рв1я is type in Vardecl::Vardecl()Type::type() has type int
+TID hh2
+( symbol
+) symbol
+Type::type() has type DICK
+Type::type() has type DICK
+hh2 Id constructor to m
