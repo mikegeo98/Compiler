@@ -37,9 +37,11 @@ public:
   }
   Type *get_type()
   {
+    sem();
     return &type;
   }
-  virtual void sem() {}
+  virtual void sem() {
+  }
 protected:
   Type type;
 };
@@ -235,7 +237,8 @@ public:
 
   virtual void sem() override {
     SymbolEntry *e = st.lookup(var);
-    type = e->type;
+    Type *tmp = e->type;
+    type = new Type(*tmp);
     offset = e->offset;
   }
 protected:
@@ -293,7 +296,8 @@ public:
   }
 
   virtual void sem() override {
-    type = new Type(true,"string");
+    Type *tmp = new Type(true,"string");
+    type = *tmp;
   }
 
   std::string get_kind()
@@ -545,8 +549,10 @@ class Funcal : public Atom {
       out<<")";
     }
     virtual void sem() override {
+      printf("%s is the name in Funcall::sem()\n",name->getName());
       SymbolEntry *e = st.lookup(name->getName());
-      Type type = e->type;
+      Type *typ = new Type(*(e->type));
+      printf("%s %s is the type in Funcall::sem()\n",typ->get_type().c_str(),e->type->get_type().c_str());      
       //offset = e->offset;
       //Type *fun = st.lookup(name->getName());
       if(e == nullptr) {
@@ -555,20 +561,21 @@ class Funcal : public Atom {
       }
       if (params!=nullptr)
       {
-        if(params->get_size()!=type.get_param_cnt()) {
+        if(params->get_size()!=typ->get_param_cnt()) {
           yyerror("wrong number of params");
           return;
         }
         for(int i=0;i<params->get_size();i++)
         {
-          if(type.get_param_type(i)!=params->get_type(i))
+          printf("params have types %s %s \n",typ->get_param_type(i)->get_type().c_str(),params->get_type(i)->get_type().c_str());
+          if(*(typ->get_param_type(i))!=*(params->get_type(i)))
           {
             yyerror("wrong parameter type in param #%d \n",i);
             return;
           }
         }
       }
-      else if(type.has_params()) {
+      else if(typ->has_params()) {
         yyerror("function has parameters");
         return;
       }
@@ -685,7 +692,7 @@ public:
     printf("%s is var %s is type in Vardecl::Vardecl()",var->get_var(),type.get_type());
   }
   Vardecl(Vardecl &vd):  type(vd.type) {
-    char *tmp = new char(200); 
+    char *tmp = new char[200]; 
     printf("%s VD IN Vardecl::Vardecl(Vardecl &vd)",vd.var->get_var()); 
     strcpy(tmp,vd.var->get_var());
     var = new Id(tmp);
@@ -703,10 +710,17 @@ public:
   }
   virtual void sem() override {
     st.insert(var->getName(),type);
+    printf("%s var name in Vardecl::sem()\n",var->getName());
+    SymbolEntry *e=st.lookup(var->getName());
+    printf("%s var name in Vardecl::sem()\n",e->type->get_type().c_str());
+
   }
-  void chType(Type ty)
+  void chType(Type *ty)
   {
-      type=ty;
+      Type *tmp=new Type(*ty);
+      printf("type is %s in Vardecl::chType(Type ty)\n",ty->get_type().c_str());
+      type = *tmp;
+      printf("type is %s in Vardecl::chType(Type ty)\n",type.get_type().c_str());
   }
   Type *get_type()
   {
@@ -749,12 +763,16 @@ public:
   }
   void fixtypes(Type *type)
   {
-    // printf("")
-      for( int i=size-1;i>=size-nons;i--)
-      {
-          var[i]->chType(*type);
-      }
-      nons=0;
+    if (type->get_obj()!=nullptr)
+      printf("type has %s %s in Varlis::fixtypes\n",type->get_type().c_str(),type->get_obj()->get_type().c_str());
+    else
+      printf("wnasoy in Varlist::fixtypes(Type *type)\n");
+    for( int i=size-1;i>=size-nons;i--)
+    {
+        printf("%d in Varlist::fixtypes(Type *type)\n",i);  
+        var[i]->chType(type);
+    }
+    nons=0;
   }
   void merge(Varlist *li)
   {
@@ -790,7 +808,11 @@ public:
     out<< ")";
   }
   virtual void sem() override {
-    for (Vardecl *v : var) v->sem();
+    for (Vardecl *v : var)
+    {
+      v->printOn(std::cout);
+      v->sem();
+    }
   }
 
 private:
@@ -821,6 +843,10 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
         virtual void sem() override
         {
             // id->printOn(std::cout);
+            SymbolEntry *e;
+            e = st.lookup("putc");
+            if(e==nullptr)yyerror("efakre\n");
+            printf("putc of type %d\n",e->type->get_param_cnt());
             st.openScope();
             // std::cout<<type.get_type()<<"type in Fundecl::sem()";
             // std::cout<<type.get_type();
@@ -828,13 +854,15 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
             // std::cout<<a<<" in Fundecl::sem()\n";
             // printf("%s in Fundecl::sem()\n",a);
             st.insert(id->getName(),type);
-            // printf("%s inserted in st\n",id->getName());
+            // printf("%s inserted in st Fundecl::sem()\n",id->getName());
             if(block!=nullptr)
             {
+              printf("afou vastaei i kardia sou %s \n",type.get_type().c_str());
               st.addFunc(type);
+              printf("na meinw makria sou, fevgw geia sou geia sou");
             }
             st.openScope();
-            params->sem();
+            if(params!=nullptr) params->sem();
             if (block!=nullptr)
                 block->sem();
             if(block!=nullptr)
@@ -843,6 +871,7 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
             }
             st.closeScope();
             st.closeScope();
+            // st.closeScope();
         }
         bool isfuncdef(){
             return block!=nullptr;
@@ -864,12 +893,15 @@ inline Type::Type(const Type &t): isvar(t.isvar){
     params = t.params==nullptr?nullptr:new Expls(*t.params);
     if(t.obj==nullptr)
       obj=nullptr;
-    else
-      obj = new Type(t.obj);
+    else{
+      // printf("here %s\n",t.obj->get_type().c_str());
+      obj = new Type(*t.obj);
+    }
     if (t.params2 != nullptr){
       t.params2->printOn(std::cout);
     }
     params2 = t.params2==nullptr?nullptr:new Varlist(*t.params2); 
+    printf("%s is the type in Type::Type(const Type &t)",this->get_type().c_str());
 }
 
 inline Type::~Type()  { 
@@ -921,6 +953,7 @@ inline bool Type::operator != (Type t)
 
 inline int Type::get_param_cnt()
 {
+  printf("type is %s in Type::get_param_cnt()\n",get_type().c_str());
   if (params!= nullptr){
     printf("Type::get_param_cntmpika sto params2 branch \n");
     return params->get_size();
@@ -944,13 +977,17 @@ inline Type *Type::get_param_type(int i)
     return params->get_type(i);
   if (params2!= nullptr)
     return params2->get_type(i);
-  yyerror("no params");
+  yyerror("no params get_param_type");
 }
 
 inline std::string Type::get_type() const
 {
   if (std::string(type)=="list" || std::string(type) == "array")
   {
+    // if(obj==nullptr)
+    // {
+    //   printf("obj is null in Type::get_type()");
+    // }
     return std::string(type)+std::string(obj->type);
   }
   else
@@ -969,6 +1006,36 @@ inline void Type::make_fun2(Varlist *pars)
 {
   params2 = pars;
   isvar = false;
+}
+
+inline void initSt()
+{
+  st.openScope();
+  
+  Varlist *vrd = new Varlist();
+  vrd->append_vardecl(new Id("n"),new Type(true,"int"));
+  Type *ty = new Type(false,"void",nullptr,nullptr,vrd);
+  st.insert("puti",*ty);
+  
+  vrd = new Varlist();
+  vrd->append_vardecl(new Id("b"),new Type(true,"bool"));
+  ty = new Type(false,"void",nullptr,nullptr,vrd);
+  st.insert("putb",*ty);
+  
+  vrd = new Varlist();
+  vrd->append_vardecl(new Id("c"),new Type(true,"char"));
+  ty = new Type(false,"void",nullptr,nullptr,vrd);
+  st.insert("putc",*ty);
+
+  vrd = new Varlist();
+  vrd->append_vardecl(new Id("n"),new Type(true,"array",nullptr,new Type(true,"char")));
+  ty = new Type(false,"void",nullptr,nullptr,vrd);
+  st.insert("puts",*ty);
+
+  // SymbolEntry *e;
+  // e = st.lookup("putc");
+  // if(e==nullptr)yyerror("efakre\n");
+  // printf("putc of type %d\n",e->type->get_param_cnt());
 }
 
 #endif

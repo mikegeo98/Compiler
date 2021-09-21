@@ -89,7 +89,7 @@
 
 %%
 program:
-    func-def { printf("start\n");$1->sem(); }
+    func-def { printf("start\n");initSt();$1->sem(); st.closeScope();}
 ;
 func-def:
     "def" header ':' rule0 "end" { $2->add_block($4); $$ = $2; }
@@ -121,8 +121,8 @@ rule3:
 | %empty { $$ = new Varlist(); }
 ;
 formal:
-  "ref" type T_ID rule4 { $4->fixtypes($2); $$ = $4; }
-| type T_ID rule4 { $3->fixtypes($1); $$ = $3; }
+  "ref" type T_ID rule4 { $4->append_vardecl(new Id($3));$4->fixtypes($2); $$ = $4; }
+| type T_ID rule4 { $3->append_vardecl(new Id($2)); $3->fixtypes($1); $$ = $3; }
 ;
 rule4:
   ',' T_ID rule4 {printf("TID YYVAL %s\n",yylval.var);printf("%s Before entering append vardecl\n",$2); $3->append_vardecl(new Id($2)); $$ = $3; }

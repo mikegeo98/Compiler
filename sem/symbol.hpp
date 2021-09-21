@@ -17,6 +17,10 @@ class Type {
       
       // printf("%d Type::Type() ",ty.c_str()[4]=='\0');
       strcpy(type,ty.c_str()); 
+      if(ty=="array")
+      {
+        printf("obj is type %s in Type::Type()\n",(obj->get_type()).c_str());
+      }
       printf("Type::type() has type %s\n",type);
       // printf("%s eisai edw re malaka?\n",type);
     }
@@ -30,7 +34,10 @@ class Type {
     void make_fun(Expls *pars);
     void make_fun2(Varlist *pars);
     std::string get_type() const;
-
+    Type *get_obj()
+    {
+      return obj;
+    }
   private:
     bool isvar;
     char *type;
@@ -40,7 +47,7 @@ class Type {
 };
 
 struct SymbolEntry {
-  Type type;
+  Type *type;
   int nesting, offset;
   SymbolEntry() {}
   SymbolEntry(Type *t, int nst, int ofs) : type(t), nesting(nst), offset(ofs) {}
@@ -57,7 +64,9 @@ public:
   void insert(std::string c, Type t) {
     if (locals.find(c) != locals.end())
       yyerror("Duplicate variable");
-    locals[c] = SymbolEntry(&t, nesting, offset++);
+    printf("%s is the  type in Scope::insert(std::string c, Type t)\n",t.get_type().c_str());
+    Type *t2 = new Type(t);
+    locals[c] = SymbolEntry(t2, nesting, offset++);
     ++size;
   }
   int getSize() const { return size; }
@@ -79,8 +88,10 @@ public:
       SymbolEntry *e = i->lookup(c);
       if (e != nullptr)
         return e;
+      else
+        printf("%s not found in scope in SymbolTable::lookup\n",c.c_str());
     }
-    yyerror("Variable not found");
+    yyerror(("Variable not found"+c).c_str());
     return nullptr;
   }
   void insert(std::string c, Type t) { 
@@ -93,8 +104,12 @@ public:
   int getCurrentNesting() const { return scopes.size() - 1; }
   void addFunc(Type type)
   {
+    // printf("%s type in SymbolTable::addFunc(Type)\n",type.get_type().c_str());
     funs.push_back(type);
+    // printf("%s type in SymbolTable::addFunc(Type)\n",funs[0].get_type().c_str());
+
   }
+  
   void remFunc()
   {
     funs.pop_back();
