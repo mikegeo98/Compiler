@@ -117,6 +117,8 @@ public:
   virtual void sem() override {}
 };
 
+
+
 class Atom: public Stmt, public Expr{
   public:
     ~Atom(){ /*printf("%c%c%c%c%c%c%c%c%c%c Atom\n",var[0],var[1],var[2],var[3],var[4],var[5],var[6],var[7],var[8],var[9]);*/ delete[] var;}
@@ -149,59 +151,6 @@ class Atom: public Stmt, public Expr{
     
 };
 //EPISHS EDW DEN EIXAMTE TELEIWSEI
-
-class Decl: public AST { //isws xreiastei destructoras kapoia stigmi
-public:
-  ~Decl() {}
-  virtual void sem() {}
-  virtual void printOn(std::ostream &out) const {}
-};
-
-class Block: public Stmt {//DECLERATION
-public:
-  Block(): decl_list(), stmt_list(), size(0) {}
-  ~Block() {
-    for (Decl *d : decl_list) delete d;
-    for (Stmt *s : stmt_list) delete s;
-  }
-  void append_decl(Decl *d) { decl_list.push_back(d); }
-  void append_stmt(Stmt *s) { stmt_list.push_back(s); }
-  void merge(Block *b) {
-    stmt_list = b->stmt_list;
-    b->stmt_list.clear();
-    delete b;
-  }
-  virtual void printOn(std::ostream &out) const override {
-    out << "Block(";
-    bool first = true;
-    for (Decl *d : decl_list) {
-      if (!first) out << ", ";
-      first = false;
-      out << *d;
-    }
-    for (Stmt *s : stmt_list) {
-      if (!first) out << ", ";
-      first = false;
-      out << *s;
-    }
-    out << ")";
-  }
-
-  virtual void sem() override {
-    st.openScope();
-    for (Decl *d : decl_list) d->sem();
-    for (Stmt *s : stmt_list) s->sem();
-    size = st.getSizeOfCurrentScope();
-    st.closeScope();
-  }
-private:
-  std::vector<Decl *> decl_list;
-  std::vector<Stmt *> stmt_list;
-  int size;
-};
-
-extern std::vector<int> rt_stack;
-extern int lncnt;
 
 class Id: public Atom {
 public:
@@ -238,13 +187,89 @@ public:
   virtual void sem() override {
     SymbolEntry *e = st.lookup(var);
     Type *tmp = e->type;
-    type = new Type(*tmp);
+    tmp = new Type(*tmp);
+    type = *tmp;
+    printf("%s Here is type in Id::sem() \n",tmp->get_type().c_str());
     offset = e->offset;
   }
 protected:
   //char *var;
   int offset;
 };
+
+
+class Decl: public AST { //isws xreiastei destructoras kapoia stigmi
+public:
+  ~Decl() {}
+  virtual void sem() {}
+  virtual Id* get_name() {}
+  virtual void printOn(std::ostream &out) const {}
+};
+
+class Block: public Stmt {//DECLERATION
+public:
+  Block(): decl_list(), stmt_list(), size(0) {}
+  ~Block() {
+    for (Decl *d : decl_list) delete d;
+    for (Stmt *s : stmt_list) delete s;
+  }
+  void append_decl(Decl *d) { 
+    // if (d!= nullptr &&d->get_name()!=nullptr && d->get_name()->getName()!=nullptr){
+    //   printf("%s In Block::append_decl\n",d->get_name()->getName());
+    // }
+    printf("apla kati\n");
+    decl_list.push_back(d); 
+  }
+  void append_stmt(Stmt *s) { stmt_list.push_back(s); }
+  void merge(Block *b) {
+    stmt_list = b->stmt_list;
+    b->stmt_list.clear();
+    delete b;
+  }
+  virtual void printOn(std::ostream &out) const override {
+    out << "Block(";
+    bool first = true;
+    for (Decl *d : decl_list) {
+      if (!first) out << ", ";
+      first = false;
+      out << *d;
+    }
+    for (Stmt *s : stmt_list) {
+      if (!first) out << ", ";
+      first = false;
+      out << *s;
+    }
+    out << ")";
+  }
+  virtual void sem() override {
+    printf("Mou sikwthike stin topothesia Block::sem()\n");
+    st.openScope();
+    int cnt = 0;
+    int cnt2 = 0;
+    for (Decl *d : decl_list){
+      cnt = cnt + 1;
+      printf("Count in Block::sem() %d\n",cnt);
+      d->printOn(std::cout);
+      d->sem();
+    } 
+    printf("For ended in Block::sem() \n");
+    for (Stmt *s : stmt_list){
+      cnt2 = cnt2 + 1;
+      printf("Count in 2nd for loop Block::sem() %d\n",cnt2);
+      s->sem();
+    } 
+    printf("2nd For ended in Block::sem() \n");   
+    size = st.getSizeOfCurrentScope();
+    st.closeScope();
+  }
+private:
+  std::vector<Decl *> decl_list;
+  std::vector<Stmt *> stmt_list;
+  int size;
+};
+
+extern std::vector<int> rt_stack;
+extern int lncnt;
 
 class ConstInt: public Atom {
 public:
@@ -255,7 +280,8 @@ public:
   }
 
   virtual void sem() override {
-    type = new Type(true,"int");
+    Type *tmp = new Type(true,"int");
+    type = *tmp;
   }
 
   std::string get_kind()
@@ -275,7 +301,8 @@ public:
   }
 
   virtual void sem() override {
-    type = new Type(true,"char");
+    Type *tmp = new Type(true,"char");
+    type = *tmp;
   }
 
   std::string get_kind()
@@ -318,7 +345,8 @@ public:
   }
 
   virtual void sem() override {
-    type = new Type(true,"bool");
+    Type *tmp = new Type(true,"bool");
+    type = *tmp;
   }
 
   std::string get_kind()
@@ -339,7 +367,8 @@ public:
   }
 
   virtual void sem() override {
-    type = new Type(true,"list");
+    Type *tmp = new Type(true,"list");
+    type = *tmp;
   }
 
   std::string get_kind()
@@ -471,8 +500,10 @@ public:
   }
 
   virtual void sem() override {
+    printf("Better???\n");
     cond->type_check(new Type(true,"bool"));
     stmt1->sem();
+    printf("Are we ok?\n");
     if (elif != nullptr) elif->sem();
     if (stmt2 != nullptr) stmt2->sem();
   }
@@ -552,6 +583,7 @@ class Funcal : public Atom {
       printf("%s is the name in Funcall::sem()\n",name->getName());
       SymbolEntry *e = st.lookup(name->getName());
       Type *typ = new Type(*(e->type));
+      printf("Typ is in Funcall:sem()%s\n",typ->get_type().c_str());
       printf("%s %s is the type in Funcall::sem()\n",typ->get_type().c_str(),e->type->get_type().c_str());      
       //offset = e->offset;
       //Type *fun = st.lookup(name->getName());
@@ -567,13 +599,14 @@ class Funcal : public Atom {
         }
         for(int i=0;i<params->get_size();i++)
         {
-          printf("params have types %s %s \n",typ->get_param_type(i)->get_type().c_str(),params->get_type(i)->get_type().c_str());
+          // printf("params have types %s %s \n",typ->get_param_type(i)->get_type().c_str(),params->get_type(i)->get_type().c_str());
           if(*(typ->get_param_type(i))!=*(params->get_type(i)))
           {
             yyerror("wrong parameter type in param #%d \n",i);
             return;
           }
         }
+        printf("fevgwwww");
       }
       else if(typ->has_params()) {
         yyerror("function has parameters");
@@ -689,11 +722,11 @@ private:
 class Vardecl: public Decl { //MIPWS PREPEI NA NAI YPOKLASI TOU STMT?
 public:
   Vardecl(Id *v, Type *ty): var(v), type(*ty) {
-    printf("%s is var %s is type in Vardecl::Vardecl()",var->get_var(),type.get_type());
+    printf("%s is var %s is type in Vardecl::Vardecl()\n",var->get_var(),type.get_type());
   }
   Vardecl(Vardecl &vd):  type(vd.type) {
     char *tmp = new char[200]; 
-    printf("%s VD IN Vardecl::Vardecl(Vardecl &vd)",vd.var->get_var()); 
+    printf("%s VD IN Vardecl::Vardecl(Vardecl &vd)\n",vd.var->get_var()); 
     strcpy(tmp,vd.var->get_var());
     var = new Id(tmp);
   }
@@ -709,6 +742,7 @@ public:
     out<<"type="<<(&type)->get_type()<< ")";    
   }
   virtual void sem() override {
+    printf("prin to Vardecl::sem()");
     st.insert(var->getName(),type);
     printf("%s var name in Vardecl::sem()\n",var->getName());
     SymbolEntry *e=st.lookup(var->getName());
@@ -726,6 +760,10 @@ public:
   {
     return &type;
   }
+  virtual Id *get_name() override
+  {
+    return var;
+  }  
 private:
   Id *var;
   Type type;
@@ -843,16 +881,16 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
         virtual void sem() override
         {
             // id->printOn(std::cout);
-            SymbolEntry *e;
-            e = st.lookup("putc");
-            if(e==nullptr)yyerror("efakre\n");
-            printf("putc of type %d\n",e->type->get_param_cnt());
-            st.openScope();
+            // SymbolEntry *e;
+            // e = st.lookup("putc");
+            // if(e==nullptr)yyerror("efakre\n");
+            // printf("putc of type %d\n",e->type->get_param_cnt());
             // std::cout<<type.get_type()<<"type in Fundecl::sem()";
             // std::cout<<type.get_type();
             // std::string a(id->getName());
             // std::cout<<a<<" in Fundecl::sem()\n";
             // printf("%s in Fundecl::sem()\n",a);
+            // st.openScope();
             st.insert(id->getName(),type);
             // printf("%s inserted in st Fundecl::sem()\n",id->getName());
             if(block!=nullptr)
@@ -863,6 +901,7 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
             }
             st.openScope();
             if(params!=nullptr) params->sem();
+            st.openScope();
             if (block!=nullptr)
                 block->sem();
             if(block!=nullptr)
@@ -955,7 +994,7 @@ inline int Type::get_param_cnt()
 {
   printf("type is %s in Type::get_param_cnt()\n",get_type().c_str());
   if (params!= nullptr){
-    printf("Type::get_param_cntmpika sto params2 branch \n");
+    printf("Type::get_param_cntmpika sto params branch \n");
     return params->get_size();
   }
   if (params2!= nullptr){

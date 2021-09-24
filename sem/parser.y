@@ -139,7 +139,7 @@ func-decl:
   "decl" header { $$ = $2; }
 ;
 var-def:
-  type T_ID rule4 { $3->fixtypes($1); $$ = $3; }
+  type T_ID rule4 {$3->append_vardecl(new Id($2)); $3->fixtypes($1); $$ = $3; }
 ;
 stmt:
   simple { $$ = $1; }
