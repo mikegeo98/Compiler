@@ -79,7 +79,7 @@ W [ \t\r]
 "list" {return T_LIST;}
 "new" {return T_NEW;}
 "nil" {return T_NIL;}
-"nil?" {return T_ISNIL;}
+"nil?" {printf("nil??????\n");return T_ISNIL;}
 "tail" {return T_TAIL;}
 "head" {return T_HEAD;}
 

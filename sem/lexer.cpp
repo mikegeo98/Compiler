@@ -919,7 +919,7 @@ YY_RULE_SETUP
 case 11:
 YY_RULE_SETUP
 #line 82 "lexer.l"
-{return T_ISNIL;}
+{printf("nil??????\n");return T_ISNIL;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP

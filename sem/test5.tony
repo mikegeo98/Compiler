@@ -23,7 +23,7 @@ changed := true
  end
  end
 
- def write_?Array (char[] msg; int n; int[] x):
+ def writeArray (char[] msg; int n; int[] x):
  int i
 
  puts(msg)

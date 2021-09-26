@@ -89,7 +89,7 @@
 
 %%
 program:
-    func-def { printf("start\n");initSt();$1->sem(); st.closeScope();}
+    func-def { printf("start\n");initSt();st.openScope();$1->sem(); st.closeScope();st.closeScope();}
 ;
 func-def:
     "def" header ':' rule0 "end" { $2->add_block($4); $$ = $2; }
@@ -109,7 +109,7 @@ rule2:
 ;
 header:
   type T_ID '(' rule35 ')' {$1->make_fun2($4); $$ = new Fundecl(new Id($2),$1,$4);}
-| type T_ID '(' ')' {$1->make_fun(new Expls()); $$ = new Fundecl(new Id($2),$1,nullptr);}
+| type T_ID '(' ')' {$1->make_fun(nullptr); $$ = new Fundecl(new Id($2),$1,nullptr);}
 | T_ID '(' rule35 ')' {$$ = new Fundecl(new Id($1),new Type(false,"void",nullptr,nullptr,$3),$3); }
 | T_ID '(' ')' { printf("we are here 1"); $$ = new Fundecl(new Id($1),new Type(false,"void"),nullptr);}
 ;
@@ -236,9 +236,9 @@ expr:
     char* c=new char[10];
     strcpy(c,"nil?");
     $$ = new Funcal(new Id(c),a); //(false, "bool", a),a); COULD BE BETTER
-  } 
-| expr '#' expr { $$ = new BinOp($1, $2, $3); }
-| "head" '(' expr ')' 
+  }  
+| expr '#' expr {printf("Dollario 2 %c \n",$2); /*PITHANON MEGALO PROBLIMA */$$ = new BinOp($1, '#', $3); }
+| "head" '(' expr ')'  
   { 
     Expls* a = new Expls(); 
     a -> append_exprls($3); 
