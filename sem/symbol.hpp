@@ -14,7 +14,9 @@ class Type {
   public:
     Type(bool iv=true, std::string ty="DICK", Expls *pa=nullptr, Type *o = nullptr, Varlist *pa2 = nullptr): isvar(iv), type(nullptr), params(pa), obj(o), params2(pa2) {
       type = new char[200];
-      
+      for (int i=0; i<200; i++){
+        type[i] = '0';
+      }
       // printf("%d Type::Type() ",ty.c_str()[4]=='\0');
       strcpy(type,ty.c_str()); 
       if(ty=="array")

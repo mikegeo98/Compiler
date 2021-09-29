@@ -1,0 +1,10 @@
+../testcases/wrong/list.tony:4:20: error: appending 'list[char]' to list of incompatible type 'list[list[int]]'
+  x := ('A' # nil) # (nil # ((65 # nil) # nil))
+                   ^
+../testcases/wrong/list.tony:6:5: error: assigning to 'int' from incompatible type 'list[list[list[int]]]'
+  x := (nil # nil) # (((2 # nil) # nil) # nil)
+    ^
+../testcases/wrong/list.tony:8:5: error: assigning to 'int' from incompatible type 'list[list[int]]'
+  x := (42 # nil) # (nil # nil)
+    ^
+3 errors generated.

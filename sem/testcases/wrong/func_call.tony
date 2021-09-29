@@ -1,0 +1,42 @@
+def main():
+
+  decl int boo()
+  decl int[] bar()
+  decl int[][] far(int i)
+
+  decl foo(ref int x; int y; ref list[int] q)
+  decl foo2(ref int[] A)
+  
+  list[int] l
+  int x
+  int[] A
+  
+  foo(x, 2)
+  foo()
+  foo('A', 42, nil)
+  
+  foo(2, x, l)
+  
+  foo(x, 2, nil)
+  
+  foo(boo(), 17, l)
+  foo(bar()[42], l, l)
+  
+  foo2(bar())
+  
+  
+  
+  
+  "Hello!" := boo()
+  "Hello!"[0] := bar()[0]
+  
+  boo() := 0
+  boo()[42] := 17
+  
+  % there are ok
+  bar()[17] := boo()
+  
+  far(0)[1] := far(1)[0]
+  far(0)[0][1] := 42
+
+end

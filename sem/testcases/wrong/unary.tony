@@ -1,0 +1,19 @@
+def main():
+  int x
+  int[] A, B
+  char c
+  list[int] q
+  
+  decl int[] foo()
+  decl list[char] bar()
+  
+  x := -A
+  x := +q
+  
+  x := not A
+  
+  x := nil?(head(bar()))
+  x := head(nil)
+  x := tail(foo())
+  x := tail(A)
+end

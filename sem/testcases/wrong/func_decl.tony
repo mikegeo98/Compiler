@@ -1,0 +1,14 @@
+def main():
+
+  decl foo(int x, y, z; ref char[] s)
+  
+  decl foo(int y; int z, x; ref char[] str) % this is ok
+  
+  decl foo(int x, y, z; char[] s)
+  
+  def foo(int x; int[] y; int z; ref char[] s):
+    skip
+  end
+  
+  skip
+end

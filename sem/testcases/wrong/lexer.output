@@ -1,0 +1,28 @@
+../testcases/wrong/lexer.tony:6:14: error: invalid escape sequence
+  s := "oups \A"
+             ^
+../testcases/wrong/lexer.tony:7:22: error: expected common character or escape sequence (found ascii value 0x27)
+  s := "single quote ' must be escaped"
+                     ^
+../testcases/wrong/lexer.tony:8:35: error: invalid escape sequence
+  s := "and so does the backslash \ character"
+                                  ^
+../testcases/wrong/lexer.tony:9:13: error: expected common character or escape sequence (found ascii value 0x09)
+  s := "tabs	too"
+            ^
+../testcases/wrong/lexer.tony:12:9: error: invalid escape sequence
+  c := '\xi0'
+        ^
+../testcases/wrong/lexer.tony:13:9: error: invalid escape sequence
+  c := '\x0g'
+        ^
+../testcases/wrong/lexer.tony:14:9: error: expected common character or escape sequence (found ascii value 0x22)
+  c := '"'
+        ^
+../testcases/wrong/lexer.tony:16:8: error: multi-character character constant
+  c := '\x0AA'
+       ^
+../testcases/wrong/lexer.tony:17:8: error: empty character constant
+  c := ''
+       ^
+9 errors generated.

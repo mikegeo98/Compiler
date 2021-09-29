@@ -1,0 +1,19 @@
+% watch -n 1 grep MemAvailable /proc/meminfo
+
+def GC():
+
+  list[int] q
+  int[][] A
+  
+  int i, n
+  
+  for i := 0; i < 1000000; i := i + 1:
+    q := nil
+    A := new int[][1000]
+    for n := 0; n < 1000; n := n + 1:
+      q := n # q
+      A[n] := new int[100]
+    end
+  end
+  
+end

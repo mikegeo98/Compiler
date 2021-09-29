@@ -1,0 +1,20 @@
+def main():
+  char[] s
+  char c
+  
+  
+  s := "oups \A"
+  s := "single quote ' must be escaped"
+  s := "and so does the backslash \ character"
+  s := "tabs	too"
+  
+  
+  c := '\xi0'
+  c := '\x0g'
+  c := '"'
+  
+  c := '\x0AA'
+  c := ''
+
+
+end

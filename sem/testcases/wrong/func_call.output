@@ -1,0 +1,43 @@
+../testcases/wrong/func_call.tony:14:3: error: invalid number of arguments to function call, expected 3, have 2
+  foo(x, 2)
+  ^
+../testcases/wrong/func_call.tony:7:8: note: 'foo' declared here
+  decl foo(ref int x; int y; ref list[int] q)
+       ^
+../testcases/wrong/func_call.tony:15:3: error: invalid number of arguments to function call, expected 3, have 0
+  foo()
+  ^
+../testcases/wrong/func_call.tony:7:8: note: 'foo' declared here
+  decl foo(ref int x; int y; ref list[int] q)
+       ^
+../testcases/wrong/func_call.tony:16:7: error: passing 'char' to parameter of incompatible type 'int'
+  foo('A', 42, nil)
+      ^
+../testcases/wrong/func_call.tony:18:7: error: expression can't be passed by reference (must be an l-value)
+  foo(2, x, l)
+      ^
+../testcases/wrong/func_call.tony:20:13: error: expression can't be passed by reference (must be an l-value)
+  foo(x, 2, nil)
+            ^
+../testcases/wrong/func_call.tony:22:7: error: expression can't be passed by reference (must be an l-value)
+  foo(boo(), 17, l)
+      ^
+../testcases/wrong/func_call.tony:23:18: error: passing 'list[int]' to parameter of incompatible type 'int'
+  foo(bar()[42], l, l)
+                 ^
+../testcases/wrong/func_call.tony:25:8: error: expression can't be passed by reference (must be an l-value)
+  foo2(bar())
+       ^
+../testcases/wrong/func_call.tony:30:3: error: expression is not assignable
+  "Hello!" := boo()
+  ^
+../testcases/wrong/func_call.tony:31:11: error: expression is not assignable
+  "Hello!"[0] := bar()[0]
+          ^
+../testcases/wrong/func_call.tony:33:3: error: expression is not assignable
+  boo() := 0
+  ^
+../testcases/wrong/func_call.tony:34:8: error: subscripted value is not an array
+  boo()[42] := 17
+       ^
+12 errors generated.

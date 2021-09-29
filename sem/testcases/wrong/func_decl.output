@@ -1,0 +1,13 @@
+../testcases/wrong/func_decl.tony:7:8: error: conflicting types for 'foo'
+  decl foo(int x, y, z; char[] s)
+       ^
+../testcases/wrong/func_decl.tony:3:8: note: previous declaration is here
+  decl foo(int x, y, z; ref char[] s)
+       ^
+../testcases/wrong/func_decl.tony:9:7: error: conflicting types for 'foo'
+  def foo(int x; int[] y; int z; ref char[] s):
+      ^
+../testcases/wrong/func_decl.tony:3:8: note: previous declararation is here
+  decl foo(int x, y, z; ref char[] s)
+       ^
+2 errors generated.

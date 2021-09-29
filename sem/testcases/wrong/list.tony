@@ -1,0 +1,9 @@
+def foo():
+  int x
+  
+  x := ('A' # nil) # (nil # ((65 # nil) # nil))
+  
+  x := (nil # nil) # (((2 # nil) # nil) # nil)
+  
+  x := (42 # nil) # (nil # nil)
+end

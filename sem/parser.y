@@ -145,7 +145,7 @@ stmt:
   simple { $$ = $1; }
 | "exit" { $$ = new Return(); }
 | "return" expr { $$ = new Return($2); }
-| "if" expr ':' rule2 "end" { $$ = new If($2, $4); }
+| "if" expr ':' rule2 rule5 "end" { $$ = new If($2, $4); }
 | "if" expr ':' rule2 rule5 "else" ':' rule2 "end" { $$ = new If($2, $4, $8, $5); } 
 | "for" simplelist ';' expr ';' simplelist ':' rule2 "end" { $$ = new For($2,$4,$6,$8);}
 ;
@@ -201,7 +201,7 @@ rule7:
 atom:
   T_ID { $$ = new Id($1); }
 | T_STRING {if ($1 == nullptr) printf("NULL\n"); else printf("%s\n", $1); $$ = new ConstString($1); }
-| atom '[' expr ']' { $$ = new Arracc($1,$3); }  
+| atom '[' expr ']' {$1->printOn(std::cout); $$ = new Arracc($1,$3); }  
 | call { $$ = $1; }
 ;
 expr:

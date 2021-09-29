@@ -1,0 +1,46 @@
+../testcases/wrong/binary.tony:10:13: error: invalid operands to binary expression ('int' and 'int[]')
+  x := A[0] + B
+            ^
+../testcases/wrong/binary.tony:11:10: error: invalid operands to binary expression ('list[int]' and 'char')
+  x := q - c
+         ^
+../testcases/wrong/binary.tony:12:10: error: invalid operands to binary expression ('int' and 'bool')
+  x := 2 * false
+         ^
+../testcases/wrong/binary.tony:13:10: error: invalid operands to binary expression ('list[int]' and 'int')
+  x := q mod 9
+         ^
+../testcases/wrong/binary.tony:15:18: error: invalid operands to binary expression ('int' and 'int[]')
+  x := foo()[42] > B
+                 ^
+../testcases/wrong/binary.tony:16:11: error: invalid operands to binary expression ('list[int]' and 'nil')
+  x := (q = nil)
+          ^
+../testcases/wrong/binary.tony:17:10: error: invalid operands to binary expression ('int[]' and 'int[]')
+  x := A <= foo()
+         ^
+../testcases/wrong/binary.tony:18:12: error: invalid operands to binary expression ('nil' and 'nil')
+  x := nil <> nil
+           ^
+../testcases/wrong/binary.tony:20:10: error: invalid operands to binary expression ('int[]' and 'int')
+  x := A and x
+         ^
+../testcases/wrong/binary.tony:21:10: error: invalid operands to binary expression ('int' and 'bool')
+  x := 1 or true
+         ^
+../testcases/wrong/binary.tony:22:14: error: invalid operands to binary expression ('list[char]' and 'bool')
+  x := bar() and true
+             ^
+../testcases/wrong/binary.tony:23:20: error: invalid operands to binary expression ('char' and 'list[char]')
+  x := head(bar()) or tail(bar())
+                   ^
+../testcases/wrong/binary.tony:25:12: error: appending 'char' to list of incompatible type 'list[int]'
+  q := 'A' # (2 # nil)
+           ^
+../testcases/wrong/binary.tony:26:13: error: expression must be a list
+  q := 42 # new int[10]
+            ^
+../testcases/wrong/binary.tony:27:22: error: appending 'list[int[]]' to list of incompatible type 'list[list[int]]'
+  q := (foo() # nil) # (q # nil)
+                     ^
+15 errors generated.

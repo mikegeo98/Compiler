@@ -1,0 +1,20 @@
+def foo():
+  int x
+  
+  def bar():
+    x := 42
+  end
+  
+  def boo():
+    def far():
+      bar()
+    end
+    
+    far()
+  end
+  
+  boo()
+  puts("Magic number is: ")
+  puti(x)
+  puts("\n")
+end

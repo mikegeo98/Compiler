@@ -1,0 +1,263 @@
+def mess():
+  int errors
+  char[] RED, RESET
+
+  def output(char[] function_name; int expected, result):
+    if result <> expected:
+      errors := errors + 1
+      puts(RED)
+      puts("Error")
+      puts(RESET)
+      puts(" in function: ")
+      puts(function_name)
+      puts("\nExpected:   ")
+      puti(expected)
+      puts("\nResult:     ")
+      puti(result)
+      puts("\x0A\x0A")
+    end
+  end
+  
+  
+  def int bool_to_int(bool b):
+    if b: return 1 end
+    return 0
+  end
+  
+  
+  def int[] make_array(int size):
+    int[] A
+    int i
+    
+    A := new int[size]
+    for i := 0; i < size; i := i + 1:
+      A[i] := i
+    end
+    
+    return A
+  end
+  
+  
+  def int list_sum(list[int] q):
+    int sum
+    for sum := 0; not nil?(q); q := tail(q):
+      sum := sum + head(q)
+    end
+    return sum
+  end
+  
+  
+  
+
+  def precedence():
+    int x, result
+    bool b, q, w
+    
+    q := false
+    w := true
+    x := 8
+    
+    result := list_sum(+x # x + 2 * x + x mod 7 # x + 1 # x / 2 # nil)
+    output("precedence", 46, result)
+    
+    b := -x + result > 38 or x <> 0 + x or not q and not w or q > false
+    output("precedence", 0, bool_to_int(b))
+  end
+  
+  
+  
+  
+  def string_duplicate():
+    % the two string literals should appear only once in the IR
+    
+    char[] s1, s2
+    s1 := "\t \x00 \x0A \n \' H"
+    s2 := "\t \0 \n \x0A \' H"
+    
+    output("string_duplicate", ord('H'), ord(s1[10]))
+  end
+  
+  
+  
+  
+  def nesting():
+    int x, y, result
+    char c
+    list[int] q
+    
+    def n1():
+      def n2():
+        def n3():
+          def n4():
+            def n5():
+              def n6():
+                for result := 0; not nil?(q); result := result + head(q), q := tail(q):
+                  skip
+                end
+              end
+              
+              q := x # y # ord(c) # q
+              n6()
+            end
+          
+            c := '\x41'
+            n5()
+          end
+          
+          y := 17
+          n4()
+        end
+      
+        x := 42
+        n3()
+      end
+      
+      q := nil
+      n2()
+    end
+    
+    n1()
+    output("nesting", 124, result)
+  end
+  
+  
+  
+  
+  def lvalue():
+    def int[] f(int size):
+      return make_array(size)
+    end
+    
+    int result
+    result := f(20)[f(10)[f(10)[3] + f(6)[5]] + f(10)[f(10)[3] + 5]]
+    output("lvalue", 16, result)
+  end
+  
+  
+  
+  
+  def pass_by_reference():
+  
+    def boo(list[list[int]] q):
+      q := (186 # nil) # nil
+    end
+    
+    def foo(ref list[list[int]] q):
+      q := (186 # nil) # nil
+    end
+    
+    
+    list[list[int]] q
+    
+    q := nil
+    foo(q)
+    output("pass_by_reference", 186, head(head(q)))
+    
+    q := (99 # nil) # (head(95 # nil) # nil) # nil
+    boo(q)
+    output("pass_by_reference", 95, head(head(tail(q))))
+  end
+  
+  
+  
+  
+  def short_circuit():
+    def bool foo(ref int x; int new_x; bool b):
+      x := new_x
+      return b
+    end
+  
+    bool b
+    int x
+    
+    b := true
+    x := 42
+    
+    if b or foo(x, 17, false): skip end
+    output("short_circuit", 42, x)
+    
+    if not b or foo(x, 17, false): skip end
+    output("short_circuit", 17, x)
+    
+    if not b or foo(x, 17, true) or foo(x, 98, false): skip end
+    output("short_circuit", 17, x)
+    
+    if not b or foo(x, 17, false) or foo(x, 98, false): skip end
+    output("short_circuit", 98, x)
+    
+    if b and foo(x, 17, false) or foo(x, 98, false): skip end
+    output("short_circuit", 98, x)
+    
+    if b and foo(x, 1, true) and foo(x, 2, false) or foo(x, 3, false): skip end
+    output("short_circuit", 3, x)
+  end
+  
+  
+  
+  
+  def nil_mess():
+    list[list[bool]] q1
+    list[list[list[int]]] q2
+    list[list[int]] q3
+    
+    bool b
+    
+    q1 := (false # nil) # (nil # ((true # nil) # nil))
+    q2 := (nil # nil) # (((2 # nil) # nil) # nil)
+    q3 := (42 # nil) # (nil # nil)
+    
+    b := nil?(tail(head(q1))) and nil?(head(tail(q1))) and nil?(tail(head(tail(tail(q1))))) and nil?(tail(tail(tail(q1))))
+         and not nil?(head(q1)) and not nil?(head(tail(tail(q1))))
+    output("nil_mess", 1, bool_to_int(b))
+    
+    b := nil?(head(head(q2))) and nil?(tail(head(q2))) and nil?(tail(head(head(tail(q2)))))
+    output("nil_mess", 1, bool_to_int(b))
+    
+    b := not nil?(head(q3)) and not nil?(tail(q3)) and nil?(head((tail(q3))))
+    output("nil_mess", 1, bool_to_int(b))
+  end
+  
+  
+  
+  
+  def null_in_string():
+    int d
+    
+    d := ord("\0\0\0...this must be stored despite the null characters"[52])
+    output("null_in_string", ord('s'), d)
+  end
+  
+  
+  
+  errors := 0
+  RED := "\x1B[1;31m"
+  RESET := "\x1B[0m"
+                 
+                 
+  
+  precedence()
+  string_duplicate()
+  nesting()
+  lvalue()
+  pass_by_reference()
+  short_circuit()
+  nil_mess()
+  null_in_string()
+  
+  % add more here...
+  
+  
+  
+  if errors = 0:
+    puts("No errors!\n")
+  else:
+    puts("Found ")
+    puti(errors)
+    if errors = 1:
+      puts(" error.\n")
+    else:
+      puts(" errors.\n")
+    end
+  end
+  
+end

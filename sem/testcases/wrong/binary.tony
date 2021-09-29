@@ -1,0 +1,28 @@
+def main():
+  int x
+  int[] A, B
+  char c
+  list[int] q
+  
+  decl int[] foo()
+  decl list[char] bar()
+  
+  x := A[0] + B
+  x := q - c
+  x := 2 * false
+  x := q mod 9
+  
+  x := foo()[42] > B
+  x := (q = nil)
+  x := A <= foo()
+  x := nil <> nil
+  
+  x := A and x
+  x := 1 or true
+  x := bar() and true
+  x := head(bar()) or tail(bar())
+  
+  q := 'A' # (2 # nil)
+  q := 42 # new int[10]
+  q := (foo() # nil) # (q # nil)
+end

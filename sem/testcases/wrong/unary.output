@@ -1,0 +1,22 @@
+../testcases/wrong/unary.tony:10:8: error: invalid argument type 'int[]' to unary expression
+  x := -A
+       ^
+../testcases/wrong/unary.tony:11:8: error: invalid argument type 'list[int]' to unary expression
+  x := +q
+       ^
+../testcases/wrong/unary.tony:13:8: error: invalid argument type 'int[]' to unary expression
+  x := not A
+       ^
+../testcases/wrong/unary.tony:15:8: error: invalid argument type 'char' to unary expression
+  x := nil?(head(bar()))
+       ^
+../testcases/wrong/unary.tony:16:13: error: untyped list not allowed here
+  x := head(nil)
+            ^
+../testcases/wrong/unary.tony:17:8: error: invalid argument type 'int[]' to unary expression
+  x := tail(foo())
+       ^
+../testcases/wrong/unary.tony:18:8: error: invalid argument type 'int[]' to unary expression
+  x := tail(A)
+       ^
+7 errors generated.

@@ -1,0 +1,21 @@
+def main():
+  def bool foo(ref int x):
+    x := 42
+    return true
+  end
+  
+  int x
+  x := 17
+  
+  if true or foo(x):
+    skip
+  end
+  
+  if false and foo(x):
+    skip
+  end
+  
+  % x should still be 17
+  puti(x)
+  puts("\n")
+end
