@@ -34,6 +34,7 @@ public:
   ~Expr(){}
   void type_check(Type *t) {
     sem();
+    if(t==nullptr)printf("gtxm in Expr::type_check()\n");
     printf("Type is %s and %s in Expr::type_check\n",type.get_type().c_str(),t->get_type().c_str());
     if (type != *t) yyerror("Type mismatch");
   }
@@ -52,7 +53,10 @@ protected:
 
 class Arinit: public Expr {
   public:
-    Arinit(Type *ty, Expr *sz):  size(sz) {type=*ty;}
+    Arinit(Type *ty, Expr *sz):  size(sz) {
+      Type *tmp = new Type(true,"array",nullptr,ty);
+      type=*tmp;
+    }
     ~Arinit() {delete size;}
     virtual void printOn(std::ostream &out) const override
     {
@@ -305,6 +309,7 @@ public:
   virtual void sem() override {
     Type *tmp = new Type(true,"int");
     type = *tmp;
+    printf("type is %s in ConstInt::sem()\n",type.get_type().c_str());
   }
 
   std::string get_kind()
@@ -346,7 +351,7 @@ public:
   }
 
   virtual void sem() override {
-    Type *tmp = new Type(true,"string");
+    Type *tmp = new Type(true,"array",nullptr,new Type(true,"char"));
     type = *tmp;
   }
 
@@ -407,14 +412,14 @@ private:
 
 class BinOp: public Expr {
 public:
-  BinOp(Expr *l, char o, Expr *r): left(l), op(o), right(r) { if (o=='*') printf("Gamw to mouni tis manas sou palliokarioli\n");}
+  BinOp(Expr *l, int o, Expr *r): left(l), op(o), right(r) { printf("Gamw to mouni tis manas sou palliokarioli %d %d in BinOp::BinOp()\n",o,op);}
   ~BinOp() { delete left; delete right; }
   virtual void printOn(std::ostream &out) const override {
     out << op << "(" << *left << ", " << *right << ")";
   }
 
   virtual void sem() override {
-    printf("we are in BinOp::sem()\n");
+    printf("we are in BinOp::sem() %d\n",op);
     if(op!='#')left->type_check(right->get_type());
     // right->type_check(TYPE_int);
     switch (op) {
@@ -430,8 +435,9 @@ public:
           }
           break;
       }
-      case T_OR: case T_AND: 
+      case T_OR: case T_AND:
       {
+          printf("right type is %s in BinOP::sem()\n",right->get_type()->get_type().c_str());
           if((right->get_type())->get_type()=="bool"){
             Type *tmp = new Type(true,"bool");
             type = *tmp; 
@@ -442,11 +448,15 @@ public:
       }
       // EDW KATI DEN DOULEVEI
       case '=': case '<': case '>': case T_NEQUAL: case T_SOE: case T_GOE: 
+      {
         if (right->get_type()->get_type() != "int" && right->get_type()->get_type() != "bool" && right->get_type()->get_type() != "char")
           yyerror("Invalid operand to %c",op); 
-        type = right->get_type(); 
+        Type *tmp = new Type(true,"bool");
+        type = *tmp; 
         break;
+      }
       case '#':
+      {
         printf("FLAGG\n");
         if(right->get_type()->get_type()[0]!='l'||right->get_type()->get_type()[2]!='s')
         {
@@ -471,6 +481,7 @@ public:
         type = *tmp;
         printf("Type in BinoOp::sem is %s\n",tmp->get_type().c_str());
         break;
+      }
     }
   }
 private:
@@ -481,7 +492,7 @@ private:
 
 class MonOp: public Expr {
 public:
-  MonOp(char o, Expr *r): op(o), right(r) {}
+  MonOp(int o, Expr *r): op(o), right(r) {}
   ~MonOp() { delete right; }
   virtual void printOn(std::ostream &out) const override {
     out << op << "(";
@@ -490,13 +501,20 @@ public:
   }
 
   virtual void sem() override {
+    printf("the operator is %d in MonOp::sem()\n",op);
     if(op!=T_NOT)right->type_check(new Type(true,"int"));
     else right->type_check(new Type(true,"bool"));
     switch (op) {
       case '+': case '-':
-        type = new Type(true,"int"); break;
+      {
+        Type *tmp = new Type(true,"int");
+        type = *tmp; break;
+      }
       case T_NOT:
-        type = new Type(true,"bool"); break;
+      {
+        Type *tmp = new Type(true,"bool");
+        type = *tmp; break;
+      }
     }
   }
 private:
@@ -618,10 +636,13 @@ class Return: public Stmt {
         }
     }
     virtual void sem() override {
-        if(retval != nullptr) {
-            Type *temp=new Type(st.findLastFunc());
-            retval->type_check(temp);
-        }
+      printf("we are in Return::sem()\n");
+      if(retval != nullptr) {
+          Type one = st.findLastFunc();
+          printf("Type one is %s in Return::sem()\n",one.get_type().c_str());
+          Type *temp=new Type(one);
+          retval->type_check(temp);
+      }
     }
   private:
     Expr *retval;
@@ -631,6 +652,9 @@ class Funcal : public Atom {
   public:
     Funcal(Id *n, Expls *par = nullptr) : name(n), params(par) { 
       kind = "Funcal"; 
+      printf("name is %s in Funcal::Funcal()\n",name->getName());
+      // par->printOn(std::cout);
+      printf("ok\n");
       var = new char[200];
       for (int i=0; i<200; i++){
         var[i] = '0';
@@ -665,15 +689,36 @@ class Funcal : public Atom {
           yyerror("wrong number of params");
           return;
         }
+        if((name->getName()[0]=='h'&&name->getName()[1]=='e'&&name->getName()[2]=='a'&&name->getName()[3]=='d')||(name->getName()[0]=='t'&&name->getName()[1]=='a'&&name->getName()[2]=='i'&&name->getName()[3]=='l'))
+        {
+          Type *tmp=new Type(true,"list",nullptr,new Type(true,"any")); 
+          printf("com is %s %s in Funcal::sem()\n",params->get_type(0)->get_obj()->get_type().c_str(),tmp->get_type().c_str());
+          if(!(*(params->get_type(0))!=*(tmp)||(params->get_type(0)->get_obj()!=nullptr&&params->get_type(0)->get_obj()->get_type()!="any"))) yyerror("no empty list in head or tail");
+          if(name->getName()[0]=='h'&&name->getName()[1]=='e'&&name->getName()[2]=='a'&&name->getName()[3]=='d')
+          {
+            tmp=params->get_type(0)->get_obj();
+            printf("here1 in funcal::sem()\n");
+            tmp = new Type(*tmp);
+            type=*tmp;
+          }
+          else
+          {
+            tmp=params->get_type(0);
+            printf("here2 in funcal::sem()\n");
+            tmp = new Type(*tmp);
+            type=*tmp;
+          }
+        }
         printf("we are in a chp -1 Funcall::sem();\n");
         for(int i=0;i<params->get_size();i++)
         {
           printf("we are in a chp %d Funcall::sem();\n",i);
+          params->printOn(std::cout);
           // printf("params have types %s %s \n",typ->get_param_type(i)->get_type().c_str(),params->get_type(i)->get_type().c_str());
           if(*(typ->get_param_type(i))!=*(params->get_type(i)))
           {
-            yyerror("wrong parameter type in param #%d \n",i);
-            return;
+            yyerror("wrong parameter type in param # %d \n",i);
+            // return;
           }
         }
         printf("fevgwwww");
@@ -709,18 +754,32 @@ class Ass: public Stmt {
     ~Ass() { delete expr; }  
     virtual void printOn(std::ostream &out) const override {
       out <<"Ass(";
+      at->printOn(out);
+      out<<',';
       expr->printOn(out);
       out <<")"; //DEN EKTYPWNOUME TO AT, AFTO PREPEI NA ALLAKSEI
     }
     virtual void sem() override {
-
+      this->printOn(std::cout);
       //expr->type_check(at -> new Type(true,"int")); PREPEI NA VROUME TON TYPO TOU AT KAPWS
       printf("kind %s in Ass::sem()\n",at->get_kind().c_str());
-      if (at->get_kind() == "Id"||at->get_kind() == "Arracc"){
+      if (at->get_kind() == "Id"){
+        printf("we are too soon in Ass::sem()\n");
         SymbolEntry *e;
+        printf("we are less soon in Ass::sem() %s\n",at->getName());
         e = st.lookup(at->getName());
-        Type *type = new Type(&(e->type));
-        expr->type_check(type);
+        printf("we are medium in Ass::sem() %s\n",e->type->get_type().c_str());
+        // Type *type = new Type(&(e->type));
+        // printf("we are preatty far in Ass::sem() %s\n",type->get_type().c_str());
+        expr->type_check(e->type);
+      }
+      else if(at->get_kind() == "Arracc")
+      {
+        at->printOn(std::cout);
+        printf("Ass::sem()\n");
+        at->sem();
+        printf("gtxm %s Ass::sem()\n",at->get_type()->get_type().c_str());
+        expr->type_check(at->get_type());
       }
       else {
         yyerror("Item does not support assignment");
@@ -781,7 +840,7 @@ public:
       var[i] = '0';
     }  
     // printf("get_var in Arracc::Arracc is %s\n",i->get_var());
-    if (i->get_kind() == "Id" || name->get_kind() == "Funcal")
+    if (i->get_kind() == "Id" || name->get_kind() == "Funcal"|| name->get_kind() == "Arracc")
       strcpy(var,i->get_var());
     else 
       var = nullptr;
@@ -798,15 +857,34 @@ public:
 
   virtual void sem() override {
     pos->type_check(new Type(true,"int"));
+    this->printOn(std::cout);
     if (name->get_kind() == "Id" || name->get_kind() == "Funcal"){
+      printf("name type is %s in Arracc::sem()\n",name->get_kind().c_str());
       SymbolEntry *e = st.lookup(name->getName());
-      if(e!=nullptr) type = e->type;
+      if(e->type->get_obj()==nullptr) yyerror("object is not an array");
+      printf("tmp has type %s in Arracc::sem()\n",e->type->get_type().c_str());
+      Type *tmp=e->type->get_obj();
+      tmp = new Type(*tmp);
+      if(e!=nullptr) type = *tmp;
       // offset = e->offset;
       else yyerror("no such array");
     }
-    else {
-      type = new Type(true,"char");
+    else if(name->get_kind()=="Arracc")
+    {
+      name->sem();
+      Type *tmp=name->get_type()->get_obj();
+      tmp = new Type(*tmp);
+      type = *tmp;
     }
+    else {
+      Type *tmp = new Type(true,"char");
+      type = *tmp;
+    }
+  }
+  Type *get_type()
+  {
+    printf("type is %s in Arracc::get_type",type.get_type().c_str());
+    return &type;
   }
   std::string get_kind()
   {
@@ -814,7 +892,7 @@ public:
   }
 private:
   Atom *name;
-  Type type;
+  // Type type;
   Expr *pos;
 };
 
@@ -822,7 +900,7 @@ private:
 
 class Vardecl: public Decl { //MIPWS PREPEI NA NAI YPOKLASI TOU STMT?
 public:
-  Vardecl(Id *v, Type *ty): var(v), type(*ty) {
+  Vardecl(Id *v, Type *ty, bool br=false): var(v), type(*ty), by_ref(br) {
     printf("%s is var %s is type in Vardecl::Vardecl()\n",var->get_var(),type.get_type());
   }
   Vardecl(Vardecl &vd):  type(vd.type) {
@@ -868,8 +946,13 @@ public:
   {
     return var;
   }  
+  void mbr()
+  {
+    by_ref=true;
+  }
 private:
   Id *var;
+  bool by_ref;
   Type type;
 };
 
@@ -903,7 +986,7 @@ public:
       this->printOn(std::cout);
       std::cout<<"at Varlist::append_vardecl(Id *id, Type type = new Type(true,\"non\"))\n";
   }
-  void fixtypes(Type *type)
+  void fixtypes(Type *type, bool br = false)
   {
     if (type->get_obj()!=nullptr)
       printf("type has %s %s in Varlis::fixtypes\n",type->get_type().c_str(),type->get_obj()->get_type().c_str());
@@ -913,6 +996,7 @@ public:
     {
         printf("%d in Varlist::fixtypes(Type *type)\n",i);  
         var[i]->chType(type);
+        if(br) var[i]->mbr();
     }
     nons=0;
   }
@@ -1065,20 +1149,30 @@ inline bool Type::operator != (Type t)
   //   printf("ISVARS NOT SAME 1\n");
   //   return true;
   // } 
+  printf("start Type::operator!=\n");
+  if(std::string(type)=="any" || std::string(t.type)=="any")
+  {
+    return false;
+  }
   if(std::string(type)!=std::string(t.type) && std::string(type)!="any" && std::string(t.type)!="any") {
     // printf("type is %c and t.type is %c comparison is %d in Type::operator != \n",type[4],t.type[4],type[4]==t.type[4]);
     // for (int i=0; i<strlen(type); i++){
     //   printf("type is %c and t.type is %c comparison is %d in Type::operator != \n",type[i],t.type[i],type[i]==t.type[i]);
     // }
     // printf("%d %d \n" ,strlen(type),strlen(t.type));  
-    printf("TYPES NOT SAME 2\n");
+    printf("TYPES NOT SAME 2 %s %s\n",type,t.type);
     return true;
   } 
+  printf("mid Type::operator!=\n");
   if(obj!=nullptr || t.obj!=nullptr)
+  {
+    printf("Obj is %d amd t.Obj is %d in Type::operator != \n", obj,t.obj);
     if(*obj!=*t.obj) {
-      printf("Obj is %s amd t.Obj is %s in Type::operator != \n", obj->get_type().c_str(),t.obj->get_type().c_str());
+      // printf("Obj is %s amd t.Obj is %s in Type::operator != \n", obj->get_type().c_str(),t.obj->get_type().c_str());
       return true;
     }
+  }
+  printf("end Type::operator!=\n");
   // if(!isvar)
   // {
   //   if (params == nullptr && t.params == nullptr){

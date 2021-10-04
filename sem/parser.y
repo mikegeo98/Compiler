@@ -121,7 +121,7 @@ rule3:
 | %empty { $$ = new Varlist(); }
 ;
 formal:
-  "ref" type T_ID rule4 { $4->append_vardecl(new Id($3));$4->fixtypes($2); $$ = $4; }
+  "ref" type T_ID rule4 { $4->append_vardecl(new Id($3));$4->fixtypes($2,true); $$ = $4; }
 | type T_ID rule4 { $3->append_vardecl(new Id($2)); $3->fixtypes($1); $$ = $3; }
 ;
 rule4:
@@ -211,22 +211,22 @@ expr:
 | '(' expr ')' { $$ = $2; }
 | '+' expr  { $$ = new MonOp($1, $2); }
 | '-' expr  { $$ = new MonOp($1, $2); }
-| expr  '+' expr { $$ = new BinOp($1, $2, $3); }
-| expr '-' expr { $$ = new BinOp($1, $2, $3); }
-| expr '*' expr { $$ = new BinOp($1, $2, $3); }
-| expr '/' expr { $$ = new BinOp($1, $2, $3); }
-| expr T_MOD expr { $$ = new BinOp($1, $2, $3); }
-| expr '=' expr { $$ = new BinOp($1, $2, $3); }
-| expr T_NEQUAL expr { $$ = new BinOp($1, $2, $3); }
-| expr '<' expr { $$ = new BinOp($1, $2, $3); }
-| expr '>' expr { $$ = new BinOp($1, $2, $3); }
-| expr T_SOE expr { $$ = new BinOp($1, $2, $3); }
-| expr T_GOE expr { $$ = new BinOp($1, $2, $3); }
+| expr  '+' expr { $$ = new BinOp($1, '+', $3); }
+| expr '-' expr { $$ = new BinOp($1, '-', $3); }
+| expr '*' expr { $$ = new BinOp($1, '*', $3); }
+| expr '/' expr { $$ = new BinOp($1, '/', $3); }
+| expr T_MOD expr { $$ = new BinOp($1, T_MOD, $3); }
+| expr '=' expr { $$ = new BinOp($1, '=', $3); }
+| expr T_NEQUAL expr { $$ = new BinOp($1, T_NEQUAL, $3); }
+| expr '<' expr { $$ = new BinOp($1, '<', $3); }
+| expr '>' expr { $$ = new BinOp($1, '>', $3); }
+| expr T_SOE expr { $$ = new BinOp($1, T_SOE, $3); }
+| expr T_GOE expr { $$ = new BinOp($1, T_GOE, $3); }
 | T_TRUE { $$ = new ConstBool($1); }
 | T_FALSE { printf("here");$$ = new ConstBool($1);printf("and here\n"); }
-| T_NOT expr { $$ = new MonOp($1, $2); }
-| expr T_AND expr { $$ = new BinOp($1, $2, $3); }
-| expr T_OR  expr { $$ = new BinOp($1, $2, $3); }
+| T_NOT expr { $$ = new MonOp(T_NOT, $2); }
+| expr T_AND expr { $$ = new BinOp($1, T_AND, $3); }
+| expr T_OR  expr { $$ = new BinOp($1, T_OR, $3); }
 | "new" type '[' expr ']' { $$ = new Arinit($2,$4); }
 | T_NIL { $$ = new ConstList($1); }
 | "nil?" '(' expr ')'   

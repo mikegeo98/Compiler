@@ -9,12 +9,12 @@ def main():
   s := "tabs	too"
   
   
-  c := '\xi0'
-  c := '\x0g'
-  c := '"'
+  %c := '\xi0'
+  %c := '\x0g'
+  %c := '"'
   
-  c := '\x0AA'
-  c := ''
+  %c := '\x0AA'
+  %c := ''
 
 
 end

@@ -120,8 +120,8 @@ public:
   }
   Type findLastFunc()
   {
-    Type t=new Type(funs.back());
-    return t;
+    Type *t=new Type(funs.back());
+    return *t;
   }
 private:  
   std::vector<Scope> scopes;

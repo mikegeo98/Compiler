@@ -7,13 +7,13 @@ def main():
   decl int[] foo()
   decl list[char] bar()
   
-  x := -A
-  x := +q
+  %x := -A
+  %x := +q
   
-  x := not A
+  %x := not A
   
-  x := nil?(head(bar()))
-  x := head(nil)
-  x := tail(foo())
+  %x := nil?(head(bar()))
+  %x := head(nil)
+  %x := tail(foo())
   x := tail(A)
 end

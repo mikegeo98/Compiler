@@ -11,7 +11,7 @@ def main():
   int x
   int[] A
   
-  foo(x, 2)
+  <*foo(x, 2)
   foo()
   foo('A', 42, nil)
   
@@ -36,7 +36,7 @@ def main():
   % there are ok
   bar()[17] := boo()
   
-  far(0)[1] := far(1)[0]
+  far(0)[1] := far(1)[0]*>
   far(0)[0][1] := 42
 
 end
