@@ -45,6 +45,7 @@ public:
     // printf("we are after sem() in Expr::get_type type is %s\n",type.get_type().c_str());
     return &type;
   }
+  virtual std::string get_kind() {}
   virtual void sem() {
   }
 protected:
@@ -70,6 +71,9 @@ class Arinit: public Expr {
     virtual void sem() override
     {
       size->type_check(new Type(true,"int"));
+    }
+    virtual std::string get_kind() override {
+      return "arinit";
     }
   private:
     Expr *size;
@@ -103,13 +107,19 @@ public:
       }
       out << ")";
   }
+  Expr *get_param(int i)
+  {
+    return expls[i];
+  }
   virtual void sem() override {
       for (auto i: expls){
           printf("%d is i in Exprls::sem()\n");
           i->sem();
       }
   }
-
+  virtual std::string get_kind() override {
+    return "expls";
+  }
 
 private:
     std::vector<Expr *> expls;
@@ -142,7 +152,7 @@ class Atom: public Stmt, public Expr{
     char* getName(){
       return var;
     }
-    std::string get_kind(){
+    virtual std::string get_kind() override{
       return kind;
     }
     char * get_var()
@@ -342,9 +352,36 @@ private:
   std::string kind;
 };
 
+inline bool isnothex(char c)
+{
+  return !((c>='0'&&c<='9')||(c>='a'&&c<='f'));
+}
+
 class ConstString: public Atom {
 public:
-  ConstString(std::string numb): num(numb) { kind = "ConstString"; }
+  ConstString(std::string numb): num(numb) { 
+    kind = "ConstString";
+    for(int i=1;i<strlen(num.c_str())-1;i++)
+    {
+      if(num[i]=='"'||num[i]=='\''||num[i]=='\t') 
+      {
+        printf("i is %d and num[i] is %c in ConstString::ConstString()\n",i,num[i]);
+        yyerror("syntax error 1 in string escape needed");
+      }
+      printf("1 num[%d] is %c in ConstString::ConstString()\n",i,num[i]);
+      if(num[i]=='\\')
+      {
+        printf("2 num[%d] is %c in ConstString::ConstString()\n",i+1,num[i+1]);
+        if(i==strlen(num.c_str())-2||(num[i+1]!='n'&&num[i+1]!='r'&&num[i+1]!='t'&&num[i+1]!='0'&&num[i+1]!='\''&&num[i+1]!='"'))
+        {        
+          printf("3 num[%d] is %c in ConstString::ConstString()\n",i+1,num[i+1]);
+          if(i>=strlen(num.c_str())-4||(num[i+1]!='x'||isnothex(num[i+2])||isnothex(num[i+3]))) 
+            yyerror("syntax error 2 in string escape needed");
+        }
+        i++;
+      }
+    }
+  }
   ~ConstString() {}
   virtual void printOn(std::ostream &out) const override {
     out << "ConstString( " << num << ")";
@@ -484,6 +521,9 @@ public:
       }
     }
   }
+  virtual std::string get_kind() override {
+    return "binop";
+  }
 private:
   Expr *left;
   int op;
@@ -516,6 +556,9 @@ public:
         type = *tmp; break;
       }
     }
+  }
+  virtual std::string get_kind() override {
+    return "monop";
   }
 private:
   int op;
@@ -720,6 +763,16 @@ class Funcal : public Atom {
             yyerror("wrong parameter type in param # %d \n",i);
             // return;
           }
+          // printf("%d lol in funcal::sem()\n",typ->cbr());
+          if(typ->cbr())
+          {
+            if(params->get_param(i)->get_kind()!="id")
+            {
+              this->printOn(std::cout);
+              printf("kind is %s with name %s in Funcal::sem()\n",params->get_param(i)->get_kind().c_str(),params->get_param(i)->get_type()->get_type().c_str());
+              yyerror("can't be passed by reference");
+            }
+          }
         }
         printf("fevgwwww");
       }
@@ -900,7 +953,7 @@ private:
 
 class Vardecl: public Decl { //MIPWS PREPEI NA NAI YPOKLASI TOU STMT?
 public:
-  Vardecl(Id *v, Type *ty, bool br=false): var(v), type(*ty), by_ref(br) {
+  Vardecl(Id *v, Type *ty): var(v), type(*ty) {
     printf("%s is var %s is type in Vardecl::Vardecl()\n",var->get_var(),type.get_type());
   }
   Vardecl(Vardecl &vd):  type(vd.type) {
@@ -946,13 +999,12 @@ public:
   {
     return var;
   }  
-  void mbr()
-  {
-    by_ref=true;
-  }
+  // void mbr()
+  // {
+  //   by_ref=true;
+  // }
 private:
   Id *var;
-  bool by_ref;
   Type type;
 };
 
@@ -988,6 +1040,7 @@ public:
   }
   void fixtypes(Type *type, bool br = false)
   {
+    if(br)type->mbr();
     if (type->get_obj()!=nullptr)
       printf("type has %s %s in Varlis::fixtypes\n",type->get_type().c_str(),type->get_obj()->get_type().c_str());
     else
@@ -996,7 +1049,7 @@ public:
     {
         printf("%d in Varlist::fixtypes(Type *type)\n",i);  
         var[i]->chType(type);
-        if(br) var[i]->mbr();
+        // if(br) var[i]->mbr();
     }
     nons=0;
   }
@@ -1116,7 +1169,7 @@ class Fundecl: public Decl {//POSSIBLE FUnCS TYPE
         Varlist *params;
 };
 
-inline Type::Type(const Type &t): isvar(t.isvar){ 
+inline Type::Type(const Type &t): byref(t.byref), isvar(t.isvar){ 
     type = new char[200]; 
     for (int i=0; i<200; i++){
       type[i] = '0';

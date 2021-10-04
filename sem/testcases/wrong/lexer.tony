@@ -3,10 +3,10 @@ def main():
   char c
   
   
-  s := "oups \A"
-  s := "single quote ' must be escaped"
-  s := "and so does the backslash \ character"
-  s := "tabs	too"
+  %s := "oups \A"
+  %s := "single quote ' must be escaped"
+  s := "and so does the \ backslash character "
+  %s := "tabs	too"
   
   
   %c := '\xi0'

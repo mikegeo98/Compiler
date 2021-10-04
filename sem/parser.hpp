@@ -89,7 +89,9 @@ extern int yydebug;
     T_SEMI = 295,
     T_NEQUAL = 296,
     T_SOE = 297,
-    T_GOE = 298
+    T_GOE = 298,
+    PLUS = 299,
+    MINUS = 300
   };
 #endif
 
@@ -120,7 +122,7 @@ union YYSTYPE
   Id *id;
   ConstChar *constchar;
 
-#line 124 "parser.hpp"
+#line 126 "parser.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

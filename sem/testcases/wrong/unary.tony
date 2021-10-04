@@ -12,8 +12,8 @@ def main():
   
   %x := not A
   
-  %x := nil?(head(bar()))
+  x := nil?(head(bar()))
   %x := head(nil)
   %x := tail(foo())
-  x := tail(A)
+  %x := tail(A)
 end

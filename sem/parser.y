@@ -43,12 +43,12 @@
 
 %left<op> T_OR
 %left<op> T_AND
-%right<op> T_NOT //PREFIX - NEEDS FIXING
+%nonassoc<op> T_NOT 
 %nonassoc<op> '=' T_NEQUAL '>' '<' T_SOE T_GOE
 %right<op> '#'
 %left<op> '+' '-' 
 %left<op> '*' '/' T_MOD
-//%right '+' '-' //PREFIX - NEEDS FIXING
+%nonassoc PLUS MINUS 
 
 //%expect 8
 //%expect-rr 1
@@ -209,8 +209,8 @@ expr:
 | T_CONST { $$ = new ConstInt($1); }
 | T_CONCHAR { $$ = new ConstChar($1); }
 | '(' expr ')' { $$ = $2; }
-| '+' expr  { $$ = new MonOp($1, $2); }
-| '-' expr  { $$ = new MonOp($1, $2); }
+| '+' expr %prec PLUS { $$ = new MonOp('+', $2); }
+| '-' expr %prec MINUS { $$ = new MonOp('-', $2); }
 | expr  '+' expr { $$ = new BinOp($1, '+', $3); }
 | expr '-' expr { $$ = new BinOp($1, '-', $3); }
 | expr '*' expr { $$ = new BinOp($1, '*', $3); }

@@ -15,11 +15,11 @@ def main():
   foo()
   foo('A', 42, nil)
   
-  foo(2, x, l)
+  foo(2, x, l)*>
   
-  foo(x, 2, nil)
+  %foo(x, 2, l)
   
-  foo(boo(), 17, l)
+  <*foo(boo(), 17, l)
   foo(bar()[42], l, l)
   
   foo2(bar())
@@ -31,12 +31,12 @@ def main():
   "Hello!"[0] := bar()[0]
   
   boo() := 0
-  boo()[42] := 17
+  boo()[42] := 17*>
   
   % there are ok
   bar()[17] := boo()
   
-  far(0)[1] := far(1)[0]*>
+  far(0)[1] := far(1)[0]
   far(0)[0][1] := 42
 
 end

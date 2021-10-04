@@ -1,0 +1,1390 @@
+ok 
+def
+TID main
+( symbol
+) symbol
+we are here 1Type::type() has type DICK
+main Id constructor to moyni tis manas sosu
+Type::type() has type void
+void is the type in Type::Type(const Type &t)
+voidtype in Fundecl::Fundecl(): symbol
+Type::type() has type int
+TID x
+We are at the end of rule 4 
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var €J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type non
+Type::type() has type DICK
+x Id constructor to moyni tis manas sosu
+non is the type in Type::Type(const Type &t)
+x is var €J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(x@-1)type=non)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+hellonon
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+wnasoy in Varlist::fixtypes(Type *type)
+0 in Varlist::fixtypes(Type *type)
+int is the type in Type::Type(const Type &t)
+type is int in Vardecl::chType(Type ty)
+type is int in Vardecl::chType(Type ty)
+Type::type() has type int
+[ symbol
+] symbol
+obj is type int in Type::Type()
+Type::type() has type array
+TID A
+, symbol
+TID B
+We are at the end of rule 4 
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var €J?ÿ is type in Vardecl::Vardecl()
+TID YYVAL B
+B Before entering append vardecl
+Type::type() has type non
+Type::type() has type DICK
+B Id constructor to moyni tis manas sosu
+non is the type in Type::Type(const Type &t)
+B is var €J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(B@-1)type=non)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+hellonon
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type non
+Type::type() has type DICK
+A Id constructor to moyni tis manas sosu
+non is the type in Type::Type(const Type &t)
+A is var €J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(A@-1)type=non)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(2 
+2 
+hellonon
+hellonon
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+type has arrayint int in Varlis::fixtypes
+1 in Varlist::fixtypes(Type *type)
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+type is arrayint in Vardecl::chType(Type ty)
+type is arrayint in Vardecl::chType(Type ty)
+0 in Varlist::fixtypes(Type *type)
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+type is arrayint in Vardecl::chType(Type ty)
+type is arrayint in Vardecl::chType(Type ty)
+Type::type() has type char
+TID c
+We are at the end of rule 4 
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var €J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type non
+Type::type() has type DICK
+c Id constructor to moyni tis manas sosu
+non is the type in Type::Type(const Type &t)
+c is var €J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(c@-1)type=non)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+hellonon
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+wnasoy in Varlist::fixtypes(Type *type)
+0 in Varlist::fixtypes(Type *type)
+char is the type in Type::Type(const Type &t)
+type is char in Vardecl::chType(Type ty)
+type is char in Vardecl::chType(Type ty)
+[ symbol
+Type::type() has type int
+] symbol
+Type::type() has type list
+TID q
+We are at the end of rule 4 
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var €J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type non
+Type::type() has type DICK
+q Id constructor to moyni tis manas sosu
+non is the type in Type::Type(const Type &t)
+q is var €J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(q@-1)type=non)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+hellonon
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+type has listint int in Varlis::fixtypes
+0 in Varlist::fixtypes(Type *type)
+int is the type in Type::Type(const Type &t)
+listint is the type in Type::Type(const Type &t)
+type is listint in Vardecl::chType(Type ty)
+type is listint in Vardecl::chType(Type ty)
+Type::type() has type int
+[ symbol
+] symbol
+obj is type int in Type::Type()
+Type::type() has type array
+TID foo
+( symbol
+) symbol
+Type::type() has type DICK
+foo Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+arrayinttype in Fundecl::Fundecl()[ symbol
+Type::type() has type char
+] symbol
+Type::type() has type list
+TID bar
+( symbol
+) symbol
+Type::type() has type DICK
+bar Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+listchar is the type in Type::Type(const Type &t)
+listchartype in Fundecl::Fundecl()%x := -A
+%x := +q
+%x := not A
+%x := nil?(head(bar()))
+%x := head(nil)
+%x := tail(foo())
+TID x
+apla kati
+apla kati
+apla kati
+apla kati
+apla kati
+apla kati
+Type::type() has type DICK
+x Id constructor to moyni tis manas sosu
+( symbol
+TID A
+) symbol
+Type::type() has type DICK
+A Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+Type::type() has type DICK
+tail Id constructor to moyni tis manas sosu
+Type::type() has type DICK
+name is tail in Funcal::Funcal()
+ok
+start
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type int
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+n is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(n@-1)type=int)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+helloint
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type void
+Decl(1 
+1 
+helloint
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+int is the type in Type::Type(const Type &t)
+n VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void type in insert::Symbolentry
+Decl(1 
+1 
+helloint
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+int is the type in Type::Type(const Type &t)
+n VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void is the  type in Scope::insert(std::string c, Type t)
+Decl(1 
+1 
+helloint
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+int is the type in Type::Type(const Type &t)
+n VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type bool
+Type::type() has type DICK
+b Id constructor to moyni tis manas sosu
+bool is the type in Type::Type(const Type &t)
+b is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(b@-1)type=bool)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+hellobool
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type void
+Decl(1 
+1 
+hellobool
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+bool is the type in Type::Type(const Type &t)
+b VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+b Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void type in insert::Symbolentry
+Decl(1 
+1 
+hellobool
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+bool is the type in Type::Type(const Type &t)
+b VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+b Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void is the  type in Scope::insert(std::string c, Type t)
+Decl(1 
+1 
+hellobool
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+bool is the type in Type::Type(const Type &t)
+b VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+b Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type char
+Type::type() has type DICK
+c Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+c is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(c@-1)type=char)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+hellochar
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type void
+Decl(1 
+1 
+hellochar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+c VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+c Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void type in insert::Symbolentry
+Decl(1 
+1 
+hellochar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+c VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+c Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void is the  type in Scope::insert(std::string c, Type t)
+Decl(1 
+1 
+hellochar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+c VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+c Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type char
+obj is type char in Type::Type()
+Type::type() has type array
+Type::type() has type DICK
+s Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(s@-1)type=arraychar)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+helloarraychar
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type void
+Decl(1 
+1 
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void type in insert::Symbolentry
+Decl(1 
+1 
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void is the  type in Scope::insert(std::string c, Type t)
+Decl(1 
+1 
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+Type::type() has type int
+int is the type in Type::Type(const Type &t)
+int type in insert::Symbolentry
+int is the type in Type::Type(const Type &t)
+int is the  type in Scope::insert(std::string c, Type t)
+int is the type in Type::Type(const Type &t)
+Type::type() has type bool
+bool is the type in Type::Type(const Type &t)
+bool type in insert::Symbolentry
+bool is the type in Type::Type(const Type &t)
+bool is the  type in Scope::insert(std::string c, Type t)
+bool is the type in Type::Type(const Type &t)
+Type::type() has type char
+char is the type in Type::Type(const Type &t)
+char type in insert::Symbolentry
+char is the type in Type::Type(const Type &t)
+char is the  type in Scope::insert(std::string c, Type t)
+char is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type int
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+n is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(n@-1)type=int)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+helloint
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type char
+obj is type char in Type::Type()
+Type::type() has type array
+Type::type() has type DICK
+s Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(s@-1)type=arraychar)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(2 
+2 
+helloint
+helloarraychar
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type void
+Decl(2 
+2 
+helloint
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+int is the type in Type::Type(const Type &t)
+n VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void type in insert::Symbolentry
+Decl(2 
+2 
+helloint
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+int is the type in Type::Type(const Type &t)
+n VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void is the  type in Scope::insert(std::string c, Type t)
+Decl(2 
+2 
+helloint
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+int is the type in Type::Type(const Type &t)
+n VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type int
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+n is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(n@-1)type=int)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+helloint
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type int
+Decl(1 
+1 
+helloint
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+int is the type in Type::Type(const Type &t)
+n VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+int type in insert::Symbolentry
+Decl(1 
+1 
+helloint
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+int is the type in Type::Type(const Type &t)
+n VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+int is the  type in Scope::insert(std::string c, Type t)
+Decl(1 
+1 
+helloint
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+int is the type in Type::Type(const Type &t)
+n VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type char
+Type::type() has type DICK
+c Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+c is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(c@-1)type=char)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+hellochar
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type int
+Decl(1 
+1 
+hellochar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+c VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+c Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+int type in insert::Symbolentry
+Decl(1 
+1 
+hellochar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+c VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+c Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+int is the  type in Scope::insert(std::string c, Type t)
+Decl(1 
+1 
+hellochar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+c VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+c Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type int
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+n is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(n@-1)type=int)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+helloint
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type char
+Decl(1 
+1 
+helloint
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+int is the type in Type::Type(const Type &t)
+n VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+char type in insert::Symbolentry
+Decl(1 
+1 
+helloint
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+int is the type in Type::Type(const Type &t)
+n VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+char is the  type in Scope::insert(std::string c, Type t)
+Decl(1 
+1 
+helloint
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+int is the type in Type::Type(const Type &t)
+n VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+n Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type char
+obj is type char in Type::Type()
+Type::type() has type array
+Type::type() has type DICK
+s Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(s@-1)type=arraychar)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+helloarraychar
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type int
+Decl(1 
+1 
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+int type in insert::Symbolentry
+Decl(1 
+1 
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+int is the  type in Scope::insert(std::string c, Type t)
+Decl(1 
+1 
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type char
+obj is type char in Type::Type()
+Type::type() has type array
+Type::type() has type DICK
+s1 Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s1 is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(s1@-1)type=arraychar)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+helloarraychar
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type char
+obj is type char in Type::Type()
+Type::type() has type array
+Type::type() has type DICK
+s2 Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s2 is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(s2@-1)type=arraychar)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(2 
+2 
+helloarraychar
+helloarraychar
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type int
+Decl(2 
+2 
+helloarraychar
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s1 VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s1 Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s2 VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s2 Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+int type in insert::Symbolentry
+Decl(2 
+2 
+helloarraychar
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s1 VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s1 Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s2 VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s2 Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+int is the  type in Scope::insert(std::string c, Type t)
+Decl(2 
+2 
+helloarraychar
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s1 VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s1 Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+s2 VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+s2 Id constructor to moyni tis manas sosu
+int is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type char
+obj is type char in Type::Type()
+Type::type() has type array
+Type::type() has type DICK
+trg Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+trg is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(trg@-1)type=arraychar)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+helloarraychar
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type char
+obj is type char in Type::Type()
+Type::type() has type array
+Type::type() has type DICK
+src Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+src is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(src@-1)type=arraychar)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(2 
+2 
+helloarraychar
+helloarraychar
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type void
+Decl(2 
+2 
+helloarraychar
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+trg VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+trg Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+src VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+src Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void type in insert::Symbolentry
+Decl(2 
+2 
+helloarraychar
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+trg VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+trg Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+src VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+src Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void is the  type in Scope::insert(std::string c, Type t)
+Decl(2 
+2 
+helloarraychar
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+trg VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+trg Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+src VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+src Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type char
+obj is type char in Type::Type()
+Type::type() has type array
+Type::type() has type DICK
+trg Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+trg is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(trg@-1)type=arraychar)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+helloarraychar
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type char
+obj is type char in Type::Type()
+Type::type() has type array
+Type::type() has type DICK
+src Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+src is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(src@-1)type=arraychar)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(2 
+2 
+helloarraychar
+helloarraychar
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type void
+Decl(2 
+2 
+helloarraychar
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+trg VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+trg Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+src VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+src Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void type in insert::Symbolentry
+Decl(2 
+2 
+helloarraychar
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+trg VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+trg Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+src VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+src Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+void is the  type in Scope::insert(std::string c, Type t)
+Decl(2 
+2 
+helloarraychar
+helloarraychar
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+trg VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+trg Id constructor to moyni tis manas sosu
+char is the type in Type::Type(const Type &t)
+arraychar is the type in Type::Type(const Type &t)
+src VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+src Id constructor to moyni tis manas sosu
+void is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type any
+Type::type() has type list
+Type::type() has type DICK
+list Id constructor to moyni tis manas sosu
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+list is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(list@-1)type=listany)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+hellolistany
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type bool
+Decl(1 
+1 
+hellolistany
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+list VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+list Id constructor to moyni tis manas sosu
+bool is the type in Type::Type(const Type &t)
+bool type in insert::Symbolentry
+Decl(1 
+1 
+hellolistany
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+list VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+list Id constructor to moyni tis manas sosu
+bool is the type in Type::Type(const Type &t)
+bool is the  type in Scope::insert(std::string c, Type t)
+Decl(1 
+1 
+hellolistany
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+list VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+list Id constructor to moyni tis manas sosu
+bool is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type any
+Type::type() has type list
+Type::type() has type DICK
+list Id constructor to moyni tis manas sosu
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+list is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(list@-1)type=listany)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+hellolistany
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type any
+Decl(1 
+1 
+hellolistany
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+list VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+list Id constructor to moyni tis manas sosu
+any is the type in Type::Type(const Type &t)
+any type in insert::Symbolentry
+Decl(1 
+1 
+hellolistany
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+list VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+list Id constructor to moyni tis manas sosu
+any is the type in Type::Type(const Type &t)
+any is the  type in Scope::insert(std::string c, Type t)
+Decl(1 
+1 
+hellolistany
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+list VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+list Id constructor to moyni tis manas sosu
+any is the type in Type::Type(const Type &t)
+Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  J?ÿ is type in Vardecl::Vardecl()
+Type::type() has type any
+Type::type() has type list
+Type::type() has type DICK
+list Id constructor to moyni tis manas sosu
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+list is var  J?ÿ is type in Vardecl::Vardecl()
+Vardecl(Id(list@-1)type=listany)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Decl(1 
+1 
+hellolistany
+)at Varlist::append_vardecl(Id *id, Type type = new Type(true,"non"))
+Type::type() has type any
+Type::type() has type list
+any is the type in Type::Type(const Type &t)
+Decl(1 
+1 
+hellolistany
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var  is type in Vardecl::Vardecl()
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+list VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+list Id constructor to moyni tis manas sosu
+listany is the type in Type::Type(const Type &t)
+listany type in insert::Symbolentry
+any is the type in Type::Type(const Type &t)
+Decl(1 
+1 
+hellolistany
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var `J?ÿ is type in Vardecl::Vardecl()
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+list VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+list Id constructor to moyni tis manas sosu
+listany is the type in Type::Type(const Type &t)
+listany is the  type in Scope::insert(std::string c, Type t)
+any is the type in Type::Type(const Type &t)
+Decl(1 
+1 
+hellolistany
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+list VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+list Id constructor to moyni tis manas sosu
+listany is the type in Type::Type(const Type &t)
+void is the type in Type::Type(const Type &t)
+void type in insert::Symbolentry
+void is the type in Type::Type(const Type &t)
+void is the  type in Scope::insert(std::string c, Type t)
+void is the type in Type::Type(const Type &t)
+afou vastaei i kardia sou void 
+void is the type in Type::Type(const Type &t)
+void is the type in Type::Type(const Type &t)
+na meinw makria sou, fevgw geia sou geia souMou sikwthike stin topothesia Block::sem()
+Count in Block::sem() 1
+Decl(1 
+1 
+helloint
+)Vardecl(Id(x@-1)type=int)prin to Vardecl::sem()int is the type in Type::Type(const Type &t)
+int type in insert::Symbolentry
+int is the type in Type::Type(const Type &t)
+int is the  type in Scope::insert(std::string c, Type t)
+int is the type in Type::Type(const Type &t)
+x var name in Vardecl::sem()
+int var name in Vardecl::sem()
+Count in Block::sem() 2
+Decl(2 
+2 
+helloarrayint
+helloarrayint
+)Vardecl(Id(B@-1)type=arrayint)prin to Vardecl::sem()int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+arrayint type in insert::Symbolentry
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+arrayint is the  type in Scope::insert(std::string c, Type t)
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+B var name in Vardecl::sem()
+arrayint var name in Vardecl::sem()
+Vardecl(Id(A@-1)type=arrayint)prin to Vardecl::sem()int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+arrayint type in insert::Symbolentry
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+arrayint is the  type in Scope::insert(std::string c, Type t)
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+A var name in Vardecl::sem()
+arrayint var name in Vardecl::sem()
+Count in Block::sem() 3
+Decl(1 
+1 
+hellochar
+)Vardecl(Id(c@-1)type=char)prin to Vardecl::sem()char is the type in Type::Type(const Type &t)
+char type in insert::Symbolentry
+char is the type in Type::Type(const Type &t)
+char is the  type in Scope::insert(std::string c, Type t)
+char is the type in Type::Type(const Type &t)
+c var name in Vardecl::sem()
+char var name in Vardecl::sem()
+Count in Block::sem() 4
+Decl(1 
+1 
+hellolistint
+)Vardecl(Id(q@-1)type=listint)prin to Vardecl::sem()int is the type in Type::Type(const Type &t)
+listint is the type in Type::Type(const Type &t)
+listint type in insert::Symbolentry
+int is the type in Type::Type(const Type &t)
+listint is the type in Type::Type(const Type &t)
+listint is the  type in Scope::insert(std::string c, Type t)
+int is the type in Type::Type(const Type &t)
+listint is the type in Type::Type(const Type &t)
+q var name in Vardecl::sem()
+listint var name in Vardecl::sem()
+Count in Block::sem() 5
+Function declaration(Id(foo@-1))int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+arrayint type in insert::Symbolentry
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+arrayint is the  type in Scope::insert(std::string c, Type t)
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+Count in Block::sem() 6
+Function declaration(Id(bar@-1))char is the type in Type::Type(const Type &t)
+listchar is the type in Type::Type(const Type &t)
+listchar type in insert::Symbolentry
+char is the type in Type::Type(const Type &t)
+listchar is the type in Type::Type(const Type &t)
+listchar is the  type in Scope::insert(std::string c, Type t)
+char is the type in Type::Type(const Type &t)
+listchar is the type in Type::Type(const Type &t)
+For ended in Block::sem() 
+Count in 2nd for loop Block::sem() 1
+Ass(Id(x@-1),funcal(Id(tail@-1),Expression List(Id(A@-1))))kind Id in Ass::sem()
+we are too soon in Ass::sem()
+we are less soon in Ass::sem() x
+we are medium in Ass::sem() int
+tail is the name in Funcall::sem()
+tail not found in scope in SymbolTable::lookup
+tail not found in scope in SymbolTable::lookup
+tail not found in scope in SymbolTable::lookup
+tail not found in scope in SymbolTable::lookup
+Typ is in Funcall:sem()listany
+any is the type in Type::Type(const Type &t)
+Decl(1 
+1 
+hellolistany
+)Type::type() has type DICK
+Type::type() has type DICK
+ Id constructor to moyni tis manas sosu
+DICK is the type in Type::Type(const Type &t)
+ is var ÐJ?ÿ is type in Vardecl::Vardecl()
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+list VD IN Vardecl::Vardecl(Vardecl &vd)
+Type::type() has type DICK
+list Id constructor to moyni tis manas sosu
+listany is the type in Type::Type(const Type &t)
+Typ is in Funcall:sem()listany
+listany listany is the type in Funcall::sem()
+type is listany in Type::get_param_cnt()
+Type::get_param_cntmpika sto params2 branch 
+Type::type() has type any
+Type::type() has type list
+we are in Exprls::get_type
+we are before sem() in Expr::get_type type is DICK
+we are in Id::sem()
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+arrayint Here is type in Id::sem() 
+com is int listany in Funcal::sem()
+any is the type in Type::Type(const Type &t)
+listany is the type in Type::Type(const Type &t)
+we are in Exprls::get_type
+we are before sem() in Expr::get_type type is arrayint
+we are in Id::sem()
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+arrayint Here is type in Id::sem() 
+start Type::operator!=
+TYPES NOT SAME 2 array list
+we are in Exprls::get_type
+we are before sem() in Expr::get_type type is arrayint
+we are in Id::sem()
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+arrayint Here is type in Id::sem() 
+here2 in funcal::sem()
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+we are in a chp -1 Funcall::sem();
+we are in a chp 0 Funcall::sem();
+Expression List(Id(A@3))we are in Exprls::get_type
+we are before sem() in Expr::get_type type is arrayint
+we are in Id::sem()
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+arrayint Here is type in Id::sem() 
+int is the type in Type::Type(const Type &t)
+arrayint is the type in Type::Type(const Type &t)
+start Type::operator!=
+TYPES NOT SAME 2 list array

@@ -12,7 +12,7 @@ class Varlist;
 
 class Type {
   public:
-    Type(bool iv=true, std::string ty="DICK", Expls *pa=nullptr, Type *o = nullptr, Varlist *pa2 = nullptr): isvar(iv), type(nullptr), params(pa), obj(o), params2(pa2) {
+    Type(bool iv=true, std::string ty="DICK", Expls *pa=nullptr, Type *o = nullptr, Varlist *pa2 = nullptr): byref(false),isvar(iv), type(nullptr), params(pa), obj(o), params2(pa2) {
       type = new char[200];
       for (int i=0; i<200; i++){
         type[i] = '0';
@@ -36,11 +36,20 @@ class Type {
     void make_fun(Expls *pars);
     void make_fun2(Varlist *pars);
     std::string get_type() const;
+    void mbr()
+    {
+      byref=true;
+    }
+    bool cbr()
+    {
+      return byref;
+    }
     Type *get_obj()
     {
       return obj;
     }
   private:
+    bool byref;
     bool isvar;
     char *type;
     Expls *params;
