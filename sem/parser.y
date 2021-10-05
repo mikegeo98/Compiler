@@ -60,10 +60,8 @@
   Expls *expls;
   Fundecl *fundecl;
   Funcal *funcal;
-//  formalist *formalist;
-//  formal *formal;
   Varlist *varlist;
-  Type *type; //ASTERAKI POU DEN YPIRXE
+  Type *type; 
   char *var;
   char chr;
   int num;
@@ -77,7 +75,7 @@
 }
 
 %type<block> rule1 rule2 simplelist rule6 rule0
-%type<stmt> stmt simple // EKXWRISI SE SYNARTISI??
+%type<stmt> stmt simple 
 %type<elsif> rule5
 %type<expr> expr 
 %type<funcal> call 
@@ -111,7 +109,7 @@ header:
   type T_ID '(' rule35 ')' {$1->make_fun2($4); $$ = new Fundecl(new Id($2),$1,$4);}
 | type T_ID '(' ')' {$1->make_fun(nullptr); $$ = new Fundecl(new Id($2),$1,nullptr);}
 | T_ID '(' rule35 ')' {$$ = new Fundecl(new Id($1),new Type(false,"void",nullptr,nullptr,$3),$3); }
-| T_ID '(' ')' { printf("we are here 1"); $$ = new Fundecl(new Id($1),new Type(false,"void"),nullptr);}
+| T_ID '(' ')' { $$ = new Fundecl(new Id($1),new Type(false,"void"),nullptr);}
 ;
 rule35:
   formal rule3 { $2->merge($1); $$ = $2; }
@@ -125,8 +123,8 @@ formal:
 | type T_ID rule4 { $3->append_vardecl(new Id($2)); $3->fixtypes($1); $$ = $3; }
 ;
 rule4:
-  ',' T_ID rule4 {printf("TID YYVAL %s\n",yylval.var);printf("%s Before entering append vardecl\n",$2); $3->append_vardecl(new Id($2)); $$ = $3; }
-| %empty {printf("We are at the end of rule 4 \n"); $$ = new Varlist(); }
+  ',' T_ID rule4 {$3->append_vardecl(new Id($2)); $$ = $3; }
+| %empty {$$ = new Varlist(); }
 ;
 type: 
   "int"  { $$ = new Type(true,"int"); }
@@ -158,27 +156,6 @@ simple:
   "skip" { $$ = new Stmt(); }
 | atom ":=" expr 
 { 
-  /*Atom atm; 
-  atm.cnstbool = nullptr;
-  atm.cnstchar = nullptr;
-  atm.cnstint = nullptr;
-  atm.cnststring = nullptr;
-  atm.id = nullptr;
-  atm.cnstlist = nullptr;
-  atm.funcall = nullptr;
-  
-  
-  switch(($1->get_kind()).c_str())
-  {
-    case "ConstInt": atm.cnstint = $1; break;
-    case "ConstChar": atm.cnstchar = $1; break;
-    case "ConstString": atm.cnststring = $1; break;
-    case "ConstBool": atm.cnstbool = $1; break;
-    case "ConstList": atm.cnstlist = $1; break;
-    case "Id": atm.id = $1; break;
-    case "Funcal": atm.funcall = $1; break; 
-    default: yyerror("atom has problem");
-  } */
   $$ = new Ass($1,$3); 
 }
 | call { $$ = $1; }
@@ -200,8 +177,8 @@ rule7:
 ;
 atom:
   T_ID { $$ = new Id($1); }
-| T_STRING {if ($1 == nullptr) printf("NULL\n"); else printf("%s\n", $1); $$ = new ConstString($1); }
-| atom '[' expr ']' {$1->printOn(std::cout); $$ = new Arracc($1,$3); }  
+| T_STRING { $$ = new ConstString($1); }
+| atom '[' expr ']' { $$ = new Arracc($1,$3); }  
 | call { $$ = $1; }
 ;
 expr:
@@ -223,7 +200,7 @@ expr:
 | expr T_SOE expr { $$ = new BinOp($1, T_SOE, $3); }
 | expr T_GOE expr { $$ = new BinOp($1, T_GOE, $3); }
 | T_TRUE { $$ = new ConstBool($1); }
-| T_FALSE { printf("here");$$ = new ConstBool($1);printf("and here\n"); }
+| T_FALSE { $$ = new ConstBool($1); }
 | T_NOT expr { $$ = new MonOp(T_NOT, $2); }
 | expr T_AND expr { $$ = new BinOp($1, T_AND, $3); }
 | expr T_OR  expr { $$ = new BinOp($1, T_OR, $3); }
@@ -237,7 +214,7 @@ expr:
     strcpy(c,"nil?");
     $$ = new Funcal(new Id(c),a); //(false, "bool", a),a); COULD BE BETTER
   }  
-| expr '#' expr {printf("Dollario 2 %c \n",$2); /*PITHANON MEGALO PROBLIMA */$$ = new BinOp($1, '#', $3); }
+| expr '#' expr {$$ = new BinOp($1, '#', $3); }
 | "head" '(' expr ')'  
   { 
     Expls* a = new Expls(); 
@@ -259,19 +236,11 @@ expr:
 
 %%
 
-// void yyerror (const char * msg)
-// {
-//   fprintf(stderr,
-//   "syntax error in lines %d: %s\n",lncnt, msg);
-//   exit(1);
-// }
-
 int main() {
   printf("ok \n");
   // yydebug=1;
   int result = yyparse();
   std::ios::sync_with_stdio(false);
-  // printf("%d 42\n",result);
   if (result == 0) printf("Success.\n");
   return result;
 }

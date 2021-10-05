@@ -107,10 +107,8 @@ union YYSTYPE
   Expls *expls;
   Fundecl *fundecl;
   Funcal *funcal;
-//  formalist *formalist;
-//  formal *formal;
   Varlist *varlist;
-  Type *type; //ASTERAKI POU DEN YPIRXE
+  Type *type; 
   char *var;
   char chr;
   int num;
@@ -122,7 +120,7 @@ union YYSTYPE
   Id *id;
   ConstChar *constchar;
 
-#line 126 "parser.hpp"
+#line 124 "parser.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

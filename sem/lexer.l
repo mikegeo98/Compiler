@@ -4,56 +4,6 @@
     #include "lexer.hpp"
     #include "ast.hpp"
     #include "parser.hpp"
-    // #define T_eof 0
-    // #define T_AND 1001
-    // #define T_OR 1002
-    // #define T_NOT 1003
-    // #define T_MOD 1004
-    // #define T_BOOL 1005
-    // #define T_CHAR 1006
-    // #define T_INT 1007
-    // #define T_LIST 1008
-    // #define T_NEW 1009
-    // #define T_NIL 1010
-    // #define T_ISNIL 1011
-    // #define T_TAIL 1012
-    // #define T_HEAD 1013
-    // #define T_DECL 1014
-    // #define T_DEF 1015
-    // #define T_REF 1016
-    // #define T_RETURN 1017
-    // #define T_FOR 1018
-    // #define T_EXIT 1019
-    // #define T_IF 1020
-    // #define T_ELSE 1021
-    // #define T_ELSEIF 1022
-    // #define T_END 1023
-    // #define T_SKIP 1024
-    // #define T_TRUE 1025
-    // #define T_FALSE 1026
-    // #define T_PUTI 1027
-    // #define T_PUTB 1028
-    // #define T_PUTC 1029
-    // #define T_PUTS 1030
-    // #define T_GETI 1031
-    // #define T_GETB 1032
-    // #define T_GETC 1033
-    // #define T_GETS 1034
-    // #define T_ABS 1035
-    // #define T_ORD 1036
-    // #define T_CHR 1037
-    // #define T_STRLEN 1038
-    // #define T_STRCMP 1039
-    // #define T_STRCPY 1040
-    // #define T_STRCAT 1041
-    // #define T_ID 1042
-    // #define T_CONST 1043
-    // #define T_STRING 1044
-    // #define T_CONCHAR 1045
-    // #define T_NEQUAL 1046
-    // #define T_SOE 1047
-    // #define T_GOE 1048
-    // #define T_DECC 1049 
     int lncnt = 1;
     int nstcmt = 0; 
 %}
@@ -79,12 +29,12 @@ W [ \t\r]
 "list" {return T_LIST;}
 "new" {return T_NEW;}
 "nil" {return T_NIL;}
-"nil?" {printf("nil??????\n");return T_ISNIL;}
+"nil?" {return T_ISNIL;}
 "tail" {return T_TAIL;}
 "head" {return T_HEAD;}
 
 "decl" {return T_DECL;}
-"def" {printf("def\n");return T_DEF;}
+"def" {return T_DEF;}
 "ref" {return T_REF;}
 "return" {return T_RETURN;}
 
@@ -99,7 +49,7 @@ W [ \t\r]
 "true" {return T_TRUE;}
 "false" {return T_FALSE;}
 
-{L}{LC}* {printf("TID %s\n",yytext);yylval.var = (char*)malloc(strlen(yytext) + 1);strcpy(yylval.var,yytext);return T_ID;}
+{L}{LC}* {yylval.var = (char*)malloc(strlen(yytext) + 1);strcpy(yylval.var,yytext);return T_ID;}
 {D}+ {yylval.num = atoi(yytext); return T_CONST;}
 ["]([^"\\\n]|\\.|\\\n)*["] {yylval.str = (char*)malloc(strlen(yytext) + 1);strcpy(yylval.str,yytext); return T_STRING;}
 ['][^']['] {yylval.chr = yytext[0];return T_CONCHAR;}
@@ -107,12 +57,12 @@ W [ \t\r]
 ['][\\][x][0-9a-f][0-9a-f]['] {yylval.chr = yytext[0]; return T_CONCHAR;}
 
 
-[\+\-\*\/\#\=\<\>\(\)\,\;\:\[\]]   { printf("%c symbol\n",yytext[0]); return yytext[0]; }
+[\+\-\*\/\#\=\<\>\(\)\,\;\:\[\]]   { return yytext[0]; }
 "<>" {return T_NEQUAL;}
 "<=" {return T_SOE;}
 ">=" {return T_GOE;}
 ":=" {return T_DECC;}
-[%][^\n]* {printf ("%s\n",yytext);/*do nth*/}
+[%][^\n]* {/*do nth*/}
 
 {W}+ {/*do nth*/}
 "\n" {lncnt++;}

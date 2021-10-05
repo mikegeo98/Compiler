@@ -12,23 +12,16 @@ class Varlist;
 
 class Type {
   public:
-    Type(bool iv=true, std::string ty="DICK", Expls *pa=nullptr, Type *o = nullptr, Varlist *pa2 = nullptr): byref(false),isvar(iv), type(nullptr), params(pa), obj(o), params2(pa2) {
+    Type(bool iv=true, std::string ty="", Expls *pa=nullptr, Type *o = nullptr, Varlist *pa2 = nullptr): byref(false),isvar(iv), type(nullptr), params(pa), obj(o), params2(pa2) {
       type = new char[200];
       for (int i=0; i<200; i++){
         type[i] = '0';
       }
-      // printf("%d Type::Type() ",ty.c_str()[4]=='\0');
       strcpy(type,ty.c_str()); 
-      if(ty=="array")
-      {
-        printf("obj is type %s in Type::Type()\n",(obj->get_type()).c_str());
-      }
-      printf("Type::type() has type %s\n",type);
-      // printf("%s eisai edw re malaka?\n",type);
+      
     }
     Type(const Type &t);
     ~Type();
-    // Type &operator = (Type &ty)
     bool operator != (Type t);
     int get_param_cnt();
     bool has_params();
@@ -77,7 +70,7 @@ public:
       printf("%s\n",c.c_str());
       yyerror("Duplicate variable");
     }
-    printf("%s is the  type in Scope::insert(std::string c, Type t)\n",t.get_type().c_str());
+    // printf("%s is the  type in Scope::insert(std::string c, Type t)\n",t.get_type().c_str());
     Type *t2 = new Type(t);
     locals[c] = SymbolEntry(t2, nesting, offset++);
     ++size;
@@ -101,16 +94,16 @@ public:
       SymbolEntry *e = i->lookup(c);
       if (e != nullptr)
         return e;
-      else
-        printf("%s not found in scope in SymbolTable::lookup\n",c.c_str());
+      // else
+      //   // printf("%s not found in scope in SymbolTable::lookup\n",c.c_str());
     }
-    yyerror(("Variable not found"+c).c_str());
+    yyerror(("Variable not found "+c).c_str());
     return nullptr;
   }
   void insert(std::string c, Type t) { 
-    // printf("%s in SymbolTable::insert\n",c);
-    // std::cout<<c<<" in SymbolTable::insert\n";
-    std::cout<<t.get_type()<<" type in insert::Symbolentry\n";
+    // // printf("%s in SymbolTable::insert\n",c);
+    // // std::cout<<c<<" in SymbolTable::insert\n";
+    // std::cout<<t.get_type()<<" type in insert::Symbolentry\n";
     scopes.back().insert(c, t); 
   }
   int getSizeOfCurrentScope() const { return scopes.back().getSize(); }
