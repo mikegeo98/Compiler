@@ -87,7 +87,7 @@
 
 %%
 program:
-    func-def { printf("start\n");initSt();st.openScope();$1->sem(); st.closeScope();st.closeScope();}
+    func-def { initSt();st.openScope();$1->sem(); st.closeScope();st.closeScope();}
 ;
 func-def:
     "def" header ':' rule0 "end" { $2->add_block($4); $$ = $2; }
@@ -237,7 +237,6 @@ expr:
 %%
 
 int main() {
-  printf("ok \n");
   // yydebug=1;
   int result = yyparse();
   std::ios::sync_with_stdio(false);

@@ -1135,7 +1135,7 @@ inline bool Type::operator != (Type t)
     return false;
   }
   if(std::string(type)!=std::string(t.type) && std::string(type)!="any" && std::string(t.type)!="any") {  
-    printf("TYPES NOT SAME 2 %s %s\n",type,t.type);
+    // printf("TYPES NOT SAME 2 %s %s\n",type,t.type);
     return true;
   } 
   // printf("mid Type::operator!=\n");
