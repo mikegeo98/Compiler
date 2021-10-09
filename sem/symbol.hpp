@@ -67,7 +67,7 @@ public:
   }
   void insert(std::string c, Type t) {
     if (locals.find(c) != locals.end()){
-      printf("%s\n",c.c_str());
+      fprintf(stderr,"%s\n",c.c_str());
       yyerror("Duplicate variable");
     }
     // printf("%s is the  type in Scope::insert(std::string c, Type t)\n",t.get_type().c_str());
